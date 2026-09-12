@@ -3,3 +3,4 @@ site/dist/
 site/node_modules/
 sheets_raw.json
 .DS_Store
+imgur_log.txt
