@@ -53,6 +53,13 @@ export default function App() {
 
   return (
     <div className="app">
+      <a className="credit" href="https://docs.google.com/spreadsheets/d/1GCH3PmFKQrBj7AA51hgqfg6Q2SrvNgrNlxgIidVeTMU/edit?pli=1&gid=696731486#gid=696731486" target="_blank" rel="noreferrer">
+        <span className="credit-ico">📊</span>
+        <span>
+          <b>FEITO E ATUALIZADO DIARIAMENTE</b> com base na <b>Pokédex Pública PokeAlliance</b> <span className="credit-by">(By Mts Vitor)</span>
+          <span className="credit-link">Abrir planilha original →</span>
+        </span>
+      </a>
       <header className="hero">
         <div className="hero-inner">
           <img className="hero-logo" src="/logo.png" alt="PokeAlliance" />

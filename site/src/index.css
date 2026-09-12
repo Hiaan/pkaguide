@@ -36,6 +36,21 @@ button, input, select { font: inherit; }
 img { max-width: 100%; }
 ::selection { background: rgba(249, 115, 22, 0.4); }
 
+/* ---------- Credit banner ---------- */
+.credit {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  padding: 16px 20px; background: var(--grad-orange); color: #fff !important;
+  font-size: 18px; font-weight: 600; letter-spacing: 0.01em; text-align: center; line-height: 1.35;
+  text-decoration: none !important; box-shadow: 0 6px 24px rgba(249, 115, 22, 0.35); position: relative; z-index: 31;
+  transition: filter 0.15s;
+}
+.credit:hover { filter: brightness(1.08); }
+.credit b { font-weight: 900; }
+.credit-ico { font-size: 28px; }
+.credit-by { opacity: 0.85; }
+.credit-link { display: block; font-size: 13px; font-weight: 700; opacity: 0.9; text-decoration: underline; margin-top: 2px; }
+@media (max-width: 640px) { .credit { font-size: 14px; padding: 12px 14px; } .credit-ico { font-size: 22px; } }
+
 /* ---------- Layout ---------- */
 .app { min-height: 100vh; display: flex; flex-direction: column; }
 .hero {
