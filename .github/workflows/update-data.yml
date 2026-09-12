@@ -20,19 +20,19 @@ jobs:
       - name: Baixar planilha e guia de times
         run: |
           curl -sL -o pka.xlsx "https://docs.google.com/spreadsheets/d/1GCH3PmFKQrBj7AA51hgqfg6Q2SrvNgrNlxgIidVeTMU/export?format=xlsx"
-          curl -sL -o doc.docx "https://docs.google.com/document/d/1mVsLDJnSddFdjA3r_Gm66L9E5VVb1nAm/export?format=docx"
+          curl -sL -o times.xlsx "https://docs.google.com/spreadsheets/d/1JcYTCkuKiYK6OcEx9CC-LxRLsPRAPvKaHza-cZuEh1s/export?format=xlsx"
           curl -sL -o doc2.docx "https://docs.google.com/document/d/1L1-sju28TVQMdjtD-xF-3jAK4reTX-RSuMCGAg-tHkg/export?format=docx"
       - name: Gerar dados
         run: |
           python build_data.py
-          python build_teams.py
+          python build_hunts.py
           python build_teams2.py
           python fetch_imgur.py
       - name: Commit se mudou
         run: |
           git config user.name "pka-bot"
           git config user.email "actions@github.com"
-          git add pka.xlsx doc.docx doc2.docx site/src/data imgur_cache.json
+          git add pka.xlsx times.xlsx doc2.docx site/src/data imgur_cache.json
           if git diff --cached --quiet; then echo "Sem mudanças"; else
             git commit -m "Atualização automática da planilha ($(date -u +%Y-%m-%d))"
             git push
