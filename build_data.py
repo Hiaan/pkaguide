@@ -38,10 +38,7 @@ def rows(name):
 def s(v):
     if v is None: return ''
     if isinstance(v, float): return str(int(v)) if v.is_integer() else str(v)
-    return re.sub(r'
-{3,}', '
-
-', str(v)).strip()
+    return re.sub(r'\n{3,}', '\n\n', str(v)).strip()
 
 def norm_name(raw):
     """'sh Raichu' / 'Shiny Raichu' / 'Mega X' -> (display, base, shiny, mega)"""
