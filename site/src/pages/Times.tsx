@@ -31,8 +31,11 @@ export default function Times({ onOpen }: { onOpen: (p: Pokemon) => void }) {
       <SectionHead
         title="Times para iniciar Hoenn"
         sub="Sugestões de times mono-elemento baratos para começar em Hoenn (lvl 250+). Não são os times ideais, são os mais acessíveis."
-        right={<span className="muted small">Créditos: <b style={{ color: 'var(--text)' }}>{CREDITS}</b> · <a href={teams.source} target="_blank" rel="noreferrer">documento original ↗</a></span>}
       />
+      <div className="credit-doc">
+        <span>✍️ Guia escrito por <b>{CREDITS}</b>.</span>
+        <a href={teams.source} target="_blank" rel="noreferrer">Ver documento original no Google Docs ↗</a>
+      </div>
       <div className="tags" style={{ marginBottom: 18 }}>
         {all.map((x) => {
           const c = typeColor(x.element.split('/')[0])
@@ -73,7 +76,6 @@ export default function Times({ onOpen }: { onOpen: (p: Pokemon) => void }) {
           <span style={{ display: 'block', marginTop: 8 }} className="small">Legenda: ★ = estrelas recomendadas · Offtank = segura dano · ⚠ = observação do guia.</span>
         </Note>
       </div>
-      <p className="muted small" style={{ textAlign: 'center' }}>Guia escrito por <b>{CREDITS}</b>. <a href={teams.source} target="_blank" rel="noreferrer">Ver documento original no Google Docs ↗</a></p>
     </>
   )
 }

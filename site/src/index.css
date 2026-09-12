@@ -314,3 +314,7 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .yt:hover { transform: translateY(-2px); }
 .sug-steps { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 22px; text-align: left; }
 .sug-steps .card .n { width: 34px; height: 34px; border-radius: 50%; background: var(--grad-orange); display: grid; place-items: center; font-weight: 900; margin-bottom: 10px; }
+
+.credit-doc { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin: -6px 0 20px; padding: 14px 18px; border-radius: 12px; background: rgba(249, 115, 22, 0.1); border: 1px solid rgba(249, 115, 22, 0.4); font-size: 16px; }
+.credit-doc b { color: var(--orange); }
+.credit-doc a { font-weight: 800; }
