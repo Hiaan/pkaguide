@@ -1,0 +1,34 @@
+name: Atualizar dados da planilha
+
+on:
+  schedule:
+    - cron: '0 9 * * *'   # todo dia 06:00 (Brasília)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install openpyxl
+      - name: Baixar planilha
+        run: curl -sL -o pka.xlsx "https://docs.google.com/spreadsheets/d/1GCH3PmFKQrBj7AA51hgqfg6Q2SrvNgrNlxgIidVeTMU/export?format=xlsx"
+      - name: Gerar dados
+        run: |
+          python build_data.py
+          python fetch_imgur.py
+      - name: Commit se mudou
+        run: |
+          git config user.name "pka-bot"
+          git config user.email "actions@github.com"
+          git add pka.xlsx site/src/data imgur_cache.json
+          if git diff --cached --quiet; then echo "Sem mudanças"; else
+            git commit -m "Atualização automática da planilha ($(date -u +%Y-%m-%d))"
+            git push
+          fi

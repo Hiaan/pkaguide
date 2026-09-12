@@ -1,4 +1,5 @@
 import raw from '../data/data.json'
+import imgurRaw from '../data/imgur.json'
 
 export type Pokemon = {
   name: string; base: string; shiny: boolean; mega: boolean; id: number | null
@@ -60,3 +61,7 @@ export const fmt = (n: number | string) => (typeof n === 'number' ? n.toLocaleSt
 
 export const linkify = (text: string) =>
   text.split(/(https?:\/\/[^\s]+|(?:www\.|wiki\.|tinyurl\.com|imgur\.com|youtu\.be|discord\.gg)[^\s,)]+)/g)
+
+const imgur = imgurRaw as Record<string, string[]>
+/** URLs diretas de imagem para um link imgur (album ou imagem), se ja resolvido */
+export const imgurImages = (url: string): string[] => imgur[url] ?? imgur[url.replace(/\/$/, '')] ?? []

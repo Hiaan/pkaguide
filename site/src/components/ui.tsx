@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { findPokemon, linkify, spriteUrl, tierRank, TIER_COLORS, typeColor, type Pokemon } from '../lib/data'
+import { findPokemon, imgurImages, linkify, spriteUrl, tierRank, TIER_COLORS, typeColor, type Pokemon } from '../lib/data'
 
 /* ---------- basics ---------- */
 export const Sprite = ({ p, size = '' }: { p: { id: number | null; shiny: boolean; name: string }; size?: '' | 'sm' | 'lg' }) => {
@@ -35,12 +35,52 @@ export const Linkified = ({ text }: { text: string }) => (
   </>
 )
 
-export const Imgur = ({ href, label = 'Ver mapa' }: { href: string; label?: string }) =>
-  href && href.startsWith('http') ? (
-    <a className="btn" style={{ padding: '5px 10px', fontSize: 12 }} href={href} target="_blank" rel="noreferrer">🗺 {label}</a>
-  ) : (
-    <span className="muted small">{href || '—'}</span>
+/* ---------- Imgur: thumbnail inline + lightbox ---------- */
+export const Lightbox = ({ images, start, href, onClose }: { images: string[]; start: number; href: string; onClose: () => void }) => {
+  const [i, setI] = useState(start)
+  useEffect(() => {
+    const k = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowRight') setI((x) => (x + 1) % images.length)
+      if (e.key === 'ArrowLeft') setI((x) => (x - 1 + images.length) % images.length)
+      e.stopPropagation()
+    }
+    window.addEventListener('keydown', k, true)
+    return () => window.removeEventListener('keydown', k, true)
+  }, [images.length, onClose])
+  return (
+    <div className="lightbox" onClick={(e) => { e.stopPropagation(); onClose() }}>
+      <img src={images[i]} alt="" onClick={(e) => e.stopPropagation()} />
+      <div className="lightbox-bar" onClick={(e) => e.stopPropagation()}>
+        {images.length > 1 && <button className="chip" onClick={() => setI((x) => (x - 1 + images.length) % images.length)}>‹</button>}
+        <span className="small">{i + 1} / {images.length}</span>
+        {images.length > 1 && <button className="chip" onClick={() => setI((x) => (x + 1) % images.length)}>›</button>}
+        <a className="chip" href={href} target="_blank" rel="noreferrer">Abrir no imgur ↗</a>
+        <button className="chip" onClick={onClose}>✕ Fechar</button>
+      </div>
+    </div>
   )
+}
+
+export const Imgur = ({ href, label = 'Ver mapa', size = 'sm' }: { href: string; label?: string; size?: 'sm' | 'lg' }) => {
+  const [open, setOpen] = useState<number | null>(null)
+  if (!href || !href.startsWith('http')) return <span className="muted small">{href || '—'}</span>
+  const imgs = imgurImages(href)
+  if (!imgs.length) {
+    return <a className="btn" style={{ padding: '5px 10px', fontSize: 12 }} href={href} target="_blank" rel="noreferrer">🗺 {label}</a>
+  }
+  return (
+    <>
+      <span className={`thumbs ${size}`} title={label}>
+        {imgs.slice(0, size === 'lg' ? 6 : 3).map((u, i) => (
+          <img key={u} src={u} alt={label} loading="lazy" onClick={(e) => { e.stopPropagation(); setOpen(i) }} />
+        ))}
+        {imgs.length > (size === 'lg' ? 6 : 3) && <span className="thumb-more" onClick={(e) => { e.stopPropagation(); setOpen(0) }}>+{imgs.length - (size === 'lg' ? 6 : 3)}</span>}
+      </span>
+      {open !== null && <Lightbox images={imgs} start={open} href={href} onClose={() => setOpen(null)} />}
+    </>
+  )
+}
 
 export const SectionHead = ({ title, sub, right }: { title: string; sub?: string; right?: ReactNode }) => (
   <div className="section-head">
@@ -127,7 +167,7 @@ export const PokeModal = ({ p, onClose, onOpen, onItem }: { p: Pokemon; onClose:
             <h4>Onde caçar {inherited && <span className="tiny" style={{ textTransform: 'none', letterSpacing: 0 }}>(mesma hunt da versão normal)</span>}</h4>
             <div className="link-list">
               {hunts.some(([, v]) => v) ? hunts.filter(([, v]) => v).map(([l, v]) => (
-                <div className="link-row" key={l}><b>{l}</b><Imgur href={v!} /></div>
+                <div className="link-row" key={l}><b>{l}</b><Imgur href={v!} size="lg" /></div>
               )) : <span className="muted small">Sem registro</span>}
             </div>
           </div>
@@ -135,7 +175,7 @@ export const PokeModal = ({ p, onClose, onOpen, onItem }: { p: Pokemon; onClose:
             <h4>Task (NPC)</h4>
             <div className="link-list">
               {tasksSrc.length ? tasksSrc.map((t, i) => (
-                <div className="link-row" key={i}><b>{t.npc}</b><Imgur href={t.loc} label="Localização" /></div>
+                <div className="link-row" key={i}><b>{t.npc}</b><Imgur href={t.loc} label="Localização" size="lg" /></div>
               )) : <span className="muted small">Sem task registrada</span>}
             </div>
           </div>

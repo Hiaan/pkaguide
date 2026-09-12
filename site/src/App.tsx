@@ -7,6 +7,7 @@ import Sistemas from './pages/Sistemas'
 import Dungeons from './pages/Dungeons'
 import Desafios from './pages/Desafios'
 import FAQ from './pages/FAQ'
+import Sugestoes from './pages/Sugestoes'
 
 const SECTIONS = [
   { id: 'pokedex', label: 'Pokédex', ico: '🔴', subs: [['grid', 'Pokémon'], ['tierlist', 'Tier List'], ['hunts', 'Localizações'], ['tasks', 'Tasks'], ['medals', 'Medalhas']] },
@@ -15,6 +16,7 @@ const SECTIONS = [
   { id: 'dungeons', label: 'Dungeons', ico: '🏰', subs: [['list', 'Dungeons'], ['dens', 'Dens'], ['porygon', 'Porygon']] },
   { id: 'desafios', label: 'Desafios', ico: '⚔️', subs: [['gym', 'Ginásios'], ['rocket', 'Rockets'], ['police', 'Polícia'], ['hazard', 'Hazard Tasks'], ['linked', 'Linked Tasks'], ['bh', 'Brotherhood']] },
   { id: 'faq', label: 'FAQ', ico: '💬', subs: [] },
+  { id: 'sugestoes', label: 'Sugestões', ico: '💡', subs: [] },
 ] as const
 
 type SectionId = (typeof SECTIONS)[number]['id']
@@ -118,9 +120,12 @@ export default function App() {
         {section === 'dungeons' && <Dungeons sub={sub} onOpen={setSelected} />}
         {section === 'desafios' && <Desafios sub={sub} onOpen={setSelected} />}
         {section === 'faq' && <FAQ />}
+        {section === 'sugestoes' && <Sugestoes />}
       </main>
 
       <footer className="footer">
+        <button className="btn btn-primary footer-cta" onClick={() => go('sugestoes')}>💡 Sugestões para melhorar o site? Clique aqui</button>
+        <br />
         Feito pela comunidade a partir da <a href="https://docs.google.com/spreadsheets/d/1GCH3PmFKQrBj7AA51hgqfg6Q2SrvNgrNlxgIidVeTMU" target="_blank" rel="noreferrer">planilha pública</a> · Sprites via PokeAPI · Não afiliado oficialmente ao PokeAlliance
       </footer>
 
