@@ -16,7 +16,7 @@ const SECTIONS = [
   { id: 'sistemas', label: 'Sistemas', ico: '⚙️', subs: [['star', 'Star'], ['runes', 'Runas'], ['damage', 'Dano'], ['rates', 'Shiny Rate & Brokes']] },
   { id: 'dungeons', label: 'Dungeons', ico: '🏰', subs: [['list', 'Dungeons'], ['dens', 'Dens'], ['porygon', 'Porygon']] },
   { id: 'desafios', label: 'Desafios', ico: '⚔️', subs: [['gym', 'Ginásios'], ['rocket', 'Rockets'], ['police', 'Polícia'], ['hazard', 'Hazard Tasks'], ['linked', 'Linked Tasks'], ['bh', 'Brotherhood']] },
-  { id: 'times', label: 'Times Hoenn', ico: '🧭', subs: [] },
+  { id: 'times', label: 'Times', ico: '🧭', subs: [['hoenn', 'Iniciar Hoenn (250+)'], ['sem-t2', 'Sem T2/T3 (350+)']] },
   { id: 'faq', label: 'FAQ', ico: '💬', subs: [] },
   { id: 'sugestoes', label: 'Sugestões', ico: '💡', subs: [] },
 ] as const
@@ -121,7 +121,7 @@ export default function App() {
         {section === 'sistemas' && <Sistemas sub={sub} />}
         {section === 'dungeons' && <Dungeons sub={sub} onOpen={setSelected} />}
         {section === 'desafios' && <Desafios sub={sub} onOpen={setSelected} />}
-        {section === 'times' && <Times onOpen={setSelected} />}
+        {section === 'times' && <Times sub={sub} onOpen={setSelected} />}
         {section === 'faq' && <FAQ />}
         {section === 'sugestoes' && <Sugestoes />}
       </main>
