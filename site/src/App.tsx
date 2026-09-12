@@ -9,6 +9,7 @@ import Desafios from './pages/Desafios'
 import FAQ from './pages/FAQ'
 import Sugestoes from './pages/Sugestoes'
 import Times from './pages/Times'
+import Ferramentas from './pages/Ferramentas'
 
 const SECTIONS = [
   { id: 'pokedex', label: 'Pokédex', ico: '🔴', subs: [['grid', 'Pokémon'], ['tierlist', 'Tier List'], ['hunts', 'Localizações'], ['tasks', 'Tasks'], ['medals', 'Medalhas']] },
@@ -17,6 +18,7 @@ const SECTIONS = [
   { id: 'dungeons', label: 'Dungeons', ico: '🏰', subs: [['list', 'Dungeons'], ['dens', 'Dens'], ['porygon', 'Porygon']] },
   { id: 'desafios', label: 'Desafios', ico: '⚔️', subs: [['gym', 'Ginásios'], ['rocket', 'Rockets'], ['police', 'Polícia'], ['hazard', 'Hazard Tasks'], ['linked', 'Linked Tasks'], ['bh', 'Brotherhood']] },
   { id: 'times', label: 'Times', ico: '🧭', subs: [['hunt', 'Por hunt (Safnaw)'], ['sem-t2', 'Sem T2/T3 (loxas)']] },
+  { id: 'ferramentas', label: 'Ferramentas', ico: '🧰', subs: [] },
   { id: 'faq', label: 'FAQ', ico: '💬', subs: [] },
   { id: 'sugestoes', label: 'Sugestões', ico: '💡', subs: [] },
 ] as const
@@ -122,6 +124,7 @@ export default function App() {
         {section === 'dungeons' && <Dungeons sub={sub} onOpen={setSelected} />}
         {section === 'desafios' && <Desafios sub={sub} onOpen={setSelected} />}
         {section === 'times' && <Times sub={sub} onOpen={setSelected} />}
+        {section === 'ferramentas' && <Ferramentas />}
         {section === 'faq' && <FAQ />}
         {section === 'sugestoes' && <Sugestoes />}
       </main>
