@@ -10,6 +10,7 @@ import FAQ from './pages/FAQ'
 import Sugestoes from './pages/Sugestoes'
 import Times from './pages/Times'
 import Ferramentas from './pages/Ferramentas'
+import Videos, { videos as allVideos } from './pages/Videos'
 
 const SECTIONS = [
   { id: 'pokedex', label: 'Pokédex', ico: '🔴', subs: [['grid', 'Pokémon'], ['tierlist', 'Tier List'], ['hunts', 'Localizações'], ['tasks', 'Tasks'], ['medals', 'Medalhas']] },
@@ -18,6 +19,7 @@ const SECTIONS = [
   { id: 'dungeons', label: 'Dungeons', ico: '🏰', subs: [['list', 'Dungeons'], ['dens', 'Dens'], ['porygon', 'Porygon']] },
   { id: 'desafios', label: 'Desafios', ico: '⚔️', subs: [['gym', 'Ginásios'], ['rocket', 'Rockets'], ['police', 'Polícia'], ['hazard', 'Hazard Tasks'], ['linked', 'Linked Tasks'], ['bh', 'Brotherhood']] },
   { id: 'times', label: 'Times', ico: '🧭', subs: [['hunt', 'Por hunt (Safnaw)'], ['sem-t2', 'Sem T2/T3 (loxas)']] },
+  { id: 'videos', label: 'Vídeos', ico: '🎬', subs: [['perguntar', 'Pergunte aos vídeos'], ['temas', 'Por tema'], ['top', 'Mais vistos']] },
   { id: 'ferramentas', label: 'Ferramentas', ico: '🧰', subs: [] },
   { id: 'faq', label: 'FAQ', ico: '💬', subs: [] },
   { id: 'sugestoes', label: 'Sugestões', ico: '💡', subs: [] },
@@ -54,6 +56,7 @@ export default function App() {
     for (const it of Object.keys(data.items)) if (it.includes(s)) out.push({ label: it, kind: 'Item', run: () => openItem(it) })
     for (const f of data.faq) if (f.q.toLowerCase().includes(s)) out.push({ label: f.q, kind: 'FAQ', run: () => go('faq') })
     for (const d of data.dens) if (d.name.toLowerCase().includes(s)) out.push({ label: d.name, kind: 'Den', run: () => go('dungeons', 'dens') })
+    for (const v of allVideos.slice(0, 400)) if (v.title.toLowerCase().includes(s)) out.push({ label: v.title, kind: 'Vídeo', run: () => window.open(`https://www.youtube.com/watch?v=${v.id}`, '_blank') })
     return out.slice(0, 14)
   }, [quick, go, openItem])
 
@@ -89,7 +92,7 @@ export default function App() {
             <div className="quick">
               {quickResults.map((r, i) => (
                 <div className="quick-row" key={i} onClick={() => { r.run(); setQuick('') }}>
-                  {r.p ? <Sprite p={r.p} size="sm" /> : <span style={{ width: 40, textAlign: 'center' }}>{r.kind === 'Item' ? '🎒' : r.kind === 'Den' ? '🏰' : '💬'}</span>}
+                  {r.p ? <Sprite p={r.p} size="sm" /> : <span style={{ width: 40, textAlign: 'center' }}>{r.kind === 'Item' ? '🎒' : r.kind === 'Den' ? '🏰' : r.kind === 'Vídeo' ? '🎬' : '💬'}</span>}
                   <span>{r.label}</span>
                   <span className="kind">{r.kind}</span>
                 </div>
@@ -124,6 +127,7 @@ export default function App() {
         {section === 'dungeons' && <Dungeons sub={sub} onOpen={setSelected} />}
         {section === 'desafios' && <Desafios sub={sub} onOpen={setSelected} />}
         {section === 'times' && <Times sub={sub} onOpen={setSelected} />}
+        {section === 'videos' && <Videos sub={sub} />}
         {section === 'ferramentas' && <Ferramentas />}
         {section === 'faq' && <FAQ />}
         {section === 'sugestoes' && <Sugestoes />}

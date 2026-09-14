@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { data, fmt } from '../lib/data'
 import { Note, SectionHead, TierBadge } from '../components/ui'
+import { VideoRefs } from './Videos'
 
 export default function Sistemas({ sub }: { sub: string }) {
-  if (sub === 'runes') return <Runes />
-  if (sub === 'damage') return <Damage />
-  if (sub === 'rates') return <Rates />
-  return <Star />
+  const topic = ({ runes: 'runas', damage: 'dano', rates: 'shiny' } as Record<string, string>)[sub] ?? 'star'
+  return (
+    <>
+      {sub === 'runes' ? <Runes /> : sub === 'damage' ? <Damage /> : sub === 'rates' ? <Rates /> : <Star />}
+      <VideoRefs topic={topic} />
+    </>
+  )
 }
 
 /* ---------- STAR (calculadora) ---------- */

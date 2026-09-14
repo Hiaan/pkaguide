@@ -1,10 +1,16 @@
 import { useState } from 'react'
 import { data, type Pokemon, type Team } from '../lib/data'
 import { Imgur, Linkified, Note, PokeName, Search, SectionHead } from '../components/ui'
+import { VideoRefs } from './Videos'
 
 type Props = { sub: string; onOpen: (p: Pokemon) => void }
 
 export default function Desafios({ sub, onOpen }: Props) {
+  const topic = ({ rocket: 'rocket', police: 'policia', hazard: 'dens', linked: 'linked', bh: 'bh' } as Record<string, string>)[sub] ?? 'gym'
+  return <><DesafiosInner sub={sub} onOpen={onOpen} /><VideoRefs topic={topic} /></>
+}
+
+function DesafiosInner({ sub, onOpen }: Props) {
   if (sub === 'rocket') return <Teams title="Rockets" sub="Pokémon de cada membro da equipe Rocket e o counter recomendado pra cada um." data={data.rocket.teams} note={data.rocket.note} extra={data.rocket.giovanniNote} onOpen={onOpen} />
   if (sub === 'police') return <Teams title="Polícia" sub="Pokémon de cada oficial e os tipos recomendados pra enfrentar." data={data.police.teams} note={data.police.note} onOpen={onOpen} recIsType />
   if (sub === 'hazard') return <Hazard />

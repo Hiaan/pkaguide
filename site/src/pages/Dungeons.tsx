@@ -1,10 +1,16 @@
 import { useState } from 'react'
 import { data, findPokemon, fmt, type Pokemon } from '../lib/data'
 import { Imgur, Note, PokeName, Search, SectionHead, Sprite } from '../components/ui'
+import { VideoRefs } from './Videos'
 
 type Props = { sub: string; onOpen: (p: Pokemon) => void }
 
 export default function Dungeons({ sub, onOpen }: Props) {
+  const topic = ({ dens: 'dens', porygon: 'porygon' } as Record<string, string>)[sub] ?? 'dungeon'
+  return <><DungeonsInner sub={sub} onOpen={onOpen} /><VideoRefs topic={topic} /></>
+}
+
+function DungeonsInner({ sub, onOpen }: Props) {
   if (sub === 'dens') return <Dens onOpen={onOpen} />
   if (sub === 'porygon') return <Porygon />
   return (

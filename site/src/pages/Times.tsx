@@ -3,6 +3,7 @@ import teams2 from '../data/teams2.json'
 import huntsRaw from '../data/hunts.json'
 import { findPokemon, typeColor, type Pokemon } from '../lib/data'
 import { Note, PokeName, SectionHead, Sprite, TierBadge } from '../components/ui'
+import { VideoRefs } from './Videos'
 
 /* ---------- Guia de hunt (Safnaw) ---------- */
 type HuntCard = { name: string; hunt: string; tanks: string[]; dps: string[]; otherTanks: string[]; otherDps: string[]; smeargle: string[] }
@@ -138,5 +139,5 @@ function LoxasGuide({ onOpen }: { onOpen: (p: Pokemon) => void }) {
 }
 
 export default function Times({ sub, onOpen }: { sub: string; onOpen: (p: Pokemon) => void }) {
-  return sub === 'sem-t2' ? <LoxasGuide onOpen={onOpen} /> : <HuntGuide onOpen={onOpen} />
+  return <>{sub === 'sem-t2' ? <LoxasGuide onOpen={onOpen} /> : <HuntGuide onOpen={onOpen} />}<VideoRefs topic="times" /></>
 }

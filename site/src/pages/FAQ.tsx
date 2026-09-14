@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { data } from '../lib/data'
 import { Linkified, Search, SectionHead } from '../components/ui'
+import { VideoRefs, videoRefs } from './Videos'
+
+const FAQ_TOPIC: Record<string, string> = { star: 'star', boost: 'boost', up: 'up', 'ilhas laranja': 'hunt', ditto: 'shiny', pesca: 'pesca', fundir: 'helds', held: 'helds', medalha: 'medalhas', hunt: 'hunt', 'maxima media': 'shiny', linked: 'linked', mega: 'dens', vip: 'vip', legendary: 'tier', caveira: 'hunt', bh: 'bh', balls: 'shiny', hoenn: 'hoenn', hazard: 'dens', orb: 'talentos', tierlist: 'tier', talents: 'talentos', rockets: 'rocket', 'ginasios gyms': 'gym', brokes: 'shiny', porygon: 'porygon', 'shard dg': 'dungeon', prey: 'prey', expedition: 'dungeon', passe: 'vip', cupom: 'vip', 'treino treinar punching': 'up', share: 'up', vender: 'dinheiro', carteira: 'dinheiro' }
+const topicFor = (q: string) => FAQ_TOPIC[q] ?? Object.keys(videoRefs.topics).find((k) => q.split(' ').includes(k))
 
 export default function FAQ() {
   const [q, setQ] = useState('')
@@ -23,7 +27,7 @@ export default function FAQ() {
                 <span className="kw">{f.q}</span>
                 <span className="arrow">›</span>
               </button>
-              {isOpen && <div className="faq-a"><Linkified text={f.a} /></div>}
+              {isOpen && <div className="faq-a"><Linkified text={f.a} />{topicFor(f.q) && <VideoRefs topic={topicFor(f.q)!} max={2} />}</div>}
             </div>
           )
         })}

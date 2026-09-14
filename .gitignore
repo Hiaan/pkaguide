@@ -4,3 +4,6 @@ site/node_modules/
 sheets_raw.json
 .DS_Store
 imgur_log.txt
+collect_log.txt
+transcripts_log.txt
+transcripts/_tmp/
