@@ -12,7 +12,7 @@ TYPO = {
     'salamalence': 'salamence', 'zangooze': 'zangoose', 'luvdisk': 'luvdisc',
     'hydreidon': 'hydreigon', 'foette': 'floette', 'ilumise': 'illumise',
     'mime': 'mr. mime', 'mr mime': 'mr. mime', 'wobuffet': 'wobbuffet',
-    'infarnape': 'infernape', 'lopuny': 'lopunny',
+    'infarnape': 'infernape', 'lopuny': 'lopunny', 'vespiqueen': 'vespiquen',
 }
 API_ALIAS = {'nidoran-female': 'nidoran-f', 'nidoran-male': 'nidoran-m', 'castform-fire': 'castform', 'castform-electric': 'castform',
              'castform-ice': 'castform', 'deoxys': 'deoxys-normal', 'mimikyu': 'mimikyu-disguised', 'wormadam': 'wormadam-plant',
@@ -63,7 +63,7 @@ def api_id(base):
     k = unicodedata.normalize('NFKD', k).encode('ascii', 'ignore').decode()
     k = k.replace('. ', '-').replace('.', '').replace("'", '').replace(' ', '-')
     k = API_ALIAS.get(k, k)
-    return API_IDS.get(k)
+    return API_IDS.get(k) or API_IDS.get(re.sub(r'-[xy]$', '', k))
 
 # ---------- Pokémon master ----------
 poke = {}
@@ -104,6 +104,21 @@ for r in rows('Medals')[1:]:
     if not s(r[0]): continue
     p = P(r[0])
     if s(r[1]) or s(r[2]): p['medal'] = {'buff': s(r[1]), 'debuff': s(r[2])}
+
+# correções manuais de tier (tier_overrides.json): cria o Pokémon se não existir, herdando o tipo da forma base
+try:
+    _ovf = json.load(open('tier_overrides.json', encoding='utf-8'))
+    _ov, _ovt = _ovf['tiers'], _ovf.get('types', {})
+except FileNotFoundError:
+    _ov, _ovt = {}, {}
+for _name, _tier in _ov.items():
+    _p = P(_name)
+    _p['tier'] = _tier
+    if _p['base'] in _ovt: _p['type'] = _ovt[_p['base']]
+    if not _p['type']:
+        for _cand in (_p['base'], f"Shiny {_p['base']}", _p['base'].replace(' X', '').replace(' Y', '')):
+            _q = poke.get(_cand) or poke.get(f'Shiny {_cand}')
+            if _q and _q['type']: _p['type'] = _q['type']; break
 
 # item index (reverse drops)
 items = {}
