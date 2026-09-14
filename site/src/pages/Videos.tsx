@@ -5,8 +5,8 @@ import { Note, SectionHead } from '../components/ui'
 
 export type Video = { id: string; title: string; channel: string; views: number; duration: number; topics: Record<string, number>; lang: string | null }
 type Refs = { topics: Record<string, { label: string; route: string }>; refs: Record<string, { id: string; t: number; snippet: string }[]> }
-export const videos = videosRaw as Video[]
-export const videoRefs = refsRaw as Refs
+export const videos = videosRaw as unknown as Video[]
+export const videoRefs = refsRaw as unknown as Refs
 const byId = new Map(videos.map((v) => [v.id, v]))
 
 const fmtViews = (n: number) => (n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e3 ? Math.round(n / 1e3) + 'k' : String(n))
@@ -113,7 +113,7 @@ function Ask() {
   const [tr, setTr] = useState<Record<string, Chunk[]> | null>(transcriptsCache)
   useEffect(() => {
     if (tr) return
-    import('../data/transcripts.json').then((m) => { transcriptsCache = m.default as Record<string, Chunk[]>; setTr(transcriptsCache) })
+    import('../data/transcripts.json').then((m) => { transcriptsCache = m.default as unknown as Record<string, Chunk[]>; setTr(transcriptsCache) })
   }, [tr])
 
   const results = useMemo(() => {
