@@ -19,7 +19,7 @@ const SECTIONS = [
   { id: 'dungeons', label: 'Dungeons', ico: '🏰', subs: [['list', 'Dungeons'], ['dens', 'Dens'], ['porygon', 'Porygon']] },
   { id: 'desafios', label: 'Desafios', ico: '⚔️', subs: [['gym', 'Ginásios'], ['rocket', 'Rockets'], ['police', 'Polícia'], ['hazard', 'Hazard Tasks'], ['linked', 'Linked Tasks'], ['bh', 'Brotherhood']] },
   { id: 'times', label: 'Times', ico: '🧭', subs: [['hunt', 'Por hunt (Safnaw)'], ['sem-t2', 'Sem T2/T3 (loxas)']] },
-  { id: 'videos', label: 'Vídeos', ico: '🎬', subs: [['perguntar', 'Pergunte aos vídeos'], ['temas', 'Por tema'], ['top', 'Mais vistos'], ['canais', 'Canais']] },
+  { id: 'videos', label: 'Vídeos', ico: '🎬', subs: [['perguntar', 'Pergunte aos vídeos'], ['temas', 'Por tema'], ['canais', 'Canais']] },
   { id: 'ferramentas', label: 'Ferramentas', ico: '🧰', subs: [] },
   { id: 'faq', label: 'FAQ', ico: '💬', subs: [] },
   { id: 'sugestoes', label: 'Sugestões', ico: '💡', subs: [] },

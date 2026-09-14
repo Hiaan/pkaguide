@@ -56,33 +56,7 @@ export default function Videos({ sub }: { sub: string }) {
   if (sub === 'perguntar') return <Ask />
   if (sub === 'temas') return <Temas />
   if (sub === 'canais') return <Canais />
-  return <Top />
-}
-
-function Top() {
-  const [ch, setCh] = useState('')
-  const [q, setQ] = useState('')
-  const channels = useMemo(() => {
-    const m = new Map<string, number>()
-    videos.forEach((v) => m.set(v.channel, (m.get(v.channel) ?? 0) + 1))
-    return [...m.entries()].sort((a, b) => (PRIORITY.includes(b[0]) ? 1 : 0) - (PRIORITY.includes(a[0]) ? 1 : 0) || b[1] - a[1])
-  }, [])
-  const s = norm(q.trim())
-  const list = videos.filter((v) => (!ch || v.channel === ch) && (!s || norm(v.title).includes(s)))
-  return (
-    <>
-      <SectionHead title="Vídeos de PokeAlliance" sub="Todos os vídeos relevantes sobre o jogo no YouTube, ordenados por visualizações. 📝 = transcrição indexada na busca por pergunta." />
-      <div className="toolbar">
-        <label className="search"><span className="ico">⌕</span><input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar no título…" /></label>
-        <select className="select" value={ch} onChange={(e) => setCh(e.target.value)}>
-          <option value="">Todos os canais</option>
-          {channels.map(([c, n]) => <option key={c} value={c}>{c} ({n})</option>)}
-        </select>
-        <span className="count">{list.length} vídeos</span>
-      </div>
-      <div className="grid grid-4">{list.map((v) => <VideoCard key={v.id} v={v} />)}</div>
-    </>
-  )
+  return <Ask />
 }
 
 function Canais() {
