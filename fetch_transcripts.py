@@ -3,7 +3,7 @@
 em transcripts/<id>.json como segmentos [[segundos, texto], ...]. Cache: não rebaixa o que já existe."""
 import json, os, re, subprocess, sys, time, glob
 
-LIMIT = int(sys.argv[1]) if len(sys.argv) > 1 else 150
+LIMIT = int(sys.argv[1]) if len(sys.argv) > 1 else 320
 PRIORITY = ('Empregolista', 'Canal Do Loxas')
 os.makedirs('transcripts', exist_ok=True)
 
@@ -21,8 +21,9 @@ pool = [v for v in vids if relevant(v) and 120 <= (v['duration'] or 0) <= 5400]
 prio = sorted([v for v in pool if v['channel'] in PRIORITY], key=lambda v: -v['views'])
 others = sorted([v for v in pool if v['channel'] not in PRIORITY], key=lambda v: -v['views'])
 # prioridade: todos os relevantes do Empregolista/Loxas (até 2/3 do limite), resto completa por views
-sel = prio[: int(LIMIT * 2 / 3)]
+sel = prio[: min(len(prio), 120)]
 sel += others[: LIMIT - len(sel)]
+json.dump([v['id'] for v in pool], open('videos_pool.json', 'w'), indent=0)
 print(f'pool {len(pool)} | prioritários {len(prio)} | selecionados {len(sel)}', flush=True)
 json.dump([v['id'] for v in sel], open('videos_selected.json', 'w'), indent=0)
 

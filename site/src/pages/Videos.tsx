@@ -30,6 +30,7 @@ export const VideoCard = ({ v, t, snippet, compact }: { v: Video; t?: number; sn
       <div className="vmeta">
         <span className={`badge ${PRIORITY.includes(v.channel) ? 'shiny' : ''}`}>{v.channel}</span>
         <span className="muted tiny">👁 {fmtViews(v.views)}</span>
+        {v.lang && <span className="muted tiny" title="Transcrição indexada: aparece na busca por pergunta">📝</span>}
       </div>
       {snippet && <div className="vsnip">“…{snippet}…”</div>}
     </div>
@@ -54,6 +55,7 @@ export const VideoRefs = ({ topic, max = 3, title }: { topic: string; max?: numb
 export default function Videos({ sub }: { sub: string }) {
   if (sub === 'perguntar') return <Ask />
   if (sub === 'temas') return <Temas />
+  if (sub === 'canais') return <Canais />
   return <Top />
 }
 
@@ -69,7 +71,7 @@ function Top() {
   const list = videos.filter((v) => (!ch || v.channel === ch) && (!s || norm(v.title).includes(s)))
   return (
     <>
-      <SectionHead title="Vídeos de PokeAlliance" sub="Os vídeos com mais alcance no YouTube sobre o jogo, com transcrição indexada. Empregolista e Canal do Loxas em destaque." />
+      <SectionHead title="Vídeos de PokeAlliance" sub="Todos os vídeos relevantes sobre o jogo no YouTube, ordenados por visualizações. 📝 = transcrição indexada na busca por pergunta." />
       <div className="toolbar">
         <label className="search"><span className="ico">⌕</span><input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar no título…" /></label>
         <select className="select" value={ch} onChange={(e) => setCh(e.target.value)}>
@@ -79,6 +81,39 @@ function Top() {
         <span className="count">{list.length} vídeos</span>
       </div>
       <div className="grid grid-4">{list.map((v) => <VideoCard key={v.id} v={v} />)}</div>
+    </>
+  )
+}
+
+function Canais() {
+  const rows = useMemo(() => {
+    const m = new Map<string, { n: number; views: number; top: Video }>()
+    for (const v of videos) {
+      const r = m.get(v.channel) ?? { n: 0, views: 0, top: v }
+      r.n++; r.views += v.views; if (v.views > r.top.views) r.top = v
+      m.set(v.channel, r)
+    }
+    return [...m.entries()].sort((a, b) => b[1].views - a[1].views)
+  }, [])
+  return (
+    <>
+      <SectionHead title="Criadores de conteúdo" sub="Canais que mais falam de PokeAlliance, ordenados pelo total de visualizações dos vídeos sobre o jogo." />
+      <div className="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Canal</th><th className="num">Vídeos</th><th className="num">Views (total)</th><th>Vídeo mais visto</th></tr></thead>
+          <tbody>
+            {rows.map(([c, r], i) => (
+              <tr key={c}>
+                <td className="muted">{i + 1}</td>
+                <td><span className={`badge ${PRIORITY.includes(c) ? 'shiny' : ''}`}>{c}</span></td>
+                <td className="num">{r.n}</td>
+                <td className="num"><b>{fmtViews(r.views)}</b></td>
+                <td style={{ whiteSpace: 'normal', maxWidth: 420 }}><a href={ytUrl(r.top.id)} target="_blank" rel="noreferrer">{r.top.title}</a> <span className="muted tiny">({fmtViews(r.top.views)})</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   )
 }

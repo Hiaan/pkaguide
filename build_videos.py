@@ -44,6 +44,7 @@ TOPICS = {
 
 vids = {v['id']: v for v in json.load(open('videos_raw.json', encoding='utf-8'))}
 videos, refs, transcripts = [], {k: [] for k in TOPICS}, {}
+seen = set()
 for f in sorted(os.listdir('transcripts')):
     if not f.endswith('.json'): continue
     d = json.load(open(f'transcripts/{f}', encoding='utf-8'))
@@ -78,12 +79,21 @@ for f in sorted(os.listdir('transcripts')):
             first[key] = {'t': best[1], 'snippet': best[2][:220]} if best else {'t': 0, 'snippet': chunks[0][1][:220] if chunks else ''}
     videos.append({'id': v['id'], 'title': v['title'], 'channel': v['channel'], 'views': v['views'], 'duration': v['duration'],
                    'topics': topics, 'lang': d['lang']})
+    seen.add(v['id'])
     for key, sc in topics.items():
         refs[key].append({'id': v['id'], 'score': sc * math.log10(max(v['views'], 10)), 't': first[key]['t'], 'snippet': first[key]['snippet']})
 
 for key in refs:
     refs[key] = [{k: r[k] for k in ('id', 't', 'snippet')} for r in sorted(refs[key], key=lambda r: -r['score'])[:5]]
 
+# vídeos relevantes sem transcrição entram só no ranking
+try:
+    for vid in json.load(open('videos_pool.json')):
+        if vid not in seen and vid in vids:
+            v = vids[vid]
+            videos.append({'id': v['id'], 'title': v['title'], 'channel': v['channel'], 'views': v['views'], 'duration': v['duration'], 'topics': {}, 'lang': None})
+except FileNotFoundError:
+    pass
 videos.sort(key=lambda v: -v['views'])
 os.makedirs('site/src/data', exist_ok=True)
 json.dump(videos, open('site/src/data/videos.json', 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))

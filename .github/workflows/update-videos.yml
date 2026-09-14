@@ -20,13 +20,13 @@ jobs:
       - name: Coletar vídeos e transcrições
         run: |
           python collect_videos.py
-          python fetch_transcripts.py 150
+          python fetch_transcripts.py 320
           python build_videos.py
       - name: Commit se mudou
         run: |
           git config user.name "pka-bot"
           git config user.email "actions@github.com"
-          git add videos_raw.json videos_selected.json transcripts site/src/data/videos.json site/src/data/video_refs.json site/src/data/transcripts.json
+          git add videos_raw.json videos_selected.json videos_pool.json transcripts site/src/data/videos.json site/src/data/video_refs.json site/src/data/transcripts.json
           if git diff --cached --quiet; then echo "Sem mudanças"; else
             git commit -m "Atualização automática de vídeos ($(date -u +%Y-%m-%d))"
             git pull --rebase
