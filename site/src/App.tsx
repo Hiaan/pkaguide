@@ -20,7 +20,7 @@ const SECTIONS = [
   { id: 'desafios', label: 'Desafios', ico: '⚔️', subs: [['gym', 'Ginásios'], ['rocket', 'Rockets'], ['police', 'Polícia'], ['hazard', 'Hazard Tasks'], ['linked', 'Linked Tasks'], ['bh', 'Brotherhood']] },
   { id: 'times', label: 'Times', ico: '🧭', subs: [['hunt', 'Por hunt (Safnaw)'], ['sem-t2', 'Sem T2/T3 (loxas)']] },
   { id: 'videos', label: 'Vídeos', ico: '🎬', subs: [['perguntar', 'Pergunte aos vídeos'], ['temas', 'Por tema'], ['canais', 'Canais']] },
-  { id: 'ferramentas', label: 'Ferramentas', ico: '🧰', subs: [] },
+  { id: 'ferramentas', label: 'Ferramentas', ico: '🧰', subs: [['criticalcatch', 'Critical Catch'], ['pokeforge', 'PokéForge (builds)']] },
   { id: 'faq', label: 'FAQ', ico: '💬', subs: [] },
   { id: 'sugestoes', label: 'Sugestões', ico: '💡', subs: [] },
 ] as const
@@ -128,7 +128,7 @@ export default function App() {
         {section === 'desafios' && <Desafios sub={sub} onOpen={setSelected} />}
         {section === 'times' && <Times sub={sub} onOpen={setSelected} />}
         {section === 'videos' && <Videos sub={sub} />}
-        {section === 'ferramentas' && <Ferramentas />}
+        {section === 'ferramentas' && <Ferramentas sub={sub} />}
         {section === 'faq' && <FAQ />}
         {section === 'sugestoes' && <Sugestoes />}
       </main>
