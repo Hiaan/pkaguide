@@ -95,18 +95,18 @@ img { max-width: 100%; }
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
 }
-.nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 12px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-.nav-inner::-webkit-scrollbar { display: none; }
+.nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 2px; }
 .nav-item {
   flex: 0 0 auto;
   display: flex; align-items: center; gap: 8px;
-  padding: 14px 16px; border: 0; background: transparent; color: var(--muted);
-  font-weight: 700; font-size: 14px; cursor: pointer;
+  padding: 12px 12px; border: 0; background: transparent; color: var(--muted);
+  font-weight: 700; font-size: 13.5px; cursor: pointer; white-space: nowrap;
   border-bottom: 3px solid transparent; transition: color 0.15s, border-color 0.15s;
 }
 .nav-item:hover { color: var(--text); }
 .nav-item.active { color: var(--text); border-image: var(--grad-orange) 1; border-bottom-width: 3px; }
-.nav-item .ico { font-size: 17px; }
+.nav-item .ico { font-size: 16px; }
+@media (max-width: 640px) { .nav-item { padding: 10px 9px; font-size: 12.5px; gap: 5px; } }
 
 .subnav { max-width: 1200px; margin: 18px auto 0; padding: 0 20px; display: flex; gap: 8px; flex-wrap: wrap; }
 .chip {
