@@ -336,3 +336,40 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .vrefs-title { font-weight: 800; font-size: 13px; margin-bottom: 10px; }
 .vrefs-list { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
 .faq-a .vrefs { margin-top: 14px; }
+
+/* ---------- Guild Boss ---------- */
+.gb-video { display: grid; gap: 18px; grid-template-columns: 1fr; margin-bottom: 22px; background: var(--grad-card); border: 1px solid rgba(249, 115, 22, 0.45); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); position: relative; }
+.gb-video::before { content: '📌 FIXADO'; position: absolute; top: -10px; left: 16px; background: var(--grad-orange); color: #fff; font-size: 10px; font-weight: 900; letter-spacing: 0.1em; padding: 3px 10px; border-radius: 999px; }
+@media (min-width: 900px) { .gb-video { grid-template-columns: 1.4fr 1fr; align-items: center; } }
+.gb-frame { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000; }
+.gb-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.gb-section { margin: 26px 0; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255, 255, 255, 0.02); }
+.gb-section h2 { margin: 0 0 12px; font-size: 22px; font-weight: 900; letter-spacing: -0.01em; }
+.gb-section h3 { font-size: 15px; margin: 16px 0 8px; }
+.gb-section p { line-height: 1.6; font-size: 14px; color: #e4e4e7; }
+.gb-section.boss { border-color: rgba(249, 115, 22, 0.4); background: rgba(249, 115, 22, 0.04); }
+.gb-boss-head { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; }
+.gb-boss-head h2 { margin: 0 0 6px; }
+.gb-two { display: grid; gap: 18px; grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 860px) { .gb-two { grid-template-columns: 1.1fr 1fr; } }
+.gb-list { margin: 8px 0 12px; padding-left: 18px; font-size: 13.5px; line-height: 1.6; color: #e4e4e7; }
+.gb-list li { margin-bottom: 4px; }
+.gb-pokes { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 12px; }
+.gb-poke { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 12px; border-radius: 10px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line); font-size: 12.5px; text-align: center; transition: border-color 0.15s; }
+.gb-poke:hover { border-color: var(--orange); }
+.gb-summary { text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; transition: border-color 0.15s, transform 0.15s; }
+.gb-summary:hover { transform: translateY(-2px); }
+.gb-summary h3 { margin: 0; }
+.skills { display: grid; gap: 8px; margin: 10px 0 14px; }
+.skill { display: grid; grid-template-columns: 170px 1fr; gap: 12px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); border-left-width: 4px; background: rgba(255, 255, 255, 0.03); font-size: 13.5px; line-height: 1.55; }
+.skill.safe { border-left-color: #22c55e; } .skill.warn { border-left-color: #eab308; } .skill.danger { border-left-color: #ef4444; } .skill.info { border-left-color: var(--sky); }
+.skill-name { font-weight: 800; }
+@media (max-width: 640px) { .skill { grid-template-columns: 1fr; gap: 4px; } }
+.gb-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; font-size: 13.5px; line-height: 1.55; color: #e4e4e7; }
+.gb-step .n { flex: 0 0 26px; height: 26px; border-radius: 50%; background: var(--grad-orange); color: #fff; font-weight: 900; display: grid; place-items: center; font-size: 12px; }
+.gb-shots { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin-top: 14px; }
+.shot { margin: 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: #000; cursor: zoom-in; transition: border-color 0.15s; }
+.shot:hover { border-color: var(--orange); }
+.shot img { display: block; width: 100%; }
+.shot figcaption { padding: 8px 10px; font-size: 12px; color: var(--muted); background: var(--bg-2); line-height: 1.4; }
+.shot figcaption a { font-weight: 700; }

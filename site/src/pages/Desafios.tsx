@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { data, type Pokemon, type Team } from '../lib/data'
 import { Imgur, Linkified, Note, PokeName, Search, SectionHead } from '../components/ui'
 import { VideoRefs } from './Videos'
+import GuildBoss from './GuildBoss'
 
 type Props = { sub: string; onOpen: (p: Pokemon) => void }
 
 export default function Desafios({ sub, onOpen }: Props) {
+  if (sub === 'guildboss') return <GuildBoss onOpen={onOpen} />
   const topic = ({ rocket: 'rocket', police: 'policia', hazard: 'dens', linked: 'linked', bh: 'bh' } as Record<string, string>)[sub] ?? 'gym'
   return <><DesafiosInner sub={sub} onOpen={onOpen} /><VideoRefs topic={topic} /></>
 }
