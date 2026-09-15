@@ -114,7 +114,7 @@ except FileNotFoundError:
 for _name, _tier in _ov.items():
     _p = P(_name)
     _p['tier'] = _tier
-    if _p['base'] in _ovt: _p['type'] = _ovt[_p['base']]
+    if not _p['type'] and _p['base'] in _ovt: _p['type'] = _ovt[_p['base']]
     if not _p['type']:
         for _cand in (_p['base'], f"Shiny {_p['base']}", _p['base'].replace(' X', '').replace(' Y', '')):
             _q = poke.get(_cand) or poke.get(f'Shiny {_cand}')
