@@ -23,6 +23,7 @@ catalog = json.load(open(CATALOG_FILE, encoding='utf-8')) if os.path.exists(CATA
 REGION = (-330, -150, 360, 140)  # área lida ao redor do cursor (depot: tooltip abaixo/direita; bag: card à esquerda)
 STILL_MS = 300                   # mouse parado por este tempo dispara a leitura
 ICON = 34                        # tamanho do ícone capturado para o catálogo
+SHOW_S = 7                       # segundos que o painel fica aberto após reconhecer um item
 
 # cores / rótulos por categoria
 CATS = {
@@ -121,9 +122,9 @@ class App:
 
         # corpo
         body = tk.Frame(outer, bg=BG, width=360)
-        body.pack(fill='both')
         body.pack_propagate(False)
-        self.body = body
+        self.body = body          # começa fechado: só o cabeçalho aparece
+        self.open_until = 0
         top = tk.Frame(body, bg=BG)
         top.pack(fill='x', padx=12, pady=(10, 4))
         self.icon_box = tk.Label(top, bg=BG2, width=68, height=68, bd=0)
@@ -141,7 +142,6 @@ class App:
         self.l_foot.pack(fill='x', padx=12, pady=(0, 8))
 
         self.set_toggle()
-        self.fit()
         sw = self.root.winfo_screenwidth()
         self.root.geometry(f'+{sw - 380}+12')
 
@@ -159,12 +159,21 @@ class App:
         h = sum(w.winfo_reqheight() for w in self.body.winfo_children()) + 30
         self.body.config(height=max(150, h))
 
+    def open_panel(self):
+        if not self.body.winfo_manager(): self.body.pack(fill='both')
+        self.fit(); self.open_until = time.time() + SHOW_S
+
+    def close_panel(self):
+        if self.body.winfo_manager(): self.body.pack_forget()
+        self.root.update_idletasks()
+
     def set_toggle(self):
         self.b_toggle.config(text='● LIGADO' if self.enabled else '○ DESLIGADO', bg='#16a34a' if self.enabled else '#7f1d1d')
 
     def toggle(self):
         self.enabled = not self.enabled
         self.set_toggle()
+        if not self.enabled: self.close_panel()
 
     def drag_start(self, e):
         self._dx, self._dy = e.x, e.y
@@ -233,13 +242,15 @@ class App:
                     self.l_info.config(text=info, fg='#e4e4e7')
                     self.root.configure(bg=color)
                     self.l_foot.config(text=('leitura exata' if score >= 0.999 else f'leitura aproximada ({int(score * 100)}%)') + f'  ·  catálogo: {len(catalog)} itens')
-                    self.fit()
+                    self.open_panel()
                 elif kind == 'foot':
                     self.l_foot.config(text=payload)
                 elif kind == 'quit':
                     self.root.destroy(); return
         except queue.Empty:
             pass
+        if self.body.winfo_manager() and time.time() > self.open_until:
+            self.close_panel()
         self.root.after(80, self.tick)
 
 if __name__ == '__main__':
