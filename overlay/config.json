@@ -1,5 +1,6 @@
 {
  "mode": "auto",
  "hotkey": "f4",
- "show_s": 10
+ "show_s": 10,
+ "alpha": 55
 }

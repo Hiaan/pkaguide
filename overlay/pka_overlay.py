@@ -15,7 +15,7 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '2.2.1'
+VERSION = '2.3.0'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -55,7 +55,7 @@ def jload(path, default):
 catalog = jload(CATALOG_FILE, {})
 custom = jload(CUSTOM_FILE, {})
 unknown = jload(UNKNOWN_FILE, {})
-DEFAULTS = {'mode': 'auto', 'hotkey': 'f4', 'show_s': 8}
+DEFAULTS = {'mode': 'auto', 'hotkey': 'f4', 'show_s': 8, 'alpha': 97}   # alpha em % (30 a 100)
 cfg = dict(DEFAULTS, **jload(CONFIG_FILE, {}))
 
 def save_cfg():
@@ -261,7 +261,8 @@ def read_tooltip(x, y):
 # ---------------- janela arredondada ----------------
 class Round:
     """janela sem borda com cartão arredondado; o conteúdo vai em self.body"""
-    def __init__(self, master=None, width=CARD_W, border=LINE, alpha=0.97):
+    def __init__(self, master=None, width=CARD_W, border=LINE, alpha=None):
+        if alpha is None: alpha = cfg['alpha'] / 100
         self.win = tk.Toplevel(master) if master else tk.Tk()
         self.win.overrideredirect(True)
         self.win.attributes('-topmost', True)
@@ -573,7 +574,7 @@ class App:
     def _modal(self, title, icon_name, color, width=380):
         if self.modal: self.close_modal()
         self.open_until = time.time() + 9999
-        m = Round(self.root, width=width, border=color, alpha=0.99); self.modal = m
+        m = Round(self.root, width=width, border=color, alpha=max(0.9, cfg['alpha'] / 100)); self.modal = m
         h = tk.Frame(m.body, bg=BG); h.pack(fill='x', pady=(2, 6), padx=4)
         ico_label(h, icon_name, 20, color).pack(side='left', padx=(2, 8))
         tk.Label(h, text=title, font=(FONT, 12, 'bold'), fg=TXT, bg=BG).pack(side='left')
@@ -701,6 +702,24 @@ class App:
         tk.Label(card, text='Escolha uma tecla que o jogo não use (ex.: F4, Ctrl+Q).', font=(FONT, 8), fg=MUTED2,
                  bg=BG2, anchor='w', wraplength=340, justify='left').pack(fill='x', padx=12, pady=(0, 10))
         self._cfg_widgets = (l_key, b_rec)
+
+        self.section(c, 'TRANSPARÊNCIA DO PAINEL')
+        arow = tk.Frame(c, bg=BG); arow.pack(fill='x', padx=2)
+        l_alpha = tk.Label(arow, text=f"{cfg['alpha']}%", font=(FONT, 10, 'bold'), fg=SKY, bg=BG, width=5, anchor='e')
+        l_alpha.pack(side='right', padx=(8, 2))
+        def set_alpha(v):
+            a = int(float(v)); cfg['alpha'] = a; save_cfg()
+            l_alpha.config(text=f'{a}%')
+            try:
+                self.root.attributes('-alpha', a / 100)
+                if self.modal: self.modal.win.attributes('-alpha', max(0.9, a / 100))
+            except Exception: pass
+        av = tk.IntVar(value=cfg['alpha'])
+        sa = tk.Scale(arow, from_=30, to=100, orient='horizontal', variable=av, bg=BG, fg=BG, troughcolor=BG3,
+                      highlightthickness=0, bd=0, sliderrelief='flat', activebackground=SKY, showvalue=False,
+                      command=set_alpha)
+        sa.pack(fill='x'); sa._nodrag = True
+        tk.Label(c, text='Quanto menor, mais o jogo aparece através do painel.', font=(FONT, 8), fg=MUTED2, bg=BG, anchor='w').pack(fill='x', padx=4, pady=(4, 0))
 
         self.section(c, 'TEMPO QUE O PAINEL FICA ABERTO (SEGUNDOS)')
         sv = tk.IntVar(value=cfg['show_s'])

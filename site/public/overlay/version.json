@@ -1,5 +1,5 @@
 {
- "version": "2.2.1",
- "url": "https://github.com/Hiaan/pkaguide/releases/download/v2.2.1/PKA.GUIDE.Setup.exe",
- "notes": "Corrige o icone do atalho no Windows."
+ "version": "2.3.0",
+ "url": "https://github.com/Hiaan/pkaguide/releases/download/v2.3.0/PKA.GUIDE.Setup.exe",
+ "notes": "Controle de transparencia do painel nas configuracoes."
 }
