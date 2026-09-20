@@ -3,6 +3,20 @@ import { SectionHead } from '../components/ui'
 type Tool = { url: string; name: string; tag: string; title: string; sub: string; lead: string; features: { ico: string; title: string; desc: string }[]; note?: string }
 
 const TOOLS: Record<string, Tool> = {
+  overlay: {
+    url: 'https://github.com/Hiaan/pkaguide/releases/latest/download/PKA.Guide.Overlay.exe',
+    name: 'PKA Guide Overlay', tag: 'App para Windows',
+    title: 'PKA Guide Overlay',
+    sub: 'Passe o mouse em um item dentro do jogo e veja na hora para que ele serve: PokeTalent, boost, material ou só NPC.',
+    lead: 'Baixe o instalador, abra uma vez e pronto: ele se instala, cria o atalho e fica como uma barrinha no canto da tela. Lê o tooltip por captura de tela (não lê memória do jogo) e se atualiza sozinho.',
+    features: [
+      { ico: '🖱️', title: 'Passe o mouse e pronto', desc: 'Funciona no depot, na bag e no loot. O painel abre só quando reconhece um item e fecha sozinho.' },
+      { ico: '🟢', title: 'Cores por destino', desc: 'Verde: usar ou vender para player (PokeTalent). Amarelo: boost. Azul: material. Cinza: só NPC.' },
+      { ico: '🔄', title: 'Sempre atualizado', desc: 'A base de itens vem deste site todo dia, e o app avisa quando tem versão nova com um botão de atualizar.' },
+      { ico: '🛡️', title: 'Seguro para o anticheat', desc: 'Só captura de tela e OCR. Nada é injetado no cliente, nenhuma memória é lida, nenhum comando é enviado ao jogo.' },
+    ],
+    note: 'Windows 10/11. O arquivo tem ~115 MB por causa do modelo de OCR embutido. O Windows pode mostrar um aviso de "editor desconhecido" na primeira execução: clique em "Mais informações" e "Executar assim mesmo".',
+  },
   criticalcatch: {
     url: 'https://criticalcatch-pkatools.vercel.app/',
     name: 'Critical Catch', tag: 'PKA Tools',
@@ -40,8 +54,8 @@ export default function Ferramentas({ sub }: { sub: string }) {
       <div className="sug">
         <div className="sug-hero">
           <h2><span>{t.name}</span> · {t.tag}</h2>
-          <p>{t.lead} Abre em uma nova aba.</p>
-          <a className="btn btn-primary" style={{ fontSize: 17, padding: '16px 30px' }} href={t.url} target="_blank" rel="noreferrer">🚀 Abrir {t.name} ↗</a>
+          <p>{t.lead}{sub === 'overlay' ? '' : ' Abre em uma nova aba.'}</p>
+          <a className="btn btn-primary" style={{ fontSize: 17, padding: '16px 30px' }} href={t.url} target="_blank" rel="noreferrer">{sub === 'overlay' ? '⬇ Baixar' : '🚀 Abrir'} {t.name} ↗</a>
           <div className="muted small" style={{ marginTop: 12 }}>{t.url.replace('https://', '').replace(/\/$/, '')}</div>
         </div>
         <div className="sug-steps" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
