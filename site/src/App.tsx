@@ -20,7 +20,7 @@ const SECTIONS = [
   { id: 'desafios', label: 'Desafios', ico: '⚔️', subs: [['gym', 'Ginásios'], ['guildboss', 'Bosses de Guild'], ['rocket', 'Rockets'], ['police', 'Polícia'], ['hazard', 'Hazard Tasks'], ['linked', 'Linked Tasks'], ['bh', 'Brotherhood']] },
   { id: 'times', label: 'Times', ico: '🧭', subs: [['hunt', 'Por hunt (Safnaw)'], ['sem-t2', 'Sem T2/T3 (loxas)']] },
   { id: 'videos', label: 'Vídeos', ico: '🎬', subs: [['perguntar', 'Pergunte aos vídeos'], ['temas', 'Por tema'], ['canais', 'Canais']] },
-  { id: 'ferramentas', label: 'Ferramentas', ico: '🧰', subs: [['overlay', 'PKA Guide Overlay'], ['criticalcatch', 'Critical Catch'], ['pokeforge', 'PokéForge (builds)']] },
+  { id: 'ferramentas', label: 'Ferramentas', ico: '🧰', subs: [['overlay', 'PKA GUIDE Overlay'], ['criticalcatch', 'Critical Catch'], ['pokeforge', 'PokéForge (builds)']] },
   { id: 'faq', label: 'FAQ', ico: '💬', subs: [] },
   { id: 'sugestoes', label: 'Sugestões', ico: '💡', subs: [] },
 ] as const
@@ -73,7 +73,7 @@ export default function App() {
         <div className="hero-inner">
           <img className="hero-logo" src="/logo.png" alt="PokeAlliance" />
           <div>
-            <h1 className="hero-title">Guia <span>PokeAlliance</span></h1>
+            <h1 className="hero-title">PKA <span>GUIDE</span></h1>
             <p className="hero-sub">Pokédex, drops, hunts, tier list, dungeons, gyms, rockets e tudo que a planilha tem, bonito e organizado.</p>
           </div>
           <div className="hero-actions">

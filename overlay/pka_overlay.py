@@ -14,8 +14,8 @@ import mss
 from PIL import Image, ImageTk
 from pynput import mouse
 
-APP_NAME = 'PKA Guide Overlay'
-VERSION = '1.0.0'
+APP_NAME = 'PKA GUIDE'
+VERSION = '1.0.1'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -187,14 +187,13 @@ class App:
         # cabeçalho (arrastável) com a identidade do site
         head = tk.Frame(outer, bg=BG2, cursor='fleur'); head.pack(fill='x')
         try:
-            self.logo = ImageTk.PhotoImage(Image.open(os.path.join(BUNDLE, 'logo_small.png')).resize((26, 26), Image.LANCZOS))
+            self.logo = ImageTk.PhotoImage(Image.open(os.path.join(BUNDLE, 'logo_small.png')).convert('RGBA').resize((28, 28), Image.LANCZOS))
             tk.Label(head, image=self.logo, bg=BG2).pack(side='left', padx=(10, 6), pady=5)
         except Exception:
             tk.Label(head, text='◉', font=(FONT, 12, 'bold'), fg=ORANGE, bg=BG2).pack(side='left', padx=(10, 4), pady=6)
         t = tk.Frame(head, bg=BG2); t.pack(side='left', pady=4)
-        tk.Label(t, text='Guia ', font=(FONT, 10, 'bold'), fg=TXT, bg=BG2).pack(side='left')
-        tk.Label(t, text='PokeAlliance', font=(FONT, 10, 'bold'), fg=SKY, bg=BG2).pack(side='left')
-        tk.Label(t, text='  Overlay', font=(FONT, 9), fg=MUTED, bg=BG2).pack(side='left')
+        tk.Label(t, text='PKA ', font=(FONT, 10, 'bold'), fg=TXT, bg=BG2).pack(side='left')
+        tk.Label(t, text='GUIDE', font=(FONT, 10, 'bold'), fg=SKY, bg=BG2).pack(side='left')
         self.b_close = tk.Label(head, text='✕', font=(FONT, 10, 'bold'), fg=MUTED, bg=BG2, padx=10, cursor='hand2')
         self.b_close.pack(side='right', pady=6)
         self.b_close.bind('<Button-1>', lambda e: self.q.put(('quit', None)))
@@ -205,8 +204,12 @@ class App:
         self.b_toggle.bind('<Button-1>', lambda e: self.toggle())
         self.b_update = tk.Label(head, text='', font=(FONT, 9, 'bold'), fg='white', bg=INDIGO, padx=10, pady=2, cursor='hand2')
         self.b_update.bind('<Button-1>', lambda e: self.do_update())
-        for w in (head, t):
+        # arrastar segurando em qualquer ponto do cabeçalho (menos nos botões)
+        def bind_drag(w):
+            if w in (self.b_close, self.b_toggle, self.b_update): return
             w.bind('<ButtonPress-1>', self.drag_start); w.bind('<B1-Motion>', self.drag)
+            for c in w.winfo_children(): bind_drag(c)
+        bind_drag(head)
 
         # corpo (fechado por padrão)
         body = tk.Frame(outer, bg=BG, width=360); body.pack_propagate(False)

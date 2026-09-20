@@ -4,9 +4,9 @@ type Tool = { url: string; name: string; tag: string; title: string; sub: string
 
 const TOOLS: Record<string, Tool> = {
   overlay: {
-    url: 'https://github.com/Hiaan/pkaguide/releases/latest/download/PKA.Guide.Overlay.exe',
-    name: 'PKA Guide Overlay', tag: 'App para Windows',
-    title: 'PKA Guide Overlay',
+    url: 'https://github.com/Hiaan/pkaguide/releases/latest/download/PKA.GUIDE.exe',
+    name: 'PKA GUIDE', tag: 'Overlay para Windows',
+    title: 'PKA GUIDE Overlay',
     sub: 'Passe o mouse em um item dentro do jogo e veja na hora para que ele serve: PokeTalent, boost, material ou só NPC.',
     lead: 'Baixe o instalador, abra uma vez e pronto: ele se instala, cria o atalho e fica como uma barrinha no canto da tela. Lê o tooltip por captura de tela (não lê memória do jogo) e se atualiza sozinho.',
     features: [
