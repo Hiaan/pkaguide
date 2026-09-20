@@ -1,5 +1,5 @@
 {
- "version": "1.2.0",
- "url": "https://github.com/Hiaan/pkaguide/releases/download/v1.2.0/PKA.GUIDE.exe",
- "notes": "Lê o tooltip com 3 tentativas, modo por tecla de atalho configurável, cadastro de itens novos e ícone novo."
+ "version": "1.3.0",
+ "url": "https://github.com/Hiaan/pkaguide/releases/download/v1.3.0/PKA.GUIDE.exe",
+ "notes": "Novo modo Ambos: leitura automatica e por tecla de atalho ao mesmo tempo."
 }

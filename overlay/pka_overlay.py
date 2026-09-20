@@ -14,7 +14,7 @@ from PIL import Image, ImageTk
 from pynput import mouse, keyboard
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '1.2.0'
+VERSION = '1.3.0'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -357,7 +357,7 @@ class App:
         if not combo: return
         if self.recording:                       # gravando nova tecla na tela de config
             self.q.put(('recorded', combo)); return
-        if cfg['mode'] == 'hotkey' and self.enabled and combo == cfg['hotkey']:
+        if cfg['mode'] in ('hotkey', 'ambos') and self.enabled and combo == cfg['hotkey']:
             threading.Thread(target=self.capture_now, daemon=True).start()
 
     def on_key_up(self, key):
@@ -392,7 +392,7 @@ class App:
         while True:
             time.sleep(0.05)
             try:
-                if not self.enabled or cfg['mode'] != 'auto': continue
+                if not self.enabled or cfg['mode'] not in ('auto', 'ambos'): continue
                 if self.pos != last_pos:
                     last_pos, tries, done = self.pos, 0, False
                 if done or tries >= len(TRIES): continue
@@ -529,8 +529,10 @@ class App:
         tk.Label(c, text='QUANDO LER O ITEM', font=(FONT, 8, 'bold'), fg=MUTED, bg=BG, anchor='w').pack(fill='x')
         mode = tk.StringVar(value=cfg['mode'])
         box = tk.Frame(c, bg=BG); box.pack(fill='x', pady=(6, 4))
+        self._mode_var = mode
         for key, title, sub in (('auto', 'Automático', 'lê sozinho quando você para o mouse sobre o item'),
-                                ('hotkey', 'Só quando eu apertar a tecla', 'não fica lendo a tela o tempo todo')):
+                                ('hotkey', 'Só quando eu apertar a tecla', 'não fica lendo a tela o tempo todo'),
+                                ('ambos', 'Ambos', 'lê sozinho e também quando você aperta a tecla')):
             row = tk.Frame(box, bg=BG); row.pack(fill='x', pady=2)
             tk.Radiobutton(row, text='  ' + title, value=key, variable=mode, font=(FONT, 10, 'bold'), fg=TXT, bg=BG,
                            selectcolor=BG3, activebackground=BG, activeforeground=ORANGE, anchor='w', bd=0,
@@ -581,7 +583,8 @@ class App:
         m.geometry(f'+{max(20, self.root.winfo_x() - m.winfo_width() - 14)}+{self.root.winfo_y() + 40}')
 
     def update_foot(self):
-        extra = f"tecla {pretty_key(cfg['hotkey'])}" if cfg['mode'] == 'hotkey' else 'automático'
+        m = cfg['mode']; k = pretty_key(cfg['hotkey'])
+        extra = 'automático' if m == 'auto' else (f'tecla {k}' if m == 'hotkey' else f'automático + tecla {k}')
         self.l_foot.config(text=f'{extra}  ·  catálogo: {len(catalog)}  ·  {self.status_text}')
 
     def close_modal(self):
@@ -632,7 +635,11 @@ class App:
                     self.open_panel()
                 elif kind == 'recorded':
                     self.recording = None
-                    cfg['hotkey'] = payload; cfg['mode'] = 'hotkey'; save_cfg()
+                    cfg['hotkey'] = payload
+                    if cfg['mode'] == 'auto': cfg['mode'] = 'ambos'
+                    save_cfg()
+                    try: self._mode_var.set(cfg['mode'])
+                    except Exception: pass
                     try:
                         l_key, b_rec = self._cfg_widgets
                         l_key.config(text=pretty_key(payload), fg=SKY)
