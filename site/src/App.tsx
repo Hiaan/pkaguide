@@ -77,6 +77,10 @@ export default function App() {
             <p className="hero-sub">Pokédex, drops, hunts, tier list, dungeons, gyms, rockets e tudo que a planilha tem, bonito e organizado.</p>
           </div>
           <div className="hero-actions">
+            <a className="btn hero-overlay" href="https://github.com/Hiaan/pkaguide/releases/latest/download/PKA.GUIDE.exe" onClick={(e) => { e.preventDefault(); go('ferramentas', 'overlay') }} title="Overlay para Windows: passe o mouse no item dentro do jogo e veja para que ele serve">
+              <span className="hero-overlay-ico">⬇</span>
+              <span><b>Baixe o OVERLAY do PKA GUIDE</b><small>para usar sem sair do jogo</small></span>
+            </a>
             <a className="btn" href="https://discord.gg/pokealliance" target="_blank" rel="noreferrer">Discord</a>
             <a className="btn" href="https://wiki.pokealliance.com" target="_blank" rel="noreferrer">Wiki</a>
             <a className="btn btn-primary" href="https://pokealliance.com" target="_blank" rel="noreferrer">Jogar</a>
