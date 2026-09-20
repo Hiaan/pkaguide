@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 PKA Overlay: passa o mouse em um item no jogo e mostra para que ele serve.
-  F8  liga / desliga
-  F9  fecha o app
+  Botão no canto superior direito: clique liga / desliga; ✕ fecha o app (sem teclas de atalho, para não conflitar com o jogo)
 Lê o tooltip do jogo por OCR (nada é injetado no cliente), cruza com a base do site (items_db.json)
 e guarda o ícone + nome em catalog/ para montar o catálogo de itens.
 """
@@ -11,7 +10,7 @@ import tkinter as tk
 import numpy as np
 import mss
 from PIL import Image
-from pynput import mouse, keyboard
+from pynput import mouse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DB = json.load(open(os.path.join(HERE, 'items_db.json'), encoding='utf-8'))
@@ -63,7 +62,7 @@ def get_ocr():
     return _ocr
 
 def read_tooltip(x, y):
-    with mss.mss() as sct:
+    with mss.MSS() as sct:
         mon = sct.monitors[0]
         box = {'left': max(mon['left'], x + REGION[0]), 'top': max(mon['top'], y + REGION[1]),
                'width': REGION[2] - REGION[0], 'height': REGION[3] - REGION[1]}
@@ -101,32 +100,37 @@ class App:
         # status pill (canto superior direito)
         self.status = tk.Toplevel(self.root)
         self.status.overrideredirect(True); self.status.attributes('-topmost', True); self.status.attributes('-alpha', 0.85)
-        self.s_label = tk.Label(self.status, text='', font=('Segoe UI', 9, 'bold'), fg='white', bg='#16a34a', padx=10, pady=3)
-        self.s_label.pack()
+        self.s_label = tk.Label(self.status, text='', font=('Segoe UI', 9, 'bold'), fg='white', bg='#16a34a', padx=12, pady=5, cursor='hand2')
+        self.s_label.pack(side='left')
+        self.s_label.bind('<Button-1>', lambda e: self.toggle())
+        self.s_close = tk.Label(self.status, text=' ✕ ', font=('Segoe UI', 10, 'bold'), fg='white', bg='#27272a', padx=6, pady=5, cursor='hand2')
+        self.s_close.pack(side='left')
+        self.s_close.bind('<Button-1>', lambda e: self.q.put(('quit', None)))
+        # arrastar o selo
+        self.s_label.bind('<B1-Motion>', self.drag)
         sw = self.root.winfo_screenwidth()
-        self.status.geometry(f'+{sw - 230}+8')
+        self.status.geometry(f'+{sw - 260}+8')
         self.set_status()
         self.hide_at = 0
         mouse.Listener(on_move=self.on_move).start()
-        keyboard.Listener(on_press=self.on_key).start()
         threading.Thread(target=self.worker, daemon=True).start()
         threading.Thread(target=get_ocr, daemon=True).start()  # pré-carrega o OCR
         self.root.after(100, self.tick)
 
     def set_status(self):
-        self.s_label.config(text=f'PKA Overlay {"LIGADO  (F8 desliga)" if self.enabled else "DESLIGADO  (F8 liga)"}',
+        self.s_label.config(text=f'PKA Overlay  ●  {"LIGADO (clique p/ desligar)" if self.enabled else "DESLIGADO (clique p/ ligar)"}',
                             bg='#16a34a' if self.enabled else '#7f1d1d')
+
+    def toggle(self):
+        self.enabled = not self.enabled
+        self.set_status()
+        if not self.enabled: self.root.withdraw()
+
+    def drag(self, e):
+        self.status.geometry(f'+{e.x_root - 80}+{e.y_root - 12}')
 
     def on_move(self, x, y):
         self.pos = (x, y); self.last_move = time.time()
-
-    def on_key(self, key):
-        if key == keyboard.Key.f8:
-            self.enabled = not self.enabled
-            self.q.put(('status', None))
-            if not self.enabled: self.q.put(('hide', None))
-        elif key == keyboard.Key.f9:
-            self.q.put(('quit', None))
 
     def worker(self):
         while True:
@@ -207,5 +211,5 @@ class App:
         self.root.after(60, self.tick)
 
 if __name__ == '__main__':
-    print('PKA Overlay iniciado. F8 liga/desliga, F9 fecha. Itens na base:', len(DB))
+    print('PKA Overlay iniciado. Use o botão no canto superior direito. Itens na base:', len(DB))
     App().root.mainloop()
