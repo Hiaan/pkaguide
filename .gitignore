@@ -7,3 +7,6 @@ imgur_log.txt
 collect_log.txt
 transcripts_log.txt
 transcripts/_tmp/
+overlay/catalog/
+overlay/overlay_log.txt
+overlay/tooltip_test.png
