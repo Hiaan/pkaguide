@@ -1,5 +1,5 @@
 {
- "version": "2.2.0",
- "url": "https://github.com/Hiaan/pkaguide/releases/download/v2.2.0/PKA.GUIDE.Setup.exe",
- "notes": "Consulta de tasks pelo overlay: digite o Pokemon e veja NPC, mapa e recompensa."
+ "version": "2.2.1",
+ "url": "https://github.com/Hiaan/pkaguide/releases/download/v2.2.1/PKA.GUIDE.Setup.exe",
+ "notes": "Corrige o icone do atalho no Windows."
 }

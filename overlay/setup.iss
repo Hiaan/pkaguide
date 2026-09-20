@@ -1,7 +1,7 @@
 ; Instalador nativo do PKA GUIDE Overlay (Inno Setup)
 ; Não usa Python nem descompacta nada na pasta Temp: instala a pasta do app direto.
 #define AppName    "PKA GUIDE"
-#define AppVersion "2.2.0"
+#define AppVersion "2.2.1"
 #define AppExe     "PKA GUIDE.exe"
 
 [Setup]
@@ -34,8 +34,8 @@ Name: "pt"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
 Source: "dist\PKA GUIDE\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExe}"; WorkingDir: "{app}"; Comment: "Guia de itens do PokeAlliance"
-Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExe}"; WorkingDir: "{app}"
+Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExe}"; WorkingDir: "{app}"; IconFilename: "{app}\{#AppExe}"; IconIndex: 0; Comment: "Guia de itens do PokeAlliance"
+Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExe}"; WorkingDir: "{app}"; IconFilename: "{app}\{#AppExe}"; IconIndex: 0
 
 [Run]
 Filename: "{app}\{#AppExe}"; Description: "Abrir o {#AppName} agora"; Flags: nowait postinstall skipifsilent
