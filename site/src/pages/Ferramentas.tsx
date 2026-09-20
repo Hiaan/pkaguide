@@ -11,6 +11,8 @@ const TOOLS: Record<string, Tool> = {
     lead: 'Baixe o instalador, abra uma vez e pronto: ele se instala, cria o atalho e fica como uma barrinha no canto da tela. Lê o tooltip por captura de tela (não lê memória do jogo) e se atualiza sozinho.',
     features: [
       { ico: '🖱️', title: 'Passe o mouse e pronto', desc: 'Funciona no depot, na bag e no loot. O painel abre só quando reconhece um item e fecha sozinho.' },
+      { ico: '⌨️', title: 'Ou use uma tecla sua', desc: 'Nas configurações dá para trocar para o modo tecla de atalho: ele só lê a tela quando você aperta a tecla que escolher.' },
+      { ico: '➕', title: 'Cadastre o que falta', desc: 'Item que ainda não está na base aparece como "não cadastrado" e você mesmo registra para que serve.' },
       { ico: '🟢', title: 'Cores por destino', desc: 'Verde: usar ou vender para player (PokeTalent). Amarelo: boost. Azul: material. Cinza: só NPC.' },
       { ico: '🔄', title: 'Sempre atualizado', desc: 'A base de itens vem deste site todo dia, e o app avisa quando tem versão nova com um botão de atualizar.' },
       { ico: '🛡️', title: 'Seguro para o anticheat', desc: 'Só captura de tela e OCR. Nada é injetado no cliente, nenhuma memória é lida, nenhum comando é enviado ao jogo.' },

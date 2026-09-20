@@ -1,5 +1,5 @@
 {
- "version": "1.0.1",
- "url": "https://github.com/Hiaan/pkaguide/releases/download/v1.0.1/PKA.GUIDE.exe",
- "notes": "Novo ícone, nome PKA GUIDE e arrastar em todo o cabeçalho."
+ "version": "1.2.0",
+ "url": "https://github.com/Hiaan/pkaguide/releases/download/v1.2.0/PKA.GUIDE.exe",
+ "notes": "Lê o tooltip com 3 tentativas, modo por tecla de atalho configurável, cadastro de itens novos e ícone novo."
 }

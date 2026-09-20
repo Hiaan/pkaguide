@@ -5,6 +5,8 @@ Passe o mouse em um item no PokeAlliance e o painel mostra para que ele serve (P
 - Lê o tooltip por **captura de tela + OCR**. Não lê memória, não injeta nada no cliente.
 - Base de itens baixada de https://pkaguide.vercel.app/overlay/items_db.json a cada abertura (cópia local se estiver offline).
 - Verifica versão nova em https://pkaguide.vercel.app/overlay/version.json e oferece o botão "Atualizar".
+- Dois modos (botão ⚙): **automático** (lê quando o mouse para sobre o item) ou **tecla de atalho** configurável (só lê quando você aperta).
+- Item fora da base abre o painel como "NÃO CADASTRADO" com botão para cadastrar; os cadastros ficam em `custom_items.json` e os não reconhecidos em `nao_reconhecidos.json`.
 - Na primeira execução, o `.exe` se copia para `%LOCALAPPDATA%\PKA Guide Overlay` e cria atalhos na área de trabalho e no menu Iniciar.
 
 ## Rodar do código
