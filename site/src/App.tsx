@@ -12,6 +12,7 @@ import Times from './pages/Times'
 import Ferramentas from './pages/Ferramentas'
 import Videos, { videos as allVideos } from './pages/Videos'
 import Wiki from './pages/Wiki'
+import Tasks from './pages/Tasks'
 import wikiData from './data/wiki.json'
 
 const wikiPages = (wikiData as { pages: { path: string; title: string; summary: string }[] }).pages
@@ -24,6 +25,7 @@ const SECTIONS = [
   { id: 'dungeons', label: 'Dungeons', ico: '🏰', subs: [['list', 'Dungeons'], ['dens', 'Dens'], ['porygon', 'Porygon']] },
   { id: 'desafios', label: 'Desafios', ico: '⚔️', subs: [['gym', 'Ginásios'], ['guildboss', 'Bosses de Guild'], ['rocket', 'Rockets'], ['police', 'Polícia'], ['hazard', 'Hazard Tasks'], ['linked', 'Linked Tasks'], ['bh', 'Brotherhood']] },
   { id: 'times', label: 'Times', ico: '🧭', subs: [['hunt', 'Por hunt (Safnaw)'], ['sem-t2', 'Sem T2/T3 (loxas)']] },
+  { id: 'tasks', label: 'Tasks', ico: '📋', subs: [] },
   { id: 'wiki', label: 'Wiki', ico: '📚', subs: [] },
   { id: 'videos', label: 'Vídeos', ico: '🎬', subs: [['perguntar', 'Pergunte aos vídeos'], ['temas', 'Por tema'], ['canais', 'Canais']] },
   { id: 'ferramentas', label: 'Ferramentas', ico: '🧰', subs: [['overlay', 'PKA GUIDE Overlay'], ['criticalcatch', 'Critical Catch'], ['pokeforge', 'PokéForge (builds)']] },
@@ -140,6 +142,7 @@ export default function App() {
         {section === 'dungeons' && <Dungeons sub={sub} onOpen={setSelected} />}
         {section === 'desafios' && <Desafios sub={sub} onOpen={setSelected} />}
         {section === 'times' && <Times sub={sub} onOpen={setSelected} />}
+        {section === 'tasks' && <Tasks onOpen={setSelected} />}
         {section === 'wiki' && <Wiki sub={sub} go={go} />}
         {section === 'videos' && <Videos sub={sub} />}
         {section === 'ferramentas' && <Ferramentas sub={sub} />}

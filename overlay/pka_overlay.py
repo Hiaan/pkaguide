@@ -6,7 +6,7 @@ PKA GUIDE Overlay: passa o mouse (ou aperta a tecla) em um item do jogo e o pain
 - Modos: automático, tecla de atalho ou ambos (⚙ Configurações).
 - Item fora da base abre como "NÃO CADASTRADO" com botão para cadastrar.
 """
-import json, os, re, sys, threading, time, queue, difflib, unicodedata, subprocess, tempfile, traceback
+import json, os, re, sys, threading, time, queue, difflib, unicodedata, subprocess, tempfile, traceback, webbrowser
 import tkinter as tk
 import numpy as np
 import mss
@@ -15,10 +15,11 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '2.1.0'
+VERSION = '2.2.0'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
+TASKS_URL = SITE + '/overlay/tasks_db.json'
 
 if os.name == 'nt':  # sem isso, em telas com escala != 100% a área capturada sai deslocada
     try:
@@ -39,6 +40,7 @@ CUSTOM_FILE = os.path.join(DATA_DIR, 'custom_items.json')
 UNKNOWN_FILE = os.path.join(DATA_DIR, 'nao_reconhecidos.json')
 LOG_FILE = os.path.join(DATA_DIR, 'overlay.log')
 CONFIG_FILE = os.path.join(DATA_DIR, 'config.json')
+TASKS_FILE = os.path.join(DATA_DIR, 'tasks_db.json')
 
 def log(*a):
     try:
@@ -113,6 +115,29 @@ def refresh_db():
     except Exception as e:
         log('refresh_db', e); return f'{len(DB)} itens (offline)'
     return f'{len(DB)} itens'
+
+TASKS = jload(TASKS_FILE, None) or jload(os.path.join(BUNDLE, 'tasks_db.json'), {'tasks': []})
+
+def refresh_tasks():
+    global TASKS
+    try:
+        import requests
+        d = requests.get(TASKS_URL, timeout=10).json()
+        if isinstance(d, dict) and d.get('tasks'):
+            json.dump(d, open(TASKS_FILE, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+            TASKS = d
+    except Exception as e: log('refresh_tasks', e)
+
+def search_tasks(q, limit=8):
+    s = norm(q)
+    if len(s) < 2: return []
+    exact, partial = [], []
+    for t in TASKS.get('tasks', []):
+        alvos = [norm(o.get('target', '')) for o in t.get('objectives', [])]
+        if s in alvos: exact.append(t)
+        elif any(s in a for a in alvos) or s in norm(t.get('npc', ''))              or any(s in norm(r.get('label', '')) for r in t.get('rewards', [])):
+            partial.append(t)
+    return (exact + partial)[:limit]
 
 def check_update():
     try:
@@ -327,6 +352,11 @@ class App:
         self.b_toggle._nodrag = True
         self.b_toggle.bind('<Button-1>', lambda e: self.toggle())
 
+        self.b_tasks = tk.Label(head, text='📋', font=(FONT, 11), fg=MUTED2, bg=BG, padx=5, cursor='hand2')
+        self.b_tasks.pack(side='right'); self.b_tasks._nodrag = True
+        self.b_tasks.bind('<Button-1>', lambda e: self.open_tasks())
+        self.b_tasks.bind('<Enter>', lambda e: self.b_tasks.config(fg=TXT))
+        self.b_tasks.bind('<Leave>', lambda e: self.b_tasks.config(fg=MUTED2))
         self.b_cfg = tk.Label(head, text='⚙', font=(FONT, 12), fg=MUTED2, bg=BG, padx=6, cursor='hand2')
         self.b_cfg.pack(side='right'); self.b_cfg._nodrag = True
         self.b_cfg.bind('<Button-1>', lambda e: self.open_config())
@@ -366,6 +396,7 @@ class App:
     # ---------- início ----------
     def startup(self):
         msg = refresh_db()
+        refresh_tasks()
         self.status_text = f'v{VERSION} · {msg}'
         get_ocr()
         self.status_text = f'v{VERSION} · {msg} · pronto'
@@ -685,6 +716,51 @@ class App:
         self.button(bar, 'Fechar', GREEN, self.close_modal, side='right')
         self.button(bar, 'Abrir pasta', BG3, lambda: subprocess.Popen(['explorer', DATA_DIR]), side='right', padx=(0, 8))
         self._place_modal(m)
+
+    def open_tasks(self):
+        m = self._modal('Consultar tasks', 'target', SKY, width=430)
+        c = m.body
+        self.section(c, 'NOME DO POKÉMON, NPC OU RECOMPENSA')
+        e = self.entry(c)
+        info = tk.Label(c, text=f"{len(TASKS.get('tasks', []))} tasks da wiki oficial", font=(FONT, 8), fg=MUTED2, bg=BG, anchor='w')
+        info.pack(fill='x', padx=4, pady=(6, 0))
+        res = tk.Frame(c, bg=BG); res.pack(fill='x', pady=(6, 2))
+
+        def draw(*_):
+            for w in res.winfo_children(): w.destroy()
+            found = search_tasks(e.get())
+            if not found:
+                if len(norm(e.get())) >= 2:
+                    tk.Label(res, text='Nenhuma task encontrada.', font=(FONT, 9), fg=MUTED, bg=BG, anchor='w').pack(fill='x', padx=4, pady=6)
+                    info.config(text='0 resultados')
+                m.relayout(); return
+            info.config(text=f'{len(found)} resultado(s)')
+            for t in found:
+                card = tk.Frame(res, bg=BG2); card.pack(fill='x', pady=4)
+                top = tk.Frame(card, bg=BG2); top.pack(fill='x', padx=12, pady=(9, 2))
+                tk.Label(top, text=t.get('npc', '?'), font=(FONT, 11, 'bold'), fg=TXT, bg=BG2).pack(side='left')
+                tk.Label(top, text='  ' + t.get('region', ''), font=(FONT, 8), fg=MUTED, bg=BG2).pack(side='left')
+                if t.get('loc'):
+                    lk = tk.Label(top, text='🗺 onde fica', font=(FONT, 8, 'bold'), fg=SKY, bg=BG2, cursor='hand2')
+                    lk.pack(side='right'); lk._nodrag = True
+                    lk.bind('<Button-1>', lambda ev, u=t['loc']: webbrowser.open(u))
+                for o in t.get('objectives', []):
+                    txt = f"• {o['qty']}x {o['target']}" if o.get('qty') else '• ' + o.get('text', '')
+                    tk.Label(card, text=txt, font=(FONT, 9), fg='#e4e4e7', bg=BG2, anchor='w',
+                             wraplength=380, justify='left').pack(fill='x', padx=16)
+                rw = ' · '.join(f"{r.get('qty','')} {r.get('label','')}".strip() for r in t.get('rewards', [])) or 'sem recompensa listada'
+                tk.Label(card, text='🎁 ' + rw, font=(FONT, 8), fg=YELLOW, bg=BG2, anchor='w',
+                         wraplength=380, justify='left').pack(fill='x', padx=16, pady=(4, 10))
+            m.relayout()
+
+        e.bind('<KeyRelease>', draw)
+        bar = tk.Frame(c, bg=BG); bar.pack(fill='x', pady=(10, 4))
+        self.button(bar, 'Fechar', GREEN, self.close_modal, side='right')
+        if self.pending:
+            nome = self.pending[0].title()
+            self.button(bar, nome[:16], SKY, lambda: (e.delete(0, 'end'), e.insert(0, nome), draw()), 'search', side='left')
+        self._place_modal(m)
+        e.focus_set()
 
     def close_modal(self):
         self.recording = None
