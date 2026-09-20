@@ -4,11 +4,11 @@ type Tool = { url: string; name: string; tag: string; title: string; sub: string
 
 const TOOLS: Record<string, Tool> = {
   overlay: {
-    url: 'https://github.com/Hiaan/pkaguide/releases/latest/download/PKA.GUIDE.exe',
+    url: 'https://github.com/Hiaan/pkaguide/releases/latest/download/PKA.GUIDE.Setup.exe',
     name: 'PKA GUIDE', tag: 'Overlay para Windows',
     title: 'PKA GUIDE Overlay',
     sub: 'Passe o mouse em um item dentro do jogo e veja na hora para que ele serve: PokeTalent, boost, material ou só NPC.',
-    lead: 'Baixe o instalador, abra uma vez e pronto: ele se instala, cria o atalho e fica como uma barrinha no canto da tela. Lê o tooltip por captura de tela (não lê memória do jogo) e se atualiza sozinho.',
+    lead: 'Baixe, clique em Instalar agora e pronto: ele cria o atalho e fica como uma barrinha no canto da tela. Lê o tooltip por captura de tela (não lê memória do jogo) e se atualiza sozinho.',
     features: [
       { ico: '🖱️', title: 'Passe o mouse e pronto', desc: 'Funciona no depot, na bag e no loot. O painel abre só quando reconhece um item e fecha sozinho.' },
       { ico: '⌨️', title: 'Ou use uma tecla sua', desc: 'Nas configurações dá para trocar para o modo tecla de atalho: ele só lê a tela quando você aperta a tecla que escolher.' },
@@ -17,7 +17,7 @@ const TOOLS: Record<string, Tool> = {
       { ico: '🔄', title: 'Sempre atualizado', desc: 'A base de itens vem deste site todo dia, e o app avisa quando tem versão nova com um botão de atualizar.' },
       { ico: '🛡️', title: 'Seguro para o anticheat', desc: 'Só captura de tela e OCR. Nada é injetado no cliente, nenhuma memória é lida, nenhum comando é enviado ao jogo.' },
     ],
-    note: 'Windows 10/11. O arquivo tem ~115 MB por causa do modelo de OCR embutido. O Windows pode mostrar um aviso de "editor desconhecido" na primeira execução: clique em "Mais informações" e "Executar assim mesmo".',
+    note: 'Windows 10/11. O instalador tem ~145 MB por causa do modelo de OCR embutido. O Windows pode mostrar um aviso de "editor desconhecido": clique em "Mais informações" e "Executar assim mesmo".',
   },
   criticalcatch: {
     url: 'https://criticalcatch-pkatools.vercel.app/',
