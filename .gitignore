@@ -10,3 +10,7 @@ transcripts/_tmp/
 overlay/catalog/
 overlay/overlay_log.txt
 overlay/tooltip_test.png
+overlay/build/
+overlay/dist/
+overlay/*.spec
+overlay/build_log.txt
