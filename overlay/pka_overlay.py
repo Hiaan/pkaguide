@@ -15,7 +15,7 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '2.0.0'
+VERSION = '2.1.0'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -131,7 +131,7 @@ def apply_update(url):
         r.raise_for_status()
         with open(setup, 'wb') as f:
             for chunk in r.iter_content(1 << 16): f.write(chunk)
-    subprocess.Popen([setup, '/S'], creationflags=0x00000008)
+    subprocess.Popen([setup, '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART'], creationflags=0x00000008)
     os._exit(0)
 
 # ---------------- texto ----------------

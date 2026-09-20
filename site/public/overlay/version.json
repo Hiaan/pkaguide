@@ -1,5 +1,5 @@
 {
- "version": "2.0.0",
- "url": "https://github.com/Hiaan/pkaguide/releases/download/v2.0.0/PKA.GUIDE.Setup.exe",
- "notes": "Visual novo com cantos arredondados e icones proprios, leitura mais rapida, instalador que resolve o erro de DLL."
+ "version": "2.1.0",
+ "url": "https://github.com/Hiaan/pkaguide/releases/download/v2.1.0/PKA.GUIDE.Setup.exe",
+ "notes": "Instalador nativo: acaba com o erro Failed to load Python DLL."
 }

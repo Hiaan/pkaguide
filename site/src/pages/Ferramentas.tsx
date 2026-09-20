@@ -17,7 +17,7 @@ const TOOLS: Record<string, Tool> = {
       { ico: '🔄', title: 'Sempre atualizado', desc: 'A base de itens vem deste site todo dia, e o app avisa quando tem versão nova com um botão de atualizar.' },
       { ico: '🛡️', title: 'Seguro para o anticheat', desc: 'Só captura de tela e OCR. Nada é injetado no cliente, nenhuma memória é lida, nenhum comando é enviado ao jogo.' },
     ],
-    note: 'Windows 10/11. O instalador tem ~145 MB por causa do modelo de OCR embutido. O Windows pode mostrar um aviso de "editor desconhecido": clique em "Mais informações" e "Executar assim mesmo".',
+    note: 'Windows 10/11. O instalador tem ~86 MB por causa do modelo de OCR embutido. O Windows pode mostrar um aviso de "editor desconhecido": clique em "Mais informações" e "Executar assim mesmo". Para remover, use Aplicativos Instalados do Windows.',
   },
   criticalcatch: {
     url: 'https://criticalcatch-pkatools.vercel.app/',
