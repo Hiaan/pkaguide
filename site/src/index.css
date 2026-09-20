@@ -380,3 +380,45 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .hero-overlay-ico { font-size: 20px; }
 .hero-overlay b { display: block; font-size: 13px; }
 .hero-overlay small { display: block; font-size: 11px; font-weight: 500; opacity: 0.85; }
+
+/* ---------- Wiki ---------- */
+.wiki-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+.wiki-bar .badge { padding: 6px 12px; }
+.wiki-card { cursor: pointer; transition: transform 0.15s, border-color 0.15s; }
+.wiki-card:hover { transform: translateY(-3px); border-color: rgba(249, 115, 22, 0.6); }
+.wiki-card h3 { margin: 0 0 6px; font-size: 15px; }
+.wiki-card p { margin: 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.wiki-layout { display: grid; gap: 22px; grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 1000px) { .wiki-layout { grid-template-columns: 1fr 210px; } }
+.wiki-toc { position: sticky; top: 90px; border-left: 2px solid var(--line); padding-left: 14px; display: flex; flex-direction: column; gap: 8px; }
+.wiki-toc-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted-2); font-weight: 800; margin-bottom: 2px; }
+.wiki-toc a { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.wiki-toc a:hover { color: var(--orange); text-decoration: none; }
+.wiki-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); }
+
+.wiki-doc { background: var(--grad-card); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 32px; box-shadow: var(--shadow); overflow-wrap: break-word; }
+.wiki-doc h1 { font-size: 30px; font-weight: 900; letter-spacing: -0.02em; margin: 0 0 6px; }
+.wiki-doc h2 { font-size: 20px; font-weight: 800; margin: 32px 0 10px; padding-bottom: 8px; border-bottom: 1px solid var(--line); scroll-margin-top: 90px; }
+.wiki-doc h3 { font-size: 16px; font-weight: 800; margin: 22px 0 8px; color: #e4e4e7; }
+.wiki-doc h4 { font-size: 14px; margin: 16px 0 6px; color: var(--muted); }
+.wiki-doc p, .wiki-doc li { font-size: 14px; line-height: 1.7; color: #d4d4d8; }
+.wiki-doc ul, .wiki-doc ol { padding-left: 22px; margin: 10px 0; }
+.wiki-doc li { margin-bottom: 5px; }
+.wiki-doc li::marker { color: var(--orange); }
+.wiki-doc strong { color: var(--text); font-weight: 700; }
+.wiki-doc code { background: rgba(255, 255, 255, 0.08); padding: 2px 7px; border-radius: 5px; font-size: 12.5px; color: #fbbf24; font-family: Consolas, monospace; }
+.wiki-doc pre { background: #0f0f12; border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; overflow-x: auto; }
+.wiki-doc pre code { background: none; color: #d4d4d8; padding: 0; }
+.wiki-doc blockquote { margin: 14px 0; padding: 12px 18px; border-left: 4px solid var(--sky); background: rgba(14, 165, 233, 0.08); border-radius: 0 10px 10px 0; }
+.wiki-doc blockquote p { margin: 0; color: #e4e4e7; }
+.wiki-doc table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; display: block; overflow-x: auto; }
+.wiki-doc th, .wiki-doc td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; white-space: normal; }
+.wiki-doc th { background: rgba(255, 255, 255, 0.04); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.wiki-doc tr:nth-child(even) td { background: rgba(255, 255, 255, 0.02); }
+.wiki-doc img { max-width: 100%; border-radius: 10px; border: 1px solid var(--line); margin: 10px 0; }
+.wiki-doc hr { border: 0; border-top: 1px solid var(--line); margin: 26px 0; }
+.wiki-doc a { color: var(--sky); }
+
+/* ---------- ícones de tipo ---------- */
+.tico { display: inline-block; vertical-align: -3px; margin-right: 1px; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35)); }
+.chip .tico, .badge .tico { margin-right: 4px; }

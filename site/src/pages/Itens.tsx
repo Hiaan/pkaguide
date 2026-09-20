@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { data, typeColor, type Pokemon } from '../lib/data'
-import { Note, PokeName, Search, SectionHead } from '../components/ui'
+import { Note, PokeName, Search, SectionHead, TypeIcon } from '../components/ui'
 import { VideoRefs } from './Videos'
 
 type Props = { sub: string; onOpen: (p: Pokemon) => void; item: string; setItem: (i: string) => void }
@@ -72,7 +72,7 @@ function Talents({ onOpen }: { onOpen: (p: Pokemon) => void }) {
         {grouped.map(([k, l]) => (
           <div className="card" key={k}>
             <div className="card-title">
-              <span className="badge type" style={{ background: typeColor(l[0].type) }}>{l[0].type}</span>
+              <span className="badge type" style={{ background: typeColor(l[0].type) }}><TypeIcon t={l[0].type} size={14} />{l[0].type}</span>
               <h3>Talento #{l[0].n}</h3>
             </div>
             <p className="small" style={{ margin: '0 0 12px', color: '#d4d4d8', lineHeight: 1.5 }}>{l[0].buff}</p>
@@ -107,13 +107,13 @@ function Boost() {
       <SectionHead title="Boost por tipo" sub="Itens que já apareceram na máquina de boost para cada tipo (não são os itens do dia). Abaixo, quanto fragmento cada faixa de nível pede." />
       <div className="tags" style={{ marginBottom: 18 }}>
         {data.boost.map((x) => (
-          <button key={x.type} className={`chip ${sel === x.type ? 'active' : ''}`} style={sel === x.type ? { background: typeColor(x.type) } : {}} onClick={() => setSel(x.type)}>{x.type}</button>
+          <button key={x.type} className={`chip ${sel === x.type ? 'active' : ''}`} style={sel === x.type ? { background: typeColor(x.type) } : {}} onClick={() => setSel(x.type)}><TypeIcon t={x.type} size={15} />{x.type}</button>
         ))}
       </div>
       {b && (
         <div className="grid grid-2" style={{ marginBottom: 20 }}>
           <div className="card">
-            <div className="card-title"><span className="badge type" style={{ background: typeColor(b.type) }}>{b.type}</span><h3>Itens de boost</h3></div>
+            <div className="card-title"><span className="badge type" style={{ background: typeColor(b.type) }}><TypeIcon t={b.type} size={14} />{b.type}</span><h3>Itens de boost</h3></div>
             <div className="tags" style={{ marginBottom: 12 }}>
               <span className="badge shiny">{b.fragment}</span>
               <span className="badge mega">{b.stone}</span>

@@ -14,3 +14,4 @@ overlay/build/
 overlay/dist/
 overlay/*.spec
 overlay/build_log.txt
+wiki_cache.json

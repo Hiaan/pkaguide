@@ -9,7 +9,24 @@ export const Sprite = ({ p, size = '' }: { p: { id: number | null; shiny: boolea
   return <img className={`sprite ${size}`} src={url} alt={p.name} loading="lazy" onError={() => setErr(true)} />
 }
 
-export const TypeBadge = ({ t }: { t: string }) => (t ? <span className="badge type" style={{ background: typeColor(t) }}>{t}</span> : null)
+const TYPE_FILE: Record<string, string> = { metal: 'steel', fly: 'flying', aco: 'steel', '?': '' }
+export const typeIconUrl = (t: string) => {
+  const k = t.trim().toLowerCase()
+  const f = TYPE_FILE[k] ?? k
+  return f ? `/types/${f}.png` : ''
+}
+export const TypeIcon = ({ t, size = 16 }: { t: string; size?: number }) => {
+  const url = typeIconUrl(t)
+  if (!url) return null
+  return <img className="tico" src={url} alt={t} width={size} height={size} loading="lazy" onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')} />
+}
+export const TypeBadge = ({ t, icon = true }: { t: string; icon?: boolean }) =>
+  t ? (
+    <span className="badge type" style={{ background: typeColor(t) }}>
+      {icon && <TypeIcon t={t} size={14} />}
+      {t}
+    </span>
+  ) : null
 export const TierBadge = ({ t }: { t: string }) =>
   t ? <span className="badge tier" style={{ background: TIER_COLORS[t] ?? '#3f3f46', color: '#fff' }}>{t}</span> : null
 

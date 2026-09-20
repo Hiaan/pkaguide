@@ -2,7 +2,7 @@ import { useState } from 'react'
 import teams2 from '../data/teams2.json'
 import huntsRaw from '../data/hunts.json'
 import { findPokemon, typeColor, type Pokemon } from '../lib/data'
-import { Note, PokeName, SectionHead, Sprite, TierBadge } from '../components/ui'
+import { Note, PokeName, SectionHead, Sprite, TierBadge, TypeIcon } from '../components/ui'
 import { VideoRefs } from './Videos'
 
 /* ---------- Guia de hunt (Safnaw) ---------- */
@@ -28,7 +28,7 @@ const HuntCardView = ({ c, onOpen }: { c: HuntCard; onOpen: (p: Pokemon) => void
   return (
     <div className="card" style={{ borderTop: `4px solid ${color}` }}>
       <div className="card-title">
-        <span className="badge type" style={{ background: color }}>{c.name}</span>
+        <span className="badge type" style={{ background: color }}><TypeIcon t={c.name} size={15} />{c.name}</span>
         <h3>{c.hunt && c.hunt !== 'Em breve' ? `Hunt: ${c.hunt}` : 'Hunt: em breve'}</h3>
       </div>
       <div className="grid" style={{ gridTemplateColumns: '1fr 1fr', gap: 12 }}>
@@ -52,7 +52,7 @@ const HuntCardView = ({ c, onOpen }: { c: HuntCard; onOpen: (p: Pokemon) => void
       {c.smeargle.length > 0 && (
         <div className="tags" style={{ marginTop: 12, alignItems: 'center' }}>
           <span className="muted tiny">🎨 Smeargle:</span>
-          {c.smeargle.map((s) => <span key={s} className="badge type" style={{ background: typeColor(s === 'Metal' ? 'Steel' : s === 'Fly' ? 'Flying' : s) }}>{s}</span>)}
+          {c.smeargle.map((s) => <span key={s} className="badge type" style={{ background: typeColor(s === 'Metal' ? 'Steel' : s === 'Fly' ? 'Flying' : s) }}><TypeIcon t={s} size={13} />{s}</span>)}
         </div>
       )}
     </div>
@@ -118,13 +118,13 @@ function LoxasGuide({ onOpen }: { onOpen: (p: Pokemon) => void }) {
           const inc = guide2.incomplete.includes(x)
           return (
             <button key={x.element} className={`chip ${sel === x.element ? 'active' : ''}`} style={sel === x.element ? { background: c, boxShadow: `0 4px 14px ${c}66` } : {}} onClick={() => setSel(x.element)}>
-              {x.element}{inc && <small>incompleto</small>}
+<TypeIcon t={x.element.split('/')[0]} size={15} />{x.element}{inc && <small>incompleto</small>}
             </button>
           )
         })}
       </div>
       <div className="card" style={{ borderTop: `4px solid ${color}`, maxWidth: 640 }}>
-        <div className="card-title"><span className="badge type" style={{ background: color }}>{t.element}</span><h3>Time sugerido</h3><span className="muted small" style={{ marginLeft: 'auto' }}>{t.initial.length} Pokémon</span></div>
+        <div className="card-title"><span className="badge type" style={{ background: color }}><TypeIcon t={t.element.split('/')[0]} size={14} />{t.element}</span><h3>Time sugerido</h3><span className="muted small" style={{ marginLeft: 'auto' }}>{t.initial.length} Pokémon</span></div>
         {t.initial.length ? <div className="link-list">{t.initial.map((m, i) => <MemberRow key={i} m={m} onOpen={onOpen} />)}</div> : <p className="muted small" style={{ margin: 0 }}>Sem time completo por enquanto.</p>}
         {t.note && <p className="muted small" style={{ marginBottom: 0 }}>💬 {t.note}</p>}
       </div>

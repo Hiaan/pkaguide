@@ -11,6 +11,11 @@ import Sugestoes from './pages/Sugestoes'
 import Times from './pages/Times'
 import Ferramentas from './pages/Ferramentas'
 import Videos, { videos as allVideos } from './pages/Videos'
+import Wiki from './pages/Wiki'
+import wikiData from './data/wiki.json'
+
+const wikiPages = (wikiData as { pages: { path: string; title: string; summary: string }[] }).pages
+  .map((p) => ({ path: p.path, title: p.title, t: (p.title + ' ' + p.summary).toLowerCase() }))
 
 const SECTIONS = [
   { id: 'pokedex', label: 'Pokédex', ico: '🔴', subs: [['grid', 'Pokémon'], ['tierlist', 'Tier List'], ['hunts', 'Localizações'], ['tasks', 'Tasks'], ['medals', 'Medalhas']] },
@@ -19,6 +24,7 @@ const SECTIONS = [
   { id: 'dungeons', label: 'Dungeons', ico: '🏰', subs: [['list', 'Dungeons'], ['dens', 'Dens'], ['porygon', 'Porygon']] },
   { id: 'desafios', label: 'Desafios', ico: '⚔️', subs: [['gym', 'Ginásios'], ['guildboss', 'Bosses de Guild'], ['rocket', 'Rockets'], ['police', 'Polícia'], ['hazard', 'Hazard Tasks'], ['linked', 'Linked Tasks'], ['bh', 'Brotherhood']] },
   { id: 'times', label: 'Times', ico: '🧭', subs: [['hunt', 'Por hunt (Safnaw)'], ['sem-t2', 'Sem T2/T3 (loxas)']] },
+  { id: 'wiki', label: 'Wiki', ico: '📚', subs: [] },
   { id: 'videos', label: 'Vídeos', ico: '🎬', subs: [['perguntar', 'Pergunte aos vídeos'], ['temas', 'Por tema'], ['canais', 'Canais']] },
   { id: 'ferramentas', label: 'Ferramentas', ico: '🧰', subs: [['overlay', 'PKA GUIDE Overlay'], ['criticalcatch', 'Critical Catch'], ['pokeforge', 'PokéForge (builds)']] },
   { id: 'faq', label: 'FAQ', ico: '💬', subs: [] },
@@ -28,8 +34,10 @@ const SECTIONS = [
 type SectionId = (typeof SECTIONS)[number]['id']
 
 const parseHash = (): [SectionId, string] => {
-  const [sec = 'pokedex', sub = ''] = location.hash.replace(/^#\/?/, '').split('/').map(decodeURIComponent)
+  const parts = location.hash.replace(/^#\/?/, '').split('/').map(decodeURIComponent)
+  const sec = parts[0] || 'pokedex'
   const s = SECTIONS.find((x) => x.id === sec) ?? SECTIONS[0]
+  const sub = parts.slice(1).join('/')          // a wiki usa caminhos com barra (sistemas/linked-tasks)
   return [s.id, sub || (s.subs[0]?.[0] ?? '')]
 }
 
@@ -56,6 +64,7 @@ export default function App() {
     for (const it of Object.keys(data.items)) if (it.includes(s)) out.push({ label: it, kind: 'Item', run: () => openItem(it) })
     for (const f of data.faq) if (f.q.toLowerCase().includes(s)) out.push({ label: f.q, kind: 'FAQ', run: () => go('faq') })
     for (const d of data.dens) if (d.name.toLowerCase().includes(s)) out.push({ label: d.name, kind: 'Den', run: () => go('dungeons', 'dens') })
+    for (const w of wikiPages) if (w.t.includes(s)) out.push({ label: w.title, kind: 'Wiki', run: () => go('wiki', w.path) })
     for (const v of allVideos.slice(0, 400)) if (v.title.toLowerCase().includes(s)) out.push({ label: v.title, kind: 'Vídeo', run: () => window.open(`https://www.youtube.com/watch?v=${v.id}`, '_blank') })
     return out.slice(0, 14)
   }, [quick, go, openItem])
@@ -96,7 +105,7 @@ export default function App() {
             <div className="quick">
               {quickResults.map((r, i) => (
                 <div className="quick-row" key={i} onClick={() => { r.run(); setQuick('') }}>
-                  {r.p ? <Sprite p={r.p} size="sm" /> : <span style={{ width: 40, textAlign: 'center' }}>{r.kind === 'Item' ? '🎒' : r.kind === 'Den' ? '🏰' : r.kind === 'Vídeo' ? '🎬' : '💬'}</span>}
+                  {r.p ? <Sprite p={r.p} size="sm" /> : <span style={{ width: 40, textAlign: 'center' }}>{r.kind === 'Item' ? '🎒' : r.kind === 'Den' ? '🏰' : r.kind === 'Vídeo' ? '🎬' : r.kind === 'Wiki' ? '📚' : '💬'}</span>}
                   <span>{r.label}</span>
                   <span className="kind">{r.kind}</span>
                 </div>
@@ -131,6 +140,7 @@ export default function App() {
         {section === 'dungeons' && <Dungeons sub={sub} onOpen={setSelected} />}
         {section === 'desafios' && <Desafios sub={sub} onOpen={setSelected} />}
         {section === 'times' && <Times sub={sub} onOpen={setSelected} />}
+        {section === 'wiki' && <Wiki sub={sub} go={go} />}
         {section === 'videos' && <Videos sub={sub} />}
         {section === 'ferramentas' && <Ferramentas sub={sub} />}
         {section === 'faq' && <FAQ />}

@@ -1,0 +1,86 @@
+266 INFO: PyInstaller: 6.20.0, contrib hooks: 2026.6
+267 INFO: Python: 3.13.0
+304 INFO: Platform: Windows-10-10.0.19045-SP0
+304 INFO: Python environment: C:\Users\User\AppData\Local\Programs\Python\Python313
+305 INFO: wrote E:\Claudio\PKA\overlay\PKA GUIDE Setup.spec
+311 INFO: Removing temporary files and cleaning cache in C:\Users\User\AppData\Local\pyinstaller
+319 INFO: Module search paths (PYTHONPATH):
+['C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\pyinstaller.exe',
+ 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip',
+ 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\DLLs',
+ 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib',
+ 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313',
+ 'C:\\Users\\User\\AppData\\Roaming\\Python\\Python313\\site-packages',
+ 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages',
+ 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32',
+ 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32\\lib',
+ 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\pythonwin',
+ 'E:\\Claudio\\PKA\\overlay']
+1742 INFO: Appending 'datas' from .spec
+1742 INFO: checking Analysis
+1743 INFO: Building Analysis because Analysis-00.toc is non existent
+1743 INFO: Looking for Python shared library...
+1743 INFO: Using Python shared library: C:\Users\User\AppData\Local\Programs\Python\Python313\python313.dll
+1743 INFO: Running Analysis Analysis-00.toc
+1743 INFO: Target bytecode optimization level: 0
+1743 INFO: Initializing module dependency graph...
+1745 INFO: Initializing module graph hook caches...
+1770 INFO: Analyzing modules for base_library.zip ...
+3704 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+5841 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+7111 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+7641 INFO: Caching module dependency graph...
+7701 INFO: Analyzing E:\Claudio\PKA\overlay\installer.py
+7710 INFO: Processing pre-find-module-path hook 'hook-tkinter.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\pre_find_module_path'
+7711 INFO: TclTkInfo: initializing cached Tcl/Tk info...
+8234 INFO: Processing standard module hook 'hook-_tkinter.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+8245 INFO: Processing standard module hook 'hook-PIL.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+8389 INFO: Processing standard module hook 'hook-PIL.Image.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+8957 INFO: Processing standard module hook 'hook-numpy.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+9690 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+9692 INFO: SetuptoolsInfo: initializing cached setuptools info...
+15206 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+15397 INFO: Processing standard module hook 'hook-xml.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+15703 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+16445 INFO: Processing standard module hook 'hook-difflib.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+16970 INFO: Processing standard module hook 'hook-sysconfig.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+17095 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+19631 INFO: Processing standard module hook 'hook-charset_normalizer.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+20110 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+20336 INFO: Processing standard module hook 'hook-PIL.ImageFilter.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+20633 INFO: Processing module hooks (post-graph stage)...
+21018 INFO: Processing standard module hook 'hook-PIL.SpiderImagePlugin.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+21122 INFO: Processing standard module hook 'hook-_tkinter.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
+21135 INFO: Performing binary vs. data reclassification (930 entries)
+21397 INFO: Looking for ctypes DLLs
+21456 INFO: Analyzing run-time hooks ...
+21459 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+21463 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+21466 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+21469 INFO: Including run-time hook 'pyi_rth__tkinter.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+21502 INFO: Creating base_library.zip...
+21524 INFO: Looking for dynamic libraries
+22323 INFO: Extra DLL search directories (AddDllDirectory): ['C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy.libs']
+22324 INFO: Extra DLL search directories (PATH): []
+23507 INFO: Warnings written to E:\Claudio\PKA\overlay\build\PKA GUIDE Setup\warn-PKA GUIDE Setup.txt
+23560 INFO: Graph cross-reference written to E:\Claudio\PKA\overlay\build\PKA GUIDE Setup\xref-PKA GUIDE Setup.html
+23607 INFO: checking PYZ
+23607 INFO: Building PYZ because PYZ-00.toc is non existent
+23607 INFO: Building PYZ (ZlibArchive) E:\Claudio\PKA\overlay\build\PKA GUIDE Setup\PYZ-00.pyz
+24155 INFO: Building PYZ (ZlibArchive) E:\Claudio\PKA\overlay\build\PKA GUIDE Setup\PYZ-00.pyz completed successfully.
+24179 INFO: checking PKG
+24180 INFO: Building PKG because PKG-00.toc is non existent
+24180 INFO: Building PKG (CArchive) PKA GUIDE Setup.pkg
+35205 INFO: Building PKG (CArchive) PKA GUIDE Setup.pkg completed successfully.
+35224 INFO: Bootloader C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
+35224 INFO: checking EXE
+35224 INFO: Building EXE because EXE-00.toc is non existent
+35224 INFO: Building EXE from EXE-00.toc
+35225 INFO: Copying bootloader EXE to E:\Claudio\PKA\overlay\dist\PKA GUIDE Setup.exe
+35275 INFO: Copying icon to EXE
+35504 INFO: Copying 0 resources to EXE
+35504 INFO: Embedding manifest in EXE
+35551 INFO: Appending PKG archive to EXE
+35656 INFO: Fixing EXE headers
+39174 INFO: Building EXE from EXE-00.toc completed successfully.
+39194 INFO: Build complete! The results are available in: E:\Claudio\PKA\overlay\dist
