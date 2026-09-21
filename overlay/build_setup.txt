@@ -1,86 +1,1142 @@
-270 INFO: PyInstaller: 6.20.0, contrib hooks: 2026.6
-271 INFO: Python: 3.13.0
-316 INFO: Platform: Windows-10-10.0.19045-SP0
-316 INFO: Python environment: C:\Users\User\AppData\Local\Programs\Python\Python313
-317 INFO: wrote E:\Claudio\PKA\overlay\PKA GUIDE Setup.spec
-327 INFO: Removing temporary files and cleaning cache in C:\Users\User\AppData\Local\pyinstaller
-331 INFO: Module search paths (PYTHONPATH):
-['C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\pyinstaller.exe',
- 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\python313.zip',
- 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\DLLs',
- 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib',
- 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313',
- 'C:\\Users\\User\\AppData\\Roaming\\Python\\Python313\\site-packages',
- 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages',
- 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32',
- 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\win32\\lib',
- 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\pythonwin',
- 'E:\\Claudio\\PKA\\overlay']
-1689 INFO: Appending 'datas' from .spec
-1690 INFO: checking Analysis
-1691 INFO: Building Analysis because Analysis-00.toc is non existent
-1691 INFO: Looking for Python shared library...
-1691 INFO: Using Python shared library: C:\Users\User\AppData\Local\Programs\Python\Python313\python313.dll
-1691 INFO: Running Analysis Analysis-00.toc
-1691 INFO: Target bytecode optimization level: 0
-1691 INFO: Initializing module dependency graph...
-1693 INFO: Initializing module graph hook caches...
-1717 INFO: Analyzing modules for base_library.zip ...
-3382 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-3503 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-6020 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-7709 INFO: Caching module dependency graph...
-7805 INFO: Analyzing E:\Claudio\PKA\overlay\installer.py
-7814 INFO: Processing pre-find-module-path hook 'hook-tkinter.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\pre_find_module_path'
-7816 INFO: TclTkInfo: initializing cached Tcl/Tk info...
-8481 INFO: Processing standard module hook 'hook-_tkinter.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-8492 INFO: Processing standard module hook 'hook-PIL.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-8639 INFO: Processing standard module hook 'hook-PIL.Image.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-9222 INFO: Processing standard module hook 'hook-numpy.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-9967 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
-9969 INFO: SetuptoolsInfo: initializing cached setuptools info...
-15898 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-16102 INFO: Processing standard module hook 'hook-xml.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-16397 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-16986 INFO: Processing standard module hook 'hook-difflib.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-17507 INFO: Processing standard module hook 'hook-sysconfig.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-17613 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-19988 INFO: Processing standard module hook 'hook-charset_normalizer.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
-20501 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-20724 INFO: Processing standard module hook 'hook-PIL.ImageFilter.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-21008 INFO: Processing module hooks (post-graph stage)...
-21376 INFO: Processing standard module hook 'hook-PIL.SpiderImagePlugin.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-21482 INFO: Processing standard module hook 'hook-_tkinter.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks'
-21499 INFO: Performing binary vs. data reclassification (930 entries)
-21766 INFO: Looking for ctypes DLLs
-21834 INFO: Analyzing run-time hooks ...
-21837 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
-21840 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
-21845 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
-21850 INFO: Including run-time hook 'pyi_rth__tkinter.py' from 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
-21891 INFO: Creating base_library.zip...
-21915 INFO: Looking for dynamic libraries
-22648 INFO: Extra DLL search directories (AddDllDirectory): ['C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy.libs']
-22648 INFO: Extra DLL search directories (PATH): []
-23891 INFO: Warnings written to E:\Claudio\PKA\overlay\build\PKA GUIDE Setup\warn-PKA GUIDE Setup.txt
-23961 INFO: Graph cross-reference written to E:\Claudio\PKA\overlay\build\PKA GUIDE Setup\xref-PKA GUIDE Setup.html
-24027 INFO: checking PYZ
-24028 INFO: Building PYZ because PYZ-00.toc is non existent
-24028 INFO: Building PYZ (ZlibArchive) E:\Claudio\PKA\overlay\build\PKA GUIDE Setup\PYZ-00.pyz
-24726 INFO: Building PYZ (ZlibArchive) E:\Claudio\PKA\overlay\build\PKA GUIDE Setup\PYZ-00.pyz completed successfully.
-24783 INFO: checking PKG
-24783 INFO: Building PKG because PKG-00.toc is non existent
-24784 INFO: Building PKG (CArchive) PKA GUIDE Setup.pkg
-36698 INFO: Building PKG (CArchive) PKA GUIDE Setup.pkg completed successfully.
-36723 INFO: Bootloader C:\Users\User\AppData\Local\Programs\Python\Python313\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
-36723 INFO: checking EXE
-36723 INFO: Building EXE because EXE-00.toc is non existent
-36723 INFO: Building EXE from EXE-00.toc
-36723 INFO: Copying bootloader EXE to E:\Claudio\PKA\overlay\dist\PKA GUIDE Setup.exe
-36787 INFO: Copying icon to EXE
-36840 INFO: Copying 0 resources to EXE
-36840 INFO: Embedding manifest in EXE
-36891 INFO: Appending PKG archive to EXE
-37003 INFO: Fixing EXE headers
-40292 INFO: Building EXE from EXE-00.toc completed successfully.
-40314 INFO: Build complete! The results are available in: E:\Claudio\PKA\overlay\dist
+Inno Setup 6 Command-Line Compiler
+Copyright (C) 1997-2026 Jordan Russell. All rights reserved.
+Portions Copyright (C) 2000-2026 Martijn Laan. All rights reserved.
+Portions Copyright (C) 2001-2004 Alex Yackimoff. All rights reserved.
+https://www.innosetup.com
+
+Compiler engine version: Inno Setup 6.7.3
+Non-commercial use only
+
+Preprocessing
+   Reading file: E:\Claudio\PKA\tools\inno\ISPPBuiltins.iss
+Parsing [Setup] section, line 8
+Parsing [Setup] section, line 9
+Parsing [Setup] section, line 10
+Parsing [Setup] section, line 11
+Parsing [Setup] section, line 12
+Parsing [Setup] section, line 13
+Parsing [Setup] section, line 14
+Parsing [Setup] section, line 15
+Parsing [Setup] section, line 16
+Parsing [Setup] section, line 17
+Parsing [Setup] section, line 18
+Parsing [Setup] section, line 19
+Parsing [Setup] section, line 20
+Parsing [Setup] section, line 21
+Parsing [Setup] section, line 22
+Parsing [Setup] section, line 23
+Parsing [Setup] section, line 24
+Parsing [Setup] section, line 25
+Parsing [Setup] section, line 26
+Parsing [Setup] section, line 27
+Parsing [Setup] section, line 28
+Reading file (WizardImageFile)
+Reading file (WizardSmallImageFile)
+Preparing Setup program executable
+   Verification successful
+   Updating icons (Setup.e32)
+   Updating version info (Setup.e32)
+Determining language code pages
+Parsing [Languages] section, line 31
+   Reading file: E:\Claudio\PKA\tools\inno\Languages\BrazilianPortuguese.isl
+   Messages in script file
+Reading default messages from Default.isl
+Parsing [Languages] section, line 31
+   Reading file: E:\Claudio\PKA\tools\inno\Languages\BrazilianPortuguese.isl
+Parsing [LangOptions], [Messages], and [CustomMessages] sections
+   Messages in script file
+Reading [Code] section
+Parsing [Icons] section, line 37
+Parsing [Icons] section, line 38
+Parsing [InstallDelete] section, line 45
+Parsing [InstallDelete] section, line 46
+Parsing [InstallDelete] section, line 47
+Parsing [InstallDelete] section, line 48
+Parsing [Run] section, line 41
+Parsing [Files] section, line 34
+Deleting PKA GUIDE Setup.exe from output directory
+Creating setup files
+   Verification successful
+   Updating icons (Setup.exe)
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\PKA GUIDE.exe
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\base_library.zip
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\hub_db.json
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\items_db.json
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\libcrypto-3.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\libffi-8.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\libssl-3.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\logo.ico
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\logo_small.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\msvcp140.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\MSVCP140_1.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\pyexpat.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\python3.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\python313.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\select.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\tasks_db.json
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\tcl86t.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\tk86t.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\unicodedata.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\vcruntime140.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\vcruntime140_1.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\videos_db.json
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\winsound.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\zlib1.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_asyncio.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_bz2.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_cffi_backend.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_ctypes.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_decimal.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_elementtree.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_hashlib.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_lzma.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_multiprocessing.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_overlapped.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_queue.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_socket.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_ssl.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tkinter.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_wmi.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\certifi\cacert.pem
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\certifi\py.typed
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\charset_normalizer\md.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\charset_normalizer\md__mypyc.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cryptography\hazmat\bindings\_rust.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cryptography-49.0.0.dist-info\INSTALLER
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cryptography-49.0.0.dist-info\METADATA
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cryptography-49.0.0.dist-info\RECORD
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cryptography-49.0.0.dist-info\WHEEL
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cryptography-49.0.0.dist-info\licenses\LICENSE
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cryptography-49.0.0.dist-info\licenses\LICENSE.APACHE
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cryptography-49.0.0.dist-info\licenses\LICENSE.BSD
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cryptography-49.0.0.dist-info\sboms\cryptography-rust.cyclonedx.json
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cryptography-49.0.0.dist-info\sboms\sbom.json
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\config-3.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\config.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\cv2.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\load_config_py3.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\opencv_videoio_ffmpeg4100_64.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\opencv_videoio_ffmpeg500_64.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\version.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\__init__.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\data\__init__.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\mat_wrapper\__init__.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\misc\version.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\misc\__init__.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\typing\__init__.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\cv2\utils\__init__.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\fft\_pocketfft_umath.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\linalg\_umath_linalg.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\random\bit_generator.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\random\mtrand.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\random\_bounded_integers.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\random\_common.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\random\_generator.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\random\_mt19937.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\random\_pcg64.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\random\_philox.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\random\_sfc64.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\_core\_multiarray_tests.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy\_core\_multiarray_umath.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\DELVEWHEEL
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\entry_points.txt
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\INSTALLER
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\METADATA
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\RECORD
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\WHEEL
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\LICENSE.txt
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\fft\pocketfft\LICENSE.md
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\linalg\lapack_lite\LICENSE.txt
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\ma\LICENSE
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\random\LICENSE.md
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\random\src\distributions\LICENSE.md
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\random\src\mt19937\LICENSE.md
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\random\src\pcg64\LICENSE.md
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\random\src\philox\LICENSE.md
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\random\src\sfc64\LICENSE.md
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\random\src\splitmix64\LICENSE.md
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\_core\include\numpy\libdivide\LICENSE.txt
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\_core\src\common\pythoncapi-compat\COPYING
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\_core\src\highway\LICENSE
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\_core\src\multiarray\dragon4_LICENSE.txt
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\_core\src\npysort\x86-simd-sort\LICENSE.md
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy-2.4.6.dist-info\licenses\numpy\_core\src\umath\svml\LICENSE
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy.libs\libscipy_openblas64_-63c857e738469261263c764a36be9436.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\numpy.libs\msvcp140-a4c2229bdc2a2a630acdc095b4d86008.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\onnxruntime\capi\onnxruntime.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\onnxruntime\capi\onnxruntime_providers_shared.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\onnxruntime\capi\onnxruntime_pybind11_state.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\PIL\_avif.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\PIL\_imaging.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\PIL\_imagingcms.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\PIL\_imagingft.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\PIL\_imagingmath.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\PIL\_imagingtk.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\PIL\_webp.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\pyclipper\_pyclipper.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\pywin32_system32\pywintypes313.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\config.yaml
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\rapid_ocr_api.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\utils.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\__init__.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\ch_ppocr_v2_cls\config.yaml
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\ch_ppocr_v2_cls\text_cls.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\ch_ppocr_v2_cls\utils.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\ch_ppocr_v2_cls\__init__.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\ch_ppocr_v3_det\config.yaml
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\ch_ppocr_v3_det\text_detect.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\ch_ppocr_v3_det\utils.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\ch_ppocr_v3_det\__init__.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\ch_ppocr_v3_rec\config.yaml
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\ch_ppocr_v3_rec\text_recognize.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\ch_ppocr_v3_rec\utils.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\ch_ppocr_v3_rec\__init__.py
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\models\ch_PP-OCRv3_det_infer.onnx
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\models\ch_PP-OCRv3_rec_infer.onnx
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime\models\ch_ppocr_mobile_v2.0_cls_infer.onnx
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime-1.2.3.dist-info\entry_points.txt
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime-1.2.3.dist-info\INSTALLER
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime-1.2.3.dist-info\METADATA
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime-1.2.3.dist-info\RECORD
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime-1.2.3.dist-info\REQUESTED
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime-1.2.3.dist-info\top_level.txt
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\rapidocr_onnxruntime-1.2.3.dist-info\WHEEL
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\shapely\lib.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\shapely\_geometry_helpers.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\shapely\_geos.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\Shapely.libs\geos-ae6efa0782962b98e358f10ea539ae5f.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\Shapely.libs\geos_c-072b7a9224d16d3e4ab2395bb855b2d3.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\Shapely.libs\msvcp140-90bc62d4947a5878f1dc1057312f3be2.dll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\tcl8\8.4\platform-1.0.19.tm
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\tcl8\8.4\platform\shell-1.1.4.tm
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\tcl8\8.5\msgcat-1.6.1.tm
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\tcl8\8.5\tcltest-2.5.7.tm
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\tcl8\8.6\http-2.9.8.tm
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\win32\win32pdh.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\yaml\_yaml.cp313-win_amd64.pyd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\auto.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\clock.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\history.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\init.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\package.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\parray.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\safe.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tclIndex
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tm.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\word.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\ascii.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\big5.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cns11643.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp1250.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp1251.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp1252.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp1253.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp1254.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp1255.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp1256.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp1257.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp1258.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp437.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp737.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp775.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp850.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp852.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp855.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp857.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp860.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp861.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp862.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp863.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp864.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp865.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp866.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp869.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp874.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp932.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp936.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp949.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\cp950.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\dingbats.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\ebcdic.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\euc-cn.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\euc-jp.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\euc-kr.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\gb12345.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\gb1988.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\gb2312-raw.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\gb2312.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso2022-jp.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso2022-kr.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso2022.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-1.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-10.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-11.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-13.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-14.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-15.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-16.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-2.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-3.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-4.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-5.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-6.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-7.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-8.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\iso8859-9.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\jis0201.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\jis0208.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\jis0212.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\koi8-r.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\koi8-u.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\ksc5601.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\macCentEuro.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\macCroatian.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\macCyrillic.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\macDingbats.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\macGreek.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\macIceland.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\macJapan.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\macRoman.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\macRomania.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\macThai.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\macTurkish.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\macUkraine.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\shiftjis.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\symbol.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\encoding\tis-620.enc
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\http1.0\http.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\http1.0\pkgIndex.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\af.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\af_za.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ar.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ar_in.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ar_jo.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ar_lb.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ar_sy.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\be.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\bg.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\bn.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\bn_in.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ca.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\cs.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\da.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\de.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\de_at.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\de_be.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\el.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_au.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_be.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_bw.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_ca.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_gb.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_hk.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_ie.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_in.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_nz.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_ph.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_sg.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_za.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\en_zw.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\eo.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_ar.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_bo.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_cl.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_co.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_cr.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_do.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_ec.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_gt.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_hn.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_mx.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_ni.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_pa.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_pe.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_pr.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_py.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_sv.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_uy.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\es_ve.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\et.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\eu.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\eu_es.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\fa.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\fa_in.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\fa_ir.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\fi.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\fo.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\fo_fo.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\fr.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\fr_be.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\fr_ca.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\fr_ch.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ga.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ga_ie.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\gl.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\gl_es.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\gv.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\gv_gb.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\he.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\hi.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\hi_in.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\hr.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\hu.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\id.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\id_id.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\is.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\it.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\it_ch.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ja.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\kl.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\kl_gl.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ko.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\kok.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\kok_in.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ko_kr.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\kw.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\kw_gb.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\lt.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\lv.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\mk.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\mr.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\mr_in.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ms.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ms_my.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\mt.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\nb.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\nl.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\nl_be.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\nn.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\pl.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\pt.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\pt_br.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ro.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ru.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ru_ua.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\sh.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\sk.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\sl.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\sq.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\sr.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\sv.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\sw.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ta.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\ta_in.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\te.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\te_in.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\th.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\tr.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\uk.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\vi.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\zh.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\zh_cn.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\zh_hk.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\zh_sg.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\msgs\zh_tw.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\opt0.4\optparse.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\opt0.4\pkgIndex.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\CET
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\CST6CDT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Cuba
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\EET
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Egypt
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Eire
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\EST
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\EST5EDT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\GB
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\GB-Eire
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\GMT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\GMT+0
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\GMT-0
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\GMT0
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Greenwich
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Hongkong
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\HST
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Iceland
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Iran
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Israel
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Jamaica
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Japan
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Kwajalein
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Libya
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\MET
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\MST
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\MST7MDT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Navajo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\NZ
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\NZ-CHAT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Poland
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Portugal
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\PRC
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\PST8PDT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\ROC
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\ROK
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Singapore
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Turkey
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\UCT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Universal
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\UTC
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\W-SU
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\WET
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Zulu
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Abidjan
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Accra
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Addis_Ababa
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Algiers
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Asmara
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Asmera
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Bamako
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Bangui
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Banjul
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Bissau
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Blantyre
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Brazzaville
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Bujumbura
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Cairo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Casablanca
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Ceuta
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Conakry
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Dakar
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Dar_es_Salaam
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Djibouti
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Douala
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\El_Aaiun
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Freetown
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Gaborone
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Harare
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Johannesburg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Juba
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Kampala
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Khartoum
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Kigali
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Kinshasa
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Lagos
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Libreville
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Lome
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Luanda
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Lubumbashi
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Lusaka
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Malabo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Maputo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Maseru
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Mbabane
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Mogadishu
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Monrovia
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Nairobi
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Ndjamena
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Niamey
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Nouakchott
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Ouagadougou
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Porto-Novo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Sao_Tome
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Timbuktu
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Tripoli
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Tunis
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Africa\Windhoek
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Adak
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Anchorage
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Anguilla
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Antigua
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Araguaina
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Aruba
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Asuncion
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Atikokan
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Atka
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Bahia
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Bahia_Banderas
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Barbados
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Belem
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Belize
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Blanc-Sablon
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Boa_Vista
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Bogota
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Boise
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Buenos_Aires
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Cambridge_Bay
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Campo_Grande
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Cancun
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Caracas
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Catamarca
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Cayenne
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Cayman
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Chicago
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Chihuahua
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Ciudad_Juarez
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Coral_Harbour
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Cordoba
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Costa_Rica
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Creston
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Cuiaba
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Curacao
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Danmarkshavn
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Dawson
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Dawson_Creek
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Denver
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Detroit
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Dominica
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Edmonton
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Eirunepe
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\El_Salvador
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Ensenada
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Fortaleza
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Fort_Nelson
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Fort_Wayne
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Glace_Bay
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Godthab
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Goose_Bay
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Grand_Turk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Grenada
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Guadeloupe
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Guatemala
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Guayaquil
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Guyana
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Halifax
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Havana
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Hermosillo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Indianapolis
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Inuvik
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Iqaluit
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Jamaica
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Jujuy
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Juneau
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Knox_IN
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Kralendijk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\La_Paz
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Lima
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Los_Angeles
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Louisville
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Lower_Princes
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Maceio
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Managua
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Manaus
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Marigot
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Martinique
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Matamoros
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Mazatlan
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Mendoza
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Menominee
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Merida
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Metlakatla
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Mexico_City
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Miquelon
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Moncton
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Monterrey
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Montevideo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Montreal
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Montserrat
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Nassau
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\New_York
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Nipigon
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Nome
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Noronha
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Nuuk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Ojinaga
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Panama
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Pangnirtung
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Paramaribo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Phoenix
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Port-au-Prince
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Porto_Acre
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Porto_Velho
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Port_of_Spain
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Puerto_Rico
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Punta_Arenas
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Rainy_River
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Rankin_Inlet
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Recife
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Regina
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Resolute
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Rio_Branco
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Rosario
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Santarem
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Santa_Isabel
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Santiago
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Santo_Domingo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Sao_Paulo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Scoresbysund
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Shiprock
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Sitka
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\St_Barthelemy
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\St_Johns
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\St_Kitts
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\St_Lucia
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\St_Thomas
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\St_Vincent
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Swift_Current
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Tegucigalpa
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Thule
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Thunder_Bay
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Tijuana
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Toronto
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Tortola
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Vancouver
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Virgin
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Whitehorse
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Winnipeg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Yakutat
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Yellowknife
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\Buenos_Aires
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\Catamarca
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\ComodRivadavia
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\Cordoba
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\Jujuy
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\La_Rioja
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\Mendoza
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\Rio_Gallegos
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\Salta
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\San_Juan
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\San_Luis
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\Tucuman
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Argentina\Ushuaia
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Indiana\Indianapolis
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Indiana\Knox
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Indiana\Marengo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Indiana\Petersburg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Indiana\Tell_City
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Indiana\Vevay
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Indiana\Vincennes
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Indiana\Winamac
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Kentucky\Louisville
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\Kentucky\Monticello
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\North_Dakota\Beulah
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\North_Dakota\Center
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\America\North_Dakota\New_Salem
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Antarctica\Casey
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Antarctica\Davis
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Antarctica\DumontDUrville
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Antarctica\Macquarie
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Antarctica\Mawson
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Antarctica\McMurdo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Antarctica\Palmer
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Antarctica\Rothera
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Antarctica\South_Pole
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Antarctica\Syowa
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Antarctica\Troll
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Antarctica\Vostok
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Arctic\Longyearbyen
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Aden
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Almaty
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Amman
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Anadyr
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Aqtau
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Aqtobe
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Ashgabat
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Ashkhabad
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Atyrau
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Baghdad
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Bahrain
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Baku
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Bangkok
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Barnaul
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Beirut
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Bishkek
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Brunei
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Calcutta
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Chita
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Choibalsan
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Chongqing
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Chungking
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Colombo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Dacca
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Damascus
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Dhaka
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Dili
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Dubai
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Dushanbe
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Famagusta
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Gaza
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Harbin
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Hebron
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Hong_Kong
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Hovd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Ho_Chi_Minh
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Irkutsk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Istanbul
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Jakarta
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Jayapura
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Jerusalem
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Kabul
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Kamchatka
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Karachi
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Kashgar
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Kathmandu
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Katmandu
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Khandyga
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Kolkata
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Krasnoyarsk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Kuala_Lumpur
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Kuching
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Kuwait
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Macao
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Macau
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Magadan
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Makassar
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Manila
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Muscat
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Nicosia
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Novokuznetsk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Novosibirsk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Omsk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Oral
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Phnom_Penh
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Pontianak
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Pyongyang
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Qatar
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Qostanay
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Qyzylorda
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Rangoon
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Riyadh
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Saigon
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Sakhalin
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Samarkand
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Seoul
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Shanghai
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Singapore
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Srednekolymsk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Taipei
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Tashkent
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Tbilisi
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Tehran
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Tel_Aviv
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Thimbu
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Thimphu
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Tokyo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Tomsk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Ujung_Pandang
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Ulaanbaatar
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Ulan_Bator
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Urumqi
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Ust-Nera
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Vientiane
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Vladivostok
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Yakutsk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Yangon
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Yekaterinburg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Asia\Yerevan
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Atlantic\Azores
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Atlantic\Bermuda
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Atlantic\Canary
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Atlantic\Cape_Verde
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Atlantic\Faeroe
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Atlantic\Faroe
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Atlantic\Jan_Mayen
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Atlantic\Madeira
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Atlantic\Reykjavik
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Atlantic\South_Georgia
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Atlantic\Stanley
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Atlantic\St_Helena
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\ACT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Adelaide
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Brisbane
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Broken_Hill
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Canberra
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Currie
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Darwin
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Eucla
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Hobart
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\LHI
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Lindeman
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Lord_Howe
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Melbourne
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\North
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\NSW
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Perth
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Queensland
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\South
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Sydney
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Tasmania
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Victoria
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\West
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Australia\Yancowinna
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Brazil\Acre
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Brazil\DeNoronha
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Brazil\East
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Brazil\West
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Canada\Atlantic
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Canada\Central
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Canada\Eastern
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Canada\Mountain
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Canada\Newfoundland
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Canada\Pacific
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Canada\Saskatchewan
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Canada\Yukon
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Chile\Continental
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Chile\EasterIsland
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+0
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+1
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+10
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+11
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+12
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+2
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+3
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+4
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+5
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+6
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+7
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+8
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT+9
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-0
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-1
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-10
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-11
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-12
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-13
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-14
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-2
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-3
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-4
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-5
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-6
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-7
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-8
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT-9
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\GMT0
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\Greenwich
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\UCT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\Universal
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\UTC
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Etc\Zulu
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Amsterdam
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Andorra
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Astrakhan
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Athens
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Belfast
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Belgrade
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Berlin
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Bratislava
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Brussels
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Bucharest
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Budapest
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Busingen
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Chisinau
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Copenhagen
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Dublin
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Gibraltar
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Guernsey
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Helsinki
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Isle_of_Man
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Istanbul
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Jersey
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Kaliningrad
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Kiev
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Kirov
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Kyiv
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Lisbon
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Ljubljana
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\London
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Luxembourg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Madrid
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Malta
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Mariehamn
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Minsk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Monaco
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Moscow
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Nicosia
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Oslo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Paris
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Podgorica
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Prague
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Riga
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Rome
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Samara
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\San_Marino
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Sarajevo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Saratov
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Simferopol
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Skopje
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Sofia
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Stockholm
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Tallinn
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Tirane
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Tiraspol
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Ulyanovsk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Uzhgorod
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Vaduz
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Vatican
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Vienna
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Vilnius
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Volgograd
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Warsaw
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Zagreb
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Zaporozhye
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Europe\Zurich
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Indian\Antananarivo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Indian\Chagos
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Indian\Christmas
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Indian\Cocos
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Indian\Comoro
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Indian\Kerguelen
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Indian\Mahe
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Indian\Maldives
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Indian\Mauritius
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Indian\Mayotte
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Indian\Reunion
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Mexico\BajaNorte
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Mexico\BajaSur
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Mexico\General
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Apia
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Auckland
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Bougainville
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Chatham
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Chuuk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Easter
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Efate
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Enderbury
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Fakaofo
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Fiji
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Funafuti
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Galapagos
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Gambier
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Guadalcanal
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Guam
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Honolulu
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Johnston
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Kanton
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Kiritimati
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Kosrae
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Kwajalein
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Majuro
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Marquesas
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Midway
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Nauru
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Niue
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Norfolk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Noumea
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Pago_Pago
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Palau
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Pitcairn
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Pohnpei
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Ponape
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Port_Moresby
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Rarotonga
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Saipan
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Samoa
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Tahiti
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Tarawa
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Tongatapu
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Truk
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Wake
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Wallis
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\Pacific\Yap
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\AST4
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\AST4ADT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\CST6
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\CST6CDT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\EST5
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\EST5EDT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\HST10
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\MST7
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\MST7MDT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\PST8
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\PST8PDT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\YST9
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\SystemV\YST9YDT
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\US\Alaska
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\US\Aleutian
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\US\Arizona
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\US\Central
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\US\East-Indiana
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\US\Eastern
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\US\Hawaii
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\US\Indiana-Starke
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\US\Michigan
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\US\Mountain
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\US\Pacific
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\tzdata\US\Samoa
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\bgerror.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\button.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\choosedir.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\clrpick.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\comdlg.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\console.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\dialog.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\entry.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\focus.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\fontchooser.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\iconlist.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\icons.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\license.terms
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\listbox.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\megawidget.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\menu.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\mkpsenc.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgbox.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\obsolete.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\optMenu.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\palette.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\panedwindow.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\pkgIndex.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\safetk.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\scale.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\scrlbar.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\spinbox.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\tclIndex
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\tearoff.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\text.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\tk.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\tkfbox.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\unsupported.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\xmfbox.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\logo.eps
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\logo100.gif
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\logo64.gif
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\logoLarge.gif
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\logoMed.gif
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\pwrdLogo.eps
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\pwrdLogo100.gif
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\pwrdLogo150.gif
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\pwrdLogo175.gif
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\pwrdLogo200.gif
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\pwrdLogo75.gif
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\README
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\images\tai-ku.gif
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\cs.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\da.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\de.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\el.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\en.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\en_gb.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\eo.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\es.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\fi.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\fr.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\hu.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\it.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\nl.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\pl.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\pt.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\ru.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\sv.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\msgs\zh_cn.msg
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\altTheme.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\aquaTheme.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\button.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\clamTheme.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\classicTheme.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\combobox.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\cursors.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\defaults.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\entry.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\fonts.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\menubutton.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\notebook.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\panedwindow.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\progress.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\scale.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\scrollbar.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\sizegrip.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\spinbox.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\treeview.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\ttk.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\utils.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\vistaTheme.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\winTheme.tcl
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tk_data\ttk\xpTheme.tcl
+   Compressing Setup program executable
+   Updating version info (Setup.exe)
+   Updating manifest (Setup.exe)
+
+
+Successful compile (76,625 sec). Resulting Setup program filename is:
+E:\Claudio\PKA\overlay\dist\PKA GUIDE Setup.exe

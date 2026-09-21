@@ -15,11 +15,13 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '2.3.0'
+VERSION = '2.4.0'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
 TASKS_URL = SITE + '/overlay/tasks_db.json'
+HUB_URL = SITE + '/overlay/hub_db.json'
+VIDEOS_URL = SITE + '/overlay/videos_db.json'
 
 if os.name == 'nt':  # sem isso, em telas com escala != 100% a área capturada sai deslocada
     try:
@@ -127,6 +129,24 @@ def refresh_tasks():
             json.dump(d, open(TASKS_FILE, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
             TASKS = d
     except Exception as e: log('refresh_tasks', e)
+
+def _local_or_bundle(name, default):
+    return jload(os.path.join(DATA_DIR, name), None) or jload(os.path.join(BUNDLE, name), default)
+
+HUB = _local_or_bundle('hub_db.json', {})
+VIDEOS = _local_or_bundle('videos_db.json', [])
+
+def refresh_hub():
+    global HUB, VIDEOS
+    try:
+        import requests
+        for url, name in ((HUB_URL, 'hub_db.json'), (VIDEOS_URL, 'videos_db.json')):
+            d = requests.get(url, timeout=30).json()
+            if d:
+                json.dump(d, open(os.path.join(DATA_DIR, name), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+                if name == 'hub_db.json': HUB = d
+                else: VIDEOS = d
+    except Exception as e: log('refresh_hub', e)
 
 def search_tasks(q, limit=8):
     s = norm(q)
@@ -353,9 +373,9 @@ class App:
         self.b_toggle._nodrag = True
         self.b_toggle.bind('<Button-1>', lambda e: self.toggle())
 
-        self.b_tasks = tk.Label(head, text='📋', font=(FONT, 11), fg=MUTED2, bg=BG, padx=5, cursor='hand2')
+        self.b_tasks = tk.Label(head, text='☰ Consulta', font=(FONT, 9, 'bold'), fg=MUTED2, bg=BG, padx=5, cursor='hand2')
         self.b_tasks.pack(side='right'); self.b_tasks._nodrag = True
-        self.b_tasks.bind('<Button-1>', lambda e: self.open_tasks())
+        self.b_tasks.bind('<Button-1>', lambda e: self.open_hub())
         self.b_tasks.bind('<Enter>', lambda e: self.b_tasks.config(fg=TXT))
         self.b_tasks.bind('<Leave>', lambda e: self.b_tasks.config(fg=MUTED2))
         self.b_cfg = tk.Label(head, text='⚙', font=(FONT, 12), fg=MUTED2, bg=BG, padx=6, cursor='hand2')
@@ -398,6 +418,7 @@ class App:
     def startup(self):
         msg = refresh_db()
         refresh_tasks()
+        refresh_hub()
         self.status_text = f'v{VERSION} · {msg}'
         get_ocr()
         self.status_text = f'v{VERSION} · {msg} · pronto'
@@ -781,6 +802,383 @@ class App:
         self._place_modal(m)
         e.focus_set()
 
+    # ---------- central de consultas rápidas (abas) ----------
+    HUB_TABS = (('pokemon', '🔍', 'Pokémon'), ('timers', '⏱', 'Timers'), ('task', '📋', 'Task'),
+                ('times', '🧭', 'Times'), ('medalhas', '🏅', 'Medalhas'), ('tabelas', '📊', 'Tabelas'),
+                ('videos', '🎬', 'Vídeos'))
+
+    def open_hub(self, tab=None):
+        tab = tab or cfg.get('hub_tab', 'pokemon')
+        m = self._modal('Consulta rápida', 'search', SKY, width=470)
+        c = m.body
+        bar = tk.Frame(c, bg=BG); bar.pack(fill='x', pady=(8, 2))
+        body = tk.Frame(c, bg=BG); body.pack(fill='x')
+        self._hub = (m, body)
+        labels = {}
+        def select(key):
+            cfg['hub_tab'] = key; save_cfg()
+            for k, l in labels.items():
+                l.config(bg=SKY if k == key else BG2, fg='#ffffff' if k == key else MUTED)
+            for w in body.winfo_children(): w.destroy()
+            getattr(self, 'hub_' + key)(body)
+            m.relayout()
+        for key, ico, name in self.HUB_TABS:
+            l = tk.Label(bar, text=f'{ico} {name}', font=(FONT, 8, 'bold'), bg=BG2, fg=MUTED, padx=6, pady=5, cursor='hand2')
+            l.pack(side='left', padx=(0, 3)); l._nodrag = True
+            l.bind('<Button-1>', lambda e, k=key: select(k))
+            labels[key] = l
+        self._hub_select = select
+        select(tab if hasattr(self, 'hub_' + tab) else 'pokemon')
+        self._place_modal(m)
+
+    def _hub_relayout(self):
+        try: self._hub[0].relayout()
+        except Exception: pass
+
+    def _card(self, parent):
+        f = tk.Frame(parent, bg=BG2); f.pack(fill='x', pady=3)
+        return f
+
+    def _txt(self, parent, text, size=9, color=None, bold=False, bg=BG2, padx=12, pady=0):
+        l = tk.Label(parent, text=text, font=(FONT, size, 'bold' if bold else 'normal'), fg=color or '#e4e4e7', bg=bg,
+                     anchor='w', justify='left', wraplength=420)
+        l.pack(fill='x', padx=padx, pady=pady)
+        return l
+
+    def _link(self, parent, text, url, bg=BG2):
+        l = tk.Label(parent, text=text, font=(FONT, 8, 'bold'), fg=SKY, bg=bg, cursor='hand2')
+        l._nodrag = True; l.bind('<Button-1>', lambda e: webbrowser.open(url))
+        return l
+
+    def _search_box(self, parent, hint, on_change, value=''):
+        self.section(parent, hint)
+        e = self.entry(parent, value)
+        res = tk.Frame(parent, bg=BG); res.pack(fill='x', pady=(6, 2))
+        def run(*_):
+            for w in res.winfo_children(): w.destroy()
+            on_change(e.get(), res)
+            self._hub_relayout()
+        e.bind('<KeyRelease>', run)
+        e.focus_set()
+        run()
+        return e
+
+    # --- 🔍 Pokémon ---
+    def hub_pokemon(self, body):
+        start = self.pending[0].title() if self.pending else ''
+        def draw(q, res):
+            s = norm(q)
+            if len(s) < 2:
+                self._txt(res, f"{len(HUB.get('pokemon', []))} Pokémon. Digite o nome (ex.: gengar, shiny onix).", 8, MUTED2, bg=BG, padx=4)
+                return
+            ps = HUB.get('pokemon', [])
+            found = [p for p in ps if norm(p['n']) == s] + [p for p in ps if s in norm(p['n']) and norm(p['n']) != s]
+            if not found:
+                self._txt(res, 'Nenhum Pokémon encontrado.', 9, MUTED, bg=BG, padx=4); return
+            if len(found) > 1 and norm(found[0]['n']) != s:
+                row = tk.Frame(res, bg=BG); row.pack(fill='x')
+                for p in found[:6]:
+                    l = tk.Label(row, text=p['n'], font=(FONT, 8), bg=BG3, fg=TXT, padx=6, pady=3, cursor='hand2')
+                    l.pack(side='left', padx=(0, 4), pady=2); l._nodrag = True
+                    l.bind('<Button-1>', lambda e, n=p['n']: (self._poke_entry.delete(0, 'end'), self._poke_entry.insert(0, n), self._poke_entry.event_generate('<KeyRelease>')))
+            p = found[0]
+            card = self._card(res)
+            top = tk.Frame(card, bg=BG2); top.pack(fill='x', padx=12, pady=(10, 4))
+            tk.Label(top, text=p['n'], font=(FONT, 13, 'bold'), fg=TXT, bg=BG2).pack(side='left')
+            tk.Label(top, text=f"  {p.get('t', '')}  ·  {p.get('tier', '')}", font=(FONT, 9, 'bold'), fg=YELLOW, bg=BG2).pack(side='left')
+            links = tk.Frame(card, bg=BG2); links.pack(fill='x', padx=12)
+            for k, u in (p.get('hunts') or {}).items():
+                if str(u).startswith('http'):
+                    self._link(links, f"🗺 hunt {k}", u).pack(side='left', padx=(0, 10))
+            if p.get('drops'): self._txt(card, '🎒 Drops: ' + ', '.join(p['drops'][:14]), pady=(6, 0))
+            if p.get('dens'): self._txt(card, '🏰 Dens: ' + ', '.join(p['dens']), pady=(4, 0))
+            if p.get('dung'): self._txt(card, '⛏ Dungeons: ' + ', '.join(p['dung']), pady=(4, 0))
+            md = p.get('medal') or {}
+            if md.get('buff') or md.get('debuff'):
+                self._txt(card, f"🏅 Medalha: ▲ {md.get('buff') or '—'}   ▼ {md.get('debuff') or 'nenhuma'}", pady=(4, 0))
+            for t in p.get('tasks', [])[:4]:
+                row = tk.Frame(card, bg=BG2); row.pack(fill='x', padx=12, pady=(4, 0))
+                tk.Label(row, text=f"📋 {t['npc']}" + (f" ({t['region']})" if t.get('region') else '') + (f" — {t['obj']}" if t.get('obj') else ''),
+                         font=(FONT, 9), fg='#e4e4e7', bg=BG2, anchor='w', wraplength=330, justify='left').pack(side='left')
+                if t.get('loc'): self._link(row, 'onde', t['loc']).pack(side='right')
+                if t.get('rew'): self._txt(card, '    🎁 ' + t['rew'], 8, YELLOW)
+            tk.Frame(card, bg=BG2, height=10).pack()
+        self._poke_entry = self._search_box(body, 'NOME DO POKÉMON', draw, start)
+
+    # --- ⏱ Timers ---
+    def hub_timers(self, body):
+        self.section(body, 'NOVO TIMER')
+        row = tk.Frame(body, bg=BG); row.pack(fill='x')
+        name = tk.Entry(row, font=(FONT, 10), bg=BG2, fg=TXT, insertbackground=ORANGE, relief='flat', width=22)
+        name.insert(0, 'Rocket'); name.pack(side='left', ipady=6, padx=(2, 6)); name._nodrag = True
+        mins = tk.Entry(row, font=(FONT, 10), bg=BG2, fg=TXT, insertbackground=ORANGE, relief='flat', width=6, justify='center')
+        mins.insert(0, '60'); mins.pack(side='left', ipady=6); mins._nodrag = True
+        tk.Label(row, text='min', font=(FONT, 8), fg=MUTED, bg=BG).pack(side='left', padx=(4, 8))
+        def add(n=None, mm=None):
+            try: mm = float(mm if mm is not None else mins.get().replace(',', '.'))
+            except ValueError: return
+            cfg.setdefault('timers', []).append({'name': (n or name.get() or 'Timer').strip(), 'mins': mm, 'end': time.time() + mm * 60, 'done': False})
+            save_cfg(); self._hub_select('timers')
+        self.button(row, 'Iniciar', GREEN, add, 'plus', h=28, side='left')
+        presets = cfg.get('timer_presets') or [['Rocket', 60], ['Polícia', 60], ['Boss de Guild', 120], ['Dungeon', 30]]
+        pr = tk.Frame(body, bg=BG); pr.pack(fill='x', pady=(6, 0))
+        for n, mm in presets:
+            l = tk.Label(pr, text=f'{n} {int(mm)}m', font=(FONT, 8), bg=BG3, fg=TXT, padx=6, pady=3, cursor='hand2')
+            l.pack(side='left', padx=(2, 4)); l._nodrag = True
+            l.bind('<Button-1>', lambda e, n=n, mm=mm: add(n, mm))
+        tk.Label(body, text='Os tempos são ajustáveis: digite o nome e os minutos que valem para você. O aviso toca mesmo com esta janela fechada.',
+                 font=(FONT, 8), fg=MUTED2, bg=BG, anchor='w', wraplength=440, justify='left').pack(fill='x', padx=4, pady=(6, 0))
+
+        dens = HUB.get('dens', [])
+        if dens:
+            self.section(body, 'DENS (DURAÇÃO DA PLANILHA)')
+            dv = tk.StringVar(value=dens[0]['n'])
+            drow = tk.Frame(body, bg=BG); drow.pack(fill='x')
+            om = tk.OptionMenu(drow, dv, *[d['n'] for d in dens])
+            om.config(bg=BG2, fg=TXT, activebackground=BG3, activeforeground=TXT, relief='flat', highlightthickness=0, font=(FONT, 9), width=20)
+            om['menu'].config(bg=BG2, fg=TXT, font=(FONT, 9))
+            om.pack(side='left', padx=(2, 8)); om._nodrag = True
+            def add_den():
+                d = next((x for x in dens if x['n'] == dv.get()), None)
+                if not d: return
+                h, mi, s = (list(map(int, str(d['time']).split(':'))) + [0, 0, 0])[:3]
+                add('Den ' + d['n'], h * 60 + mi + s / 60)
+            self.button(drow, 'Iniciar den', SKY, add_den, 'plus', h=28, side='left')
+
+        self.section(body, 'RODANDO')
+        lst = tk.Frame(body, bg=BG); lst.pack(fill='x')
+        ts = cfg.get('timers', [])
+        if not ts: self._txt(lst, 'Nenhum timer rodando.', 9, MUTED, bg=BG, padx=4)
+        self._timer_labels = []
+        for i, t in enumerate(ts):
+            card = self._card(lst)
+            r = tk.Frame(card, bg=BG2); r.pack(fill='x', padx=12, pady=8)
+            tk.Label(r, text=t['name'], font=(FONT, 10, 'bold'), fg=TXT, bg=BG2).pack(side='left')
+            x = tk.Label(r, text='✕', font=(FONT, 10), fg=MUTED2, bg=BG2, cursor='hand2'); x.pack(side='right'); x._nodrag = True
+            x.bind('<Button-1>', lambda e, i=i: (cfg['timers'].pop(i), save_cfg(), self._hub_select('timers')))
+            rs = tk.Label(r, text='↻', font=(FONT, 10, 'bold'), fg=SKY, bg=BG2, cursor='hand2'); rs.pack(side='right', padx=8); rs._nodrag = True
+            rs.bind('<Button-1>', lambda e, t=t: (t.update(end=time.time() + t['mins'] * 60, done=False), save_cfg(), self._hub_select('timers')))
+            lb = tk.Label(r, text='', font=(FONT, 11, 'bold'), fg=YELLOW, bg=BG2); lb.pack(side='right', padx=8)
+            self._timer_labels.append((lb, t))
+        self._timer_draw()
+
+    def _timer_draw(self):
+        for lb, t in getattr(self, '_timer_labels', []):
+            try:
+                left = t['end'] - time.time()
+                if left <= 0: lb.config(text='LIBERADO', fg=GREEN)
+                else:
+                    h, r = divmod(int(left), 3600); mi, s = divmod(r, 60)
+                    lb.config(text=(f'{h}:{mi:02d}:{s:02d}' if h else f'{mi:02d}:{s:02d}'), fg=YELLOW)
+            except Exception: pass
+
+    def _timer_check(self):
+        for t in cfg.get('timers', []):
+            if not t.get('done') and time.time() >= t['end']:
+                t['done'] = True; save_cfg()
+                try:
+                    import winsound; winsound.MessageBeep(winsound.MB_ICONASTERISK)
+                except Exception: pass
+                for w in self.rows.winfo_children(): w.destroy()
+                self.thumb.config(image=''); self.thumb.image = None
+                self.l_name.config(text=f"{t['name']} liberou!")
+                self.set_pill(self.l_cat, 'TIMER', 'target', GREEN)
+                self.add_row('target', GREEN, f"Passaram {int(t['mins'])} minutos.", 'Abra ⏱ Timers para reiniciar.')
+                self.b_reg.pack_forget(); self.w.set_border(GREEN); self.update_foot()
+                self.open_panel(); self.open_until = time.time() + 15
+
+    # --- 📋 Task acompanhada ---
+    def hub_task(self, body):
+        tr = cfg.get('track')
+        if tr:
+            card = self._card(body)
+            top = tk.Frame(card, bg=BG2); top.pack(fill='x', padx=12, pady=(10, 4))
+            tk.Label(top, text='Acompanhando: ' + tr['npc'], font=(FONT, 11, 'bold'), fg=TXT, bg=BG2).pack(side='left')
+            if tr.get('loc'): self._link(top, '🗺 onde fica', tr['loc']).pack(side='right')
+            for o in tr['objectives']:
+                row = tk.Frame(card, bg=BG2); row.pack(fill='x', padx=12, pady=3)
+                qty = int(o.get('qty') or 0)
+                done = o.get('done', 0)
+                ok = qty and done >= qty
+                tk.Label(row, text=(o.get('target') or o.get('text', ''))[:26], font=(FONT, 10), fg=GREEN if ok else TXT, bg=BG2,
+                         width=18, anchor='w').pack(side='left')
+                tk.Label(row, text=f'{done}/{qty}' if qty else f'{done}', font=(FONT, 10, 'bold'), fg=GREEN if ok else YELLOW,
+                         bg=BG2, width=9).pack(side='left')
+                for d in (1, 5, 10, -1):
+                    b = tk.Label(row, text=f'{d:+d}', font=(FONT, 8, 'bold'), bg=BG3 if d > 0 else BG, fg=TXT if d > 0 else MUTED,
+                                 padx=6, pady=2, cursor='hand2')
+                    b.pack(side='left', padx=2); b._nodrag = True
+                    b.bind('<Button-1>', lambda e, o=o, d=d: (o.__setitem__('done', max(0, o.get('done', 0) + d)), save_cfg(), self._hub_select('task')))
+            if tr.get('rew'): self._txt(card, '🎁 ' + tr['rew'], 8, YELLOW, pady=(6, 0))
+            b = tk.Frame(card, bg=BG2); b.pack(fill='x', padx=12, pady=10)
+            self.button(b, 'Parar de acompanhar', BG3, lambda: (cfg.pop('track', None), save_cfg(), self._hub_select('task')), side='left')
+        def draw(q, res):
+            found = search_tasks(q, limit=5)
+            if not found:
+                if len(norm(q)) >= 2: self._txt(res, 'Nenhuma task encontrada.', 9, MUTED, bg=BG, padx=4)
+                return
+            for t in found:
+                card = self._card(res)
+                top = tk.Frame(card, bg=BG2); top.pack(fill='x', padx=12, pady=(8, 2))
+                tk.Label(top, text=t.get('npc', '?'), font=(FONT, 10, 'bold'), fg=TXT, bg=BG2).pack(side='left')
+                tk.Label(top, text='  ' + t.get('region', ''), font=(FONT, 8), fg=MUTED, bg=BG2).pack(side='left')
+                def follow(t=t):
+                    cfg['track'] = {'npc': t.get('npc', ''), 'loc': t.get('loc', ''),
+                                    'rew': ' · '.join(f"{r.get('qty', '')} {r.get('label', '')}".strip() for r in t.get('rewards', [])),
+                                    'objectives': [dict(o, done=0) for o in t.get('objectives', [])]}
+                    save_cfg(); self._hub_select('task')
+                fl = tk.Label(top, text='▶ acompanhar', font=(FONT, 8, 'bold'), fg=GREEN, bg=BG2, cursor='hand2')
+                fl.pack(side='right'); fl._nodrag = True; fl.bind('<Button-1>', lambda e, f=follow: f())
+                self._txt(card, '  ·  '.join(f"{o['qty']}x {o['target']}" if o.get('qty') else o.get('text', '') for o in t.get('objectives', [])), 9, pady=(0, 8))
+        self._search_box(body, 'PROCURAR TASK PARA ACOMPANHAR (POKÉMON, NPC OU RECOMPENSA)', draw)
+
+    # --- 🧭 Times ---
+    def hub_times(self, body):
+        def draw(q, res):
+            s = norm(q)
+            ts = HUB.get('teams', [])
+            found = [t for t in ts if not s or s in norm(t['name'] + ' ' + t['sub'] + ' ' + ' '.join(sum((r[1] for r in t['rows']), [])))]
+            if not s:
+                row = tk.Frame(res, bg=BG); row.pack(fill='x')
+                for i, t in enumerate(ts[:24]):
+                    l = tk.Label(row, text=t['name'], font=(FONT, 8), bg=BG3, fg=TXT, padx=5, pady=3, cursor='hand2')
+                    l.grid(row=i // 6, column=i % 6, padx=2, pady=2, sticky='we'); l._nodrag = True
+                    l.bind('<Button-1>', lambda e, n=t['name']: (self._team_entry.delete(0, 'end'), self._team_entry.insert(0, n), self._team_entry.event_generate('<KeyRelease>')))
+                return
+            for t in found[:4]:
+                card = self._card(res)
+                top = tk.Frame(card, bg=BG2); top.pack(fill='x', padx=12, pady=(8, 2))
+                tk.Label(top, text=t['name'], font=(FONT, 11, 'bold'), fg=TXT, bg=BG2).pack(side='left')
+                tk.Label(top, text=f"  {t['sub']}  ·  guia {t['src']}", font=(FONT, 8), fg=MUTED, bg=BG2).pack(side='left')
+                for label, names in t['rows']:
+                    if names: self._txt(card, f'{label}: ' + ', '.join(names), 9)
+                tk.Frame(card, bg=BG2, height=8).pack()
+            if not found: self._txt(res, 'Nada encontrado.', 9, MUTED, bg=BG, padx=4)
+        self._team_entry = self._search_box(body, 'ELEMENTO, HUNT OU POKÉMON', draw)
+
+    # --- 🏅 Medalhas ---
+    MEDAL_PT = {'Damage Boost': 'Dano', 'Critical Chance': 'Chance crítico', 'Critical Damage': 'Dano crítico',
+                'Precision Percent': 'Precisão', 'Life Leech': 'Roubo de vida', 'Defense Boost': 'Defesa', 'HP Boost': 'Vida',
+                'Evasion Percent': 'Evasão', 'Critical Resistance': 'Resist. crítico', 'Pokemon Speed': 'Veloc. Pokémon',
+                'Character Speed': 'Veloc. personagem', 'Fly Speed': 'Fly', 'Ride Speed': 'Ride', 'Surf Speed': 'Surf',
+                'Catch Rate': 'Catch', 'Shiny Catch Rate': 'Catch shiny', 'Shiny Charm Rate': 'Shiny Charm', 'Loot Boost': 'Loot',
+                'Fishing Skill': 'Skill pesca', 'Extra Fishing': 'Pesca extra', 'Shiny Fishing Rate': 'Shiny pesca',
+                'Headbutt Skill': 'Skill Headbutt', 'Shiny Headbutt Rate': 'Shiny Headbutt'}
+    LEVELS = ('Bronze', 'Silver', 'Gold', 'Diamond', 'Emerald', 'Orichalcum')
+
+    def hub_medalhas(self, body):
+        import urllib.parse
+        self.section(body, 'COLE O LINK DO SIMULADOR DO SITE (BOTÃO "COMPARTILHAR")')
+        e = self.entry(body, cfg.get('medals', ''))
+        res = tk.Frame(body, bg=BG); res.pack(fill='x', pady=(6, 2))
+        by = {p['n']: p for p in HUB.get('pokemon', [])}
+        fix = lambda s: {'critical change': 'Critical Chance', 'critital damage': 'Critical Damage', 'fly spped': 'Fly Speed',
+                         'shing fishing rate': 'Shiny Fishing Rate'}.get((s or '').strip().lower(), (s or '').strip())
+        def draw(*_):
+            for w in res.winfo_children(): w.destroy()
+            raw = e.get().strip()
+            code = urllib.parse.unquote(raw.split('s=', 1)[1].split('&')[0]) if 's=' in raw else raw
+            slots = []
+            for x in code.split(','):
+                if '.' in x:
+                    n, l = x.rsplit('.', 1)
+                    if n in by: slots.append((n, max(1, min(6, int(l) if l.isdigit() else 1))))
+            if not slots:
+                self._txt(res, 'Monte seus emblemas no site (Pokédex → Medalhas (simulador)), clique em "🔗 Compartilhar" e cole aqui. Fica salvo.', 8, MUTED2, bg=BG, padx=4)
+                self._hub_relayout(); return
+            cfg['medals'] = raw; save_cfg()
+            up, down = {}, {}
+            card = self._card(res)
+            for n, l in slots:
+                md = by[n].get('medal') or {}
+                b, d = fix(md.get('buff')), fix(md.get('debuff'))
+                if b: up[b] = up.get(b, 0) + l
+                if d and d != '-' and l < 6: down[d] = down.get(d, 0) + (6 - l)
+                self._txt(card, f"{n} ({self.LEVELS[l - 1]})  ▲ {self.MEDAL_PT.get(b, b or '—')}  ▼ {self.MEDAL_PT.get(d, d) if d and d != '-' else '—'}"
+                          + ('  (zerada)' if l == 6 and d else ''), 9, pady=(2, 0))
+            tk.Frame(card, bg=BG2, height=6).pack()
+            tot = self._card(res)
+            self._txt(tot, 'RESULTADO (quanto mais ▲/▼, mais forte)', 8, MUTED2, True, pady=(8, 2))
+            for k in sorted(set(up) | set(down), key=lambda k: -(up.get(k, 0) - down.get(k, 0))):
+                net = up.get(k, 0) - down.get(k, 0)
+                sym = ('▲' * min(3, (net + 3) // 4)) if net > 0 else ('▼' * min(3, (-net + 3) // 4)) if net < 0 else '= se anulando'
+                self._txt(tot, f"{self.MEDAL_PT.get(k, k)}: {sym}", 9, GREEN if net > 0 else RED if net < 0 else MUTED)
+            tk.Frame(tot, bg=BG2, height=8).pack()
+            self._hub_relayout()
+        e.bind('<KeyRelease>', draw); e.bind('<<Paste>>', lambda ev: self.root.after(50, draw))
+        draw()
+
+    # --- 📊 Tabelas ---
+    def hub_tabelas(self, body):
+        which = tk.StringVar(value=cfg.get('hub_table', 'boost'))
+        bar = tk.Frame(body, bg=BG); bar.pack(fill='x', pady=(8, 4))
+        out = tk.Frame(body, bg=BG); out.pack(fill='x')
+        def show(k):
+            cfg['hub_table'] = k; save_cfg()
+            for w in out.winfo_children(): w.destroy()
+            card = self._card(out)
+            if k == 'boost':
+                for b in HUB.get('boost', []):
+                    self._txt(card, f"{b['type']}: {b['stone']} · {b['fragment']}  —  " + ', '.join(b['items']), 8, pady=(3, 0))
+            elif k == 'star':
+                st = HUB.get('star', {})
+                self._txt(card, st.get('note', ''), 8, pady=(6, 4))
+                for t in st.get('tiers', []):
+                    self._txt(card, f"{t['tier']}: " + '  |  '.join(f"{c.get('dd', '')} DD + {c.get('kk', '')}kk" for c in t['costs']), 8)
+            elif k == 'runes':
+                for r in HUB.get('runes', {}).get('stats', []):
+                    lv = [f"{x['points']}→{x['bonus']}" for x in r['levels'] if x.get('points') and x.get('bonus')]
+                    self._txt(card, f"{r['name']}: " + ('  ·  '.join(lv) or '—'), 8, pady=(2, 0))
+            elif k == 'shiny':
+                for col in HUB.get('shinyRate', {}).get('columns', []):
+                    self._txt(card, f"Rate {col['rate']}: " + '  ·  '.join(f"{t['tier']} {t['value']}" for t in col['tiers'] if t.get('value') is not None), 8, pady=(2, 0))
+                br = HUB.get('brokes', {}).get('max', [])
+                if br: self._txt(card, 'Max broke: ' + '  ·  '.join(f"{b['tier']} {b['max']}" for b in br), 8, YELLOW, pady=(6, 0))
+            tk.Frame(card, bg=BG2, height=8).pack()
+            for kk, l in labels.items(): l.config(bg=ORANGE if kk == k else BG3)
+            self._hub_relayout()
+        labels = {}
+        for k, name in (('boost', 'Boost'), ('star', 'Star'), ('runes', 'Runas'), ('shiny', 'Shiny Rate / Broke')):
+            l = tk.Label(bar, text=name, font=(FONT, 8, 'bold'), bg=BG3, fg=TXT, padx=8, pady=4, cursor='hand2')
+            l.pack(side='left', padx=(2, 4)); l._nodrag = True
+            l.bind('<Button-1>', lambda e, k=k: show(k)); labels[k] = l
+        show(which.get())
+
+    # --- 🎬 Vídeos ---
+    def hub_videos(self, body):
+        def draw(q, res):
+            s = norm(q)
+            if len(s) < 3:
+                self._txt(res, f'{len(VIDEOS)} vídeos com as falas transcritas. Pergunte algo (ex.: como pegar shiny, melhor hunt 200).', 8, MUTED2, bg=BG, padx=4)
+                return
+            words = [w for w in s.split() if len(w) > 2 and w not in ('como', 'qual', 'para', 'que', 'melhor', 'onde', 'uma', 'com')] or s.split()
+            scored = []
+            for v in VIDEOS:
+                tt = norm(v['title'])
+                best, bt, bx = 0, 0, ''
+                for t, txt in v.get('segs', []):
+                    n = norm(txt); sc = sum(1 for w in words if w in n)
+                    if sc > best: best, bt, bx = sc, t, txt
+                sc = best + 2 * sum(1 for w in words if w in tt)
+                if sc: scored.append((sc, v, bt, bx))
+            scored.sort(key=lambda x: -x[0])
+            if not scored: self._txt(res, 'Nada encontrado nas falas.', 9, MUTED, bg=BG, padx=4); return
+            for sc, v, t, txt in scored[:5]:
+                card = self._card(res)
+                top = tk.Frame(card, bg=BG2); top.pack(fill='x', padx=12, pady=(8, 2))
+                tk.Label(top, text=v['title'][:58], font=(FONT, 9, 'bold'), fg=TXT, bg=BG2, anchor='w').pack(side='left')
+                self._link(top, f'▶ {int(t) // 60}:{int(t) % 60:02d}', f"https://www.youtube.com/watch?v={v['id']}&t={int(t)}s").pack(side='right')
+                self._txt(card, f"{v['ch']} — “{txt[:160]}…”", 8, MUTED, pady=(0, 8))
+        e = self._search_box(body, 'PERGUNTE AOS VÍDEOS', lambda q, r: None)
+        e.bind('<KeyRelease>', lambda ev: None)
+        res = e.master.master.winfo_children()[-1]
+        def go(*_):
+            for w in res.winfo_children(): w.destroy()
+            draw(e.get(), res); self._hub_relayout()
+        e.bind('<Return>', go)
+        tk.Label(body, text='Aperte Enter para buscar.', font=(FONT, 8), fg=MUTED2, bg=BG, anchor='w').pack(fill='x', padx=4)
+        go()
+
     def close_modal(self):
         self.recording = None
         if self.modal:
@@ -823,6 +1221,10 @@ class App:
                 elif kind == 'quit':
                     self.root.destroy(); return
         except queue.Empty: pass
+        self._tk_n = getattr(self, '_tk_n', 0) + 1
+        if self._tk_n % 6 == 0:
+            self._timer_check()
+            if self.modal: self._timer_draw()
         if self.panel.winfo_manager() and time.time() > self.open_until and not self.modal:
             self.close_panel()
         self.root.after(80, self.tick)

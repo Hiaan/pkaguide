@@ -31,7 +31,8 @@ jobs:
           python build_wiki.py
           python build_tasks.py
           python overlay/build_items_db.py
-          cp overlay/items_db.json site/public/overlay/items_db.json
+          python overlay/build_hub_db.py
+          cp overlay/items_db.json site/public/overlay/items_db.json overlay/hub_db.json overlay/videos_db.json
       - name: Commit se mudou
         run: |
           git config user.name "pka-bot"

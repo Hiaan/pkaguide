@@ -2,5 +2,8 @@
  "mode": "auto",
  "hotkey": "f4",
  "show_s": 10,
- "alpha": 55
+ "alpha": 55,
+ "hub_tab": "task",
+ "hub_table": "boost",
+ "timers": []
 }
