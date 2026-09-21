@@ -183,7 +183,7 @@ export default function Medals() {
   }, [slots, vals])
 
   const conflicts = Object.entries(result).filter(([, x]) => x.up > 0 && x.down > 0)
-  const shareUrl = `${location.origin}${location.pathname}#/sistemas/medals?s=${encodeURIComponent(encode(slots))}`
+  const shareUrl = `${location.origin}${location.pathname}#/pokedex/simulador?s=${encodeURIComponent(encode(slots))}`
 
   const list = MEDALS.filter((m) => {
     const s = q.trim().toLowerCase()

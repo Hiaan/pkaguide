@@ -1,5 +1,10 @@
+import tasksRaw from '../data/tasks.json'
+import { RewardChip, type Task } from './Tasks'
+const taskDb = tasksRaw as unknown as { source: string; tasks: Task[]; byPokemon: Record<string, { name: string; tasks: number[] }> }
 import { useMemo, useState } from 'react'
 import { data, TIER_ORDER, TYPE_COLORS, tierRank, type Pokemon } from '../lib/data'
+import { Note } from '../components/ui'
+import Medals from './Medals'
 import { Imgur, PokeCard, PokeName, Search, SectionHead, TierBadge, TypeBadge, sortPoke } from '../components/ui'
 
 type Props = { sub: string; onOpen: (p: Pokemon) => void }
@@ -90,28 +95,45 @@ export default function Pokedex({ sub, onOpen }: Props) {
     )
   }
 
+  if (sub.startsWith('simulador')) return <Medals />
+
   if (sub === 'tasks') {
-    const rows = list.filter((p) => p.tasks.length)
+    const nk = (s: string) => s.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]+/g, ' ').trim()
+    const rows = list.map((p) => ({ p, ts: (taskDb.byPokemon[nk(p.name)]?.tasks ?? []).map((i) => taskDb.tasks[i]) })).filter((r) => r.ts.length)
     return (
       <>
-        <SectionHead title="Tasks por Pokémon" sub="Qual NPC dá a task de cada Pokémon e onde ele fica." />
+        <SectionHead title="Tasks por Pokémon" sub="Quais NPCs pedem cada Pokémon, quanto precisa derrotar e o que ganha. Fonte: Tasks do Mundo da wiki oficial." />
         {bar}
         <div className="table-wrap">
           <table>
-            <thead><tr><th>Pokémon</th><th>NPC 1</th><th>NPC 2</th><th>NPC 3</th></tr></thead>
+            <thead><tr><th>Pokémon</th><th>Tasks (NPC · região · objetivo · recompensa)</th></tr></thead>
             <tbody>
-              {rows.map((p) => (
+              {rows.map(({ p, ts }) => (
                 <tr key={p.name}>
                   <td><PokeName name={p.name} onOpen={onOpen} /></td>
-                  {[0, 1, 2].map((i) => (
-                    <td key={i}>{p.tasks[i] ? <span style={{ display: 'inline-flex', gap: 8, alignItems: 'center' }}><b>{p.tasks[i].npc}</b><Imgur href={p.tasks[i].loc} label="Local" /></span> : <span className="muted">—</span>}</td>
-                  ))}
+                  <td>
+                    {ts.map((t, i) => {
+                      const o = t.objectives.find((x) => nk(x.target) === nk(p.name))
+                      return (
+                        <div key={i} className="ptask">
+                          {t.npcImg && <img src={t.npcImg} alt="" loading="lazy" />}
+                          <b>{t.npc}</b>
+                          <span className="muted small">{t.region}</span>
+                          {o && <span className="chip">{o.text}</span>}
+                          {t.objectives.length > 1 && <span className="muted tiny">+{t.objectives.length - 1} objetivo(s)</span>}
+                          {t.rewards.map((r, j) => <RewardChip key={j} r={r} />)}
+                          {t.loc && <Imgur href={t.loc} label="Local" />}
+                        </div>
+                      )
+                    })}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
         {!rows.length && <div className="empty">Nada encontrado</div>}
+        <Note>Dados da página <a href={taskDb.source} target="_blank" rel="noreferrer">Tasks do Mundo</a> da wiki PokeAlliance, atualizados todo dia. Para ver a task completa, abra a aba 📋 Tasks.</Note>
       </>
     )
   }

@@ -537,3 +537,7 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .side-link:hover { background: rgba(255, 255, 255, 0.04); text-decoration: none; }
 .side-link.active { background: rgba(249, 115, 22, 0.1); }
 @media (max-width: 860px) { .side { margin-top: 10px; } }
+
+.ptask { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; padding: 4px 0; }
+.ptask + .ptask { border-top: 1px dashed var(--line); }
+.ptask > img { width: 28px; height: 28px; object-fit: contain; image-rendering: pixelated; }
