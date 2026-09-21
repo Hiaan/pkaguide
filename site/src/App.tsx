@@ -48,6 +48,7 @@ export default function App() {
   const [selected, setSelected] = useState<Pokemon | null>(null)
   const [item, setItem] = useState('')
   const [quick, setQuick] = useState('')
+  const [menu, setMenu] = useState(false)
 
   useEffect(() => {
     const h = () => setRoute(parseHash())
@@ -117,24 +118,30 @@ export default function App() {
         </div>
       </header>
 
-      <nav className="nav">
-        <div className="nav-inner">
-          {SECTIONS.map((s) => (
-            <button key={s.id} className={`nav-item ${section === s.id ? 'active' : ''}`} onClick={() => go(s.id)}>
-              <span className="ico">{s.ico}</span>{s.label}
-            </button>
+      <div className="layout">
+        <button className="side-toggle btn" onClick={() => setMenu((m) => !m)}>☰ Menu · {current.ico} {current.label}{current.subs.find(([id]) => id === sub) ? ` › ${current.subs.find(([id]) => id === sub)![1]}` : ''}</button>
+        <aside className={`side ${menu ? 'open' : ''}`}>
+          {SECTIONS.filter((s) => s.subs.length > 0).map((s) => (
+            <div key={s.id} className="side-group">
+              <button className={`side-head ${section === s.id ? 'active' : ''}`} onClick={() => { go(s.id); setMenu(false) }}><span className="ico">{s.ico}</span>{s.label}</button>
+              {s.subs.map(([id, label]) => (
+                <button key={id} className={`side-link ${section === s.id && sub === id ? 'active' : ''}`} onClick={() => { go(s.id, id); setMenu(false) }}>{label}</button>
+              ))}
+            </div>
           ))}
-        </div>
-      </nav>
+          <div className="side-group">
+            <div className="side-head plain">Mais</div>
+            {SECTIONS.filter((s) => s.subs.length === 0).map((s) => (
+              <button key={s.id} className={`side-link ${section === s.id ? 'active' : ''}`} onClick={() => { go(s.id); setMenu(false) }}><span className="ico">{s.ico}</span> {s.label}</button>
+            ))}
+          </div>
+        </aside>
 
-      {current.subs.length > 0 && (
-        <div className="subnav">
-          {current.subs.map(([id, label]) => (
-            <button key={id} className={`chip ${sub === id ? 'active' : ''}`} onClick={() => go(section, id)}>{label}</button>
-          ))}
-        </div>
-      )}
-
+        <div className="content">
+          <div className="crumb">
+            <span className="ico">{current.ico}</span> {current.label}
+            {current.subs.find(([id]) => id === sub) && <> <span className="crumb-sep">›</span> {current.subs.find(([id]) => id === sub)![1]}</>}
+          </div>
       <main className="main">
         {section === 'pokedex' && <Pokedex sub={sub} onOpen={setSelected} />}
         {section === 'itens' && <Itens sub={sub} onOpen={setSelected} item={item} setItem={setItem} />}
@@ -149,6 +156,8 @@ export default function App() {
         {section === 'faq' && <FAQ />}
         {section === 'sugestoes' && <Sugestoes />}
       </main>
+        </div>
+      </div>
 
       <footer className="footer">
         <button className="btn btn-primary footer-cta" onClick={() => go('sugestoes')}>💡 Sugestões para melhorar o site? Clique aqui</button>
