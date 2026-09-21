@@ -51,6 +51,17 @@ const REF_BRONZE: Record<StatKey, { b?: number; d?: number }> = {
   'Surf Speed': { d: 5 },
   'Shiny Headbutt Rate': { d: 4 },
 }
+/** estimativa de Bronze p/ atributos que o vídeo não mostrou (mesma escala dos parecidos) */
+const EST_BRONZE = (k: StatKey): { b: number; d: number } => {
+  const g = STATS[k].group
+  if (g === 'Velocidade') return { b: 1, d: 5 }
+  if (k.startsWith('Shiny')) return { b: 0.5, d: 4 }
+  if (g === 'Pesca e Headbutt') return { b: 1, d: 4 }
+  return { b: 0.2, d: 1 }
+}
+/** bônus cresce 1× por nível; penalidade cai até zerar no Orichalcum */
+const bonusAt = (base: number, lvl: number) => base * lvl
+const penalAt = (base: number, lvl: number) => base * (MAXL - lvl) / (MAXL - 1)
 const REF_VIDEO = 'https://www.youtube.com/watch?v=z_wIlJXEU7E&t=455s'
 
 /* ---------------- medalhas ---------------- */
@@ -155,19 +166,22 @@ export default function Medals() {
       const v = vals[`${s.m}:${s.lvl}`] ?? {}
       if (med.buff) {
         const x = get(med.buff); x.up += s.lvl; x.src.push({ m: s.m, lvl: s.lvl, sign: 1 })
-        const ref = s.lvl === 1 ? REF_BRONZE[med.buff]?.b : undefined
-        if (v.b != null) x.ex += v.b; else if (ref != null) { x.ex += ref; x.ref = true } else x.exact = false
+        const ref = REF_BRONZE[med.buff]?.b
+        if (v.b != null) x.ex += v.b
+        else if (ref != null) { x.ex += bonusAt(ref, s.lvl); if (s.lvl > 1) x.exact = false; x.ref = true }
+        else { x.ex += bonusAt(EST_BRONZE(med.buff).b, s.lvl); x.exact = false }
       }
       if (med.debuff && s.lvl < MAXL) {
         const x = get(med.debuff); x.down += MAXL - s.lvl; x.src.push({ m: s.m, lvl: s.lvl, sign: -1 })
-        const ref = s.lvl === 1 ? REF_BRONZE[med.debuff]?.d : undefined
-        if (v.d != null) x.ex -= v.d; else if (ref != null) { x.ex -= ref; x.ref = true } else x.exact = false
+        const ref = REF_BRONZE[med.debuff]?.d
+        if (v.d != null) x.ex -= v.d
+        else if (ref != null) { x.ex -= penalAt(ref, s.lvl); if (s.lvl > 1) x.exact = false; x.ref = true }
+        else { x.ex -= penalAt(EST_BRONZE(med.debuff).d, s.lvl); x.exact = false }
       }
     }
     return r
   }, [slots, vals])
 
-  const maxAbs = Math.max(6, ...Object.values(result).map((x) => Math.max(x.up, x.down)))
   const conflicts = Object.entries(result).filter(([, x]) => x.up > 0 && x.down > 0)
   const shareUrl = `${location.origin}${location.pathname}#/sistemas/medals?s=${encodeURIComponent(encode(slots))}`
 
@@ -215,21 +229,14 @@ export default function Medals() {
               return (
                 <div key={g} className="md-group">
                   <div className="md-gtitle">{g}</div>
-                  {rows.sort((a, b) => (b[1].up - b[1].down) - (a[1].up - a[1].down)).map(([k, x]) => {
-                    const net = x.up - x.down
-                    const showEx = x.exact && x.ex !== 0
+                  {rows.sort((a, b) => b[1].ex - a[1].ex).map(([k, x]) => {
+                    const net = Math.round(x.ex * 100) / 100
                     return (
                       <div key={k} className="md-stat" title={x.src.map((s) => `${s.sign > 0 ? '▲' : '▼'} ${s.m} (${LEVELS[s.lvl - 1].n})`).join('\n')}>
                         <span className="md-sico">{STATS[k].icon}</span>
                         <span className="md-slabel">{STATS[k].label}</span>
-                        <span className="md-bar">
-                          <span className="md-neg" style={{ width: `${(x.down / maxAbs) * 50}%` }} />
-                          <span className="md-mid" />
-                          <span className="md-pos" style={{ width: `${(x.up / maxAbs) * 50}%` }} />
-                        </span>
                         <span className={`md-net ${net > 0 ? 'up' : net < 0 ? 'down' : ''}`}>
-                          {showEx ? `${x.ex > 0 ? '+' : ''}${x.ex.toFixed(1)}%${x.ref ? '*' : ''}`
-                            : net > 0 ? '▲'.repeat(Math.min(3, Math.ceil(net / 4))) : net < 0 ? '▼'.repeat(Math.min(3, Math.ceil(-net / 4))) : '='}
+                          {x.exact ? '' : '~'}{net > 0 ? '+' : ''}{net.toFixed(net % 1 && Math.abs(net * 10) % 1 ? 2 : 1)}%
                         </span>
                       </div>
                     )
@@ -344,9 +351,9 @@ export default function Medals() {
       </div>
 
       <Note>
-        {'* Valores com asterisco usam a referência do nível Bronze mostrada no '}
+        {'Valores sem ~ são exatos, vindos do nível Bronze mostrado no '}
         <a href={REF_VIDEO} target="_blank" rel="noreferrer">vídeo do Empregolista</a>
-        {' (dano +0,2%, defesa +0,2%, catch de shiny +0,5%, Shiny Charm +0,4%; penalidades de catch −1%, evasão −1%, surf −5%). Nos outros níveis as barras mostram a intensidade relativa: o bônus cresce e a penalidade diminui até zerar no Orichalcum. Digite os valores do painel do jogo em cada medalha para a ficha somar tudo em %. Regras: 10 espaços, 5 presets, sem repetir medalha, troca só em Protection Zone.'}
+        {' (dano +0,2%, defesa +0,2%, catch de shiny +0,5%, Shiny Charm +0,4%; penalidades de catch −1%, evasão −1%, surf −5%). Valores com ~ são estimativa: o bônus sobe 1× a cada nível e a penalidade cai até zerar no Orichalcum, e atributos que o vídeo não mostrou usam a escala de um parecido. Digite o valor do painel do jogo na medalha para trocar a estimativa pelo valor real. Regras: 10 espaços, 5 presets, sem repetir medalha, troca só em Protection Zone.'}
       </Note>
     </>
   )
