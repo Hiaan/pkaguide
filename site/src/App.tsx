@@ -121,6 +121,7 @@ export default function App() {
       <div className="layout">
         <button className="side-toggle btn" onClick={() => setMenu((m) => !m)}>☰ Menu · {current.ico} {current.label}{current.subs.find(([id]) => id === sub) ? ` › ${current.subs.find(([id]) => id === sub)![1]}` : ''}</button>
         <aside className={`side ${menu ? 'open' : ''}`}>
+          <button className="side-logo" onClick={() => { go('pokedex'); setMenu(false) }}><img src="/logo.png" alt="PKA GUIDE" /><span>PKA <b>GUIDE</b></span></button>
           {SECTIONS.filter((s) => s.subs.length > 0).map((s) => (
             <div key={s.id} className="side-group">
               <button className={`side-head ${section === s.id ? 'active' : ''}`} onClick={() => { go(s.id); setMenu(false) }}><span className="ico">{s.ico}</span>{s.label}</button>
