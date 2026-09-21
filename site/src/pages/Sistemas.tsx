@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { data, fmt } from '../lib/data'
 import { Note, SectionHead, TierBadge } from '../components/ui'
 import { VideoRefs } from './Videos'
+import Medals from './Medals'
 
 export default function Sistemas({ sub }: { sub: string }) {
+  if (sub.startsWith('medals')) return <><Medals /><VideoRefs topic="medalhas" /></>
   const topic = ({ runes: 'runas', damage: 'dano', rates: 'shiny' } as Record<string, string>)[sub] ?? 'star'
   return (
     <>

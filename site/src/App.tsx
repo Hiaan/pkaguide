@@ -21,7 +21,7 @@ const wikiPages = (wikiData as { pages: { path: string; title: string; summary: 
 const SECTIONS = [
   { id: 'pokedex', label: 'Pokédex', ico: '🔴', subs: [['grid', 'Pokémon'], ['tierlist', 'Tier List'], ['hunts', 'Localizações'], ['tasks', 'Tasks'], ['medals', 'Medalhas']] },
   { id: 'itens', label: 'Itens', ico: '🎒', subs: [['drops', 'Buscar drop'], ['talents', 'PokeTalents'], ['boost', 'Boost']] },
-  { id: 'sistemas', label: 'Sistemas', ico: '⚙️', subs: [['star', 'Star'], ['runes', 'Runas'], ['damage', 'Dano'], ['rates', 'Shiny Rate & Brokes']] },
+  { id: 'sistemas', label: 'Sistemas', ico: '⚙️', subs: [['star', 'Star'], ['medals', 'Medalhas (simulador)'], ['runes', 'Runas'], ['damage', 'Dano'], ['rates', 'Shiny Rate & Brokes']] },
   { id: 'dungeons', label: 'Dungeons', ico: '🏰', subs: [['list', 'Dungeons'], ['dens', 'Dens'], ['porygon', 'Porygon']] },
   { id: 'desafios', label: 'Desafios', ico: '⚔️', subs: [['gym', 'Ginásios'], ['guildboss', 'Bosses de Guild'], ['rocket', 'Rockets'], ['police', 'Polícia'], ['hazard', 'Hazard Tasks'], ['linked', 'Linked Tasks'], ['bh', 'Brotherhood']] },
   { id: 'times', label: 'Times', ico: '🧭', subs: [['hunt', 'Por hunt (Safnaw)'], ['sem-t2', 'Sem T2/T3 (loxas)']] },
@@ -39,7 +39,7 @@ const parseHash = (): [SectionId, string] => {
   const parts = location.hash.replace(/^#\/?/, '').split('/').map(decodeURIComponent)
   const sec = parts[0] || 'pokedex'
   const s = SECTIONS.find((x) => x.id === sec) ?? SECTIONS[0]
-  const sub = parts.slice(1).join('/')          // a wiki usa caminhos com barra (sistemas/linked-tasks)
+  const sub = parts.slice(1).join('/').split('?')[0]          // a wiki usa caminhos com barra (sistemas/linked-tasks)
   return [s.id, sub || (s.subs[0]?.[0] ?? '')]
 }
 
