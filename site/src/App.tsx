@@ -13,12 +13,14 @@ import Ferramentas from './pages/Ferramentas'
 import Videos, { videos as allVideos } from './pages/Videos'
 import Wiki from './pages/Wiki'
 import Tasks from './pages/Tasks'
+import Home from './pages/Home'
 import wikiData from './data/wiki.json'
 
 const wikiPages = (wikiData as { pages: { path: string; title: string; summary: string }[] }).pages
   .map((p) => ({ path: p.path, title: p.title, t: (p.title + ' ' + p.summary).toLowerCase() }))
 
 const SECTIONS = [
+  { id: 'inicio', label: 'Início', ico: '🏠', subs: [] },
   { id: 'pokedex', label: 'Pokédex', ico: '🔴', subs: [['grid', 'Pokémon'], ['tierlist', 'Tier List'], ['hunts', 'Localizações'], ['tasks', 'Tasks'], ['medals', 'Medalhas (lista)'], ['simulador', 'Medalhas (simulador)']] },
   { id: 'itens', label: 'Itens', ico: '🎒', subs: [['drops', 'Buscar drop'], ['talents', 'PokeTalents'], ['boost', 'Boost']] },
   { id: 'sistemas', label: 'Sistemas', ico: '⚙️', subs: [['star', 'Star'], ['runes', 'Runas'], ['damage', 'Dano'], ['rates', 'Shiny Rate & Brokes']] },
@@ -37,7 +39,7 @@ type SectionId = (typeof SECTIONS)[number]['id']
 
 const parseHash = (): [SectionId, string] => {
   const parts = location.hash.replace(/^#\/?/, '').split('/').map(decodeURIComponent)
-  const sec = parts[0] || 'pokedex'
+  const sec = parts[0] || 'inicio'
   const s = SECTIONS.find((x) => x.id === sec) ?? SECTIONS[0]
   const sub = parts.slice(1).join('/').split('?')[0]          // a wiki usa caminhos com barra (sistemas/linked-tasks)
   return [s.id, sub || (s.subs[0]?.[0] ?? '')]
@@ -121,7 +123,8 @@ export default function App() {
       <div className="layout">
         <button className="side-toggle btn" onClick={() => setMenu((m) => !m)}>☰ Menu · {current.ico} {current.label}{current.subs.find(([id]) => id === sub) ? ` › ${current.subs.find(([id]) => id === sub)![1]}` : ''}</button>
         <aside className={`side ${menu ? 'open' : ''}`}>
-          <button className="side-logo" onClick={() => { go('pokedex'); setMenu(false) }}><img src="/logo.png" alt="PKA GUIDE" /><span>PKA <b>GUIDE</b></span></button>
+          <button className="side-logo" onClick={() => { go('inicio'); setMenu(false) }}><img src="/logo.png" alt="PKA GUIDE" /><span>PKA <b>GUIDE</b></span></button>
+          <button className={`side-link side-home ${section === 'inicio' ? 'active' : ''}`} onClick={() => { go('inicio'); setMenu(false) }}>🏠 Página inicial</button>
           {SECTIONS.filter((s) => s.subs.length > 0).map((s) => (
             <div key={s.id} className="side-group">
               <button className={`side-head ${section === s.id ? 'active' : ''}`} onClick={() => { go(s.id); setMenu(false) }}><span className="ico">{s.ico}</span>{s.label}</button>
@@ -132,7 +135,7 @@ export default function App() {
           ))}
           <div className="side-group">
             <div className="side-head plain">Mais</div>
-            {SECTIONS.filter((s) => s.subs.length === 0).map((s) => (
+            {SECTIONS.filter((s) => s.subs.length === 0 && s.id !== 'inicio').map((s) => (
               <button key={s.id} className={`side-link ${section === s.id ? 'active' : ''}`} onClick={() => { go(s.id); setMenu(false) }}><span className="ico">{s.ico}</span> {s.label}</button>
             ))}
           </div>
@@ -144,6 +147,7 @@ export default function App() {
             {current.subs.find(([id]) => id === sub) && <> <span className="crumb-sep">›</span> {current.subs.find(([id]) => id === sub)![1]}</>}
           </div>
       <main className="main">
+        {section === 'inicio' && <Home go={go} />}
         {section === 'pokedex' && <Pokedex sub={sub} onOpen={setSelected} />}
         {section === 'itens' && <Itens sub={sub} onOpen={setSelected} item={item} setItem={setItem} />}
         {section === 'sistemas' && <Sistemas sub={sub} />}
