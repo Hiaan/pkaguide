@@ -3,7 +3,7 @@
  "hotkey": "f4",
  "show_s": 10,
  "alpha": 55,
- "hub_tab": "tabelas",
- "hub_table": "shiny",
+ "hub_tab": "pokemon",
+ "hub_table": "boost",
  "timers": []
 }

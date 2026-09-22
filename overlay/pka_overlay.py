@@ -15,7 +15,7 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '2.4.1'
+VERSION = '2.5.0'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -325,6 +325,33 @@ class Round:
                 bind(c)
         for w in widgets: bind(w)
 
+TYPE_ALIAS = {'metal': 'steel', 'fly': 'flying', 'aco': 'steel', 'aço': 'steel', 'eletric': 'electric'}
+_type_cache = {}
+
+def type_img(name, size=16):
+    """ícone do elemento (mesmas artes do site); None se não for um tipo conhecido"""
+    k = TYPE_ALIAS.get(norm(name), norm(name))
+    key = (k, size)
+    if key in _type_cache: return _type_cache[key]
+    for base in (DATA_DIR, BUNDLE):
+        f = os.path.join(base, 'types', k + '.png')
+        if os.path.exists(f):
+            try:
+                _type_cache[key] = ImageTk.PhotoImage(Image.open(f).convert('RGBA').resize((size, size), Image.LANCZOS))
+                return _type_cache[key]
+            except Exception as e: log('type_img', e)
+    _type_cache[key] = None
+    return None
+
+def type_chip(parent, name, bg=BG, size=16, fsize=9, color='#e4e4e7'):
+    """ícone + nome do elemento, lado a lado"""
+    f = tk.Frame(parent, bg=bg)
+    im = type_img(name, size)
+    if im:
+        l = tk.Label(f, image=im, bg=bg, bd=0); l.image = im; l.pack(side='left', padx=(0, 4))
+    tk.Label(f, text=name, font=(FONT, fsize), fg=color, bg=bg).pack(side='left')
+    return f
+
 def ico_label(parent, name, size, color, bg=BG):
     img = ImageTk.PhotoImage(ui.icon(name, size, color))
     l = tk.Label(parent, image=img, bg=bg, bd=0); l.image = img
@@ -373,7 +400,7 @@ class App:
         self.b_toggle._nodrag = True
         self.b_toggle.bind('<Button-1>', lambda e: self.toggle())
 
-        self.b_tasks = tk.Label(head, text='☰ Consulta', font=(FONT, 9, 'bold'), fg=MUTED2, bg=BG, padx=5, cursor='hand2')
+        self.b_tasks = tk.Label(head, text='Consulta', font=(FONT, 9, 'bold'), fg=MUTED2, bg=BG, padx=5, cursor='hand2')
         self.b_tasks.pack(side='right'); self.b_tasks._nodrag = True
         self.b_tasks.bind('<Button-1>', lambda e: self.open_hub())
         self.b_tasks.bind('<Enter>', lambda e: self.b_tasks.config(fg=TXT))
@@ -456,10 +483,17 @@ class App:
         self.w.width = 0                      # fechado: encolhe para caber só o cabeçalho
         self.w.set_border(LINE); self.w.relayout()
 
-    def add_row(self, icon_name, color, title, sub=None):
+    def add_row(self, icon_name, color, title, sub=None, types=None):
         r = tk.Frame(self.rows, bg=BG); r.pack(fill='x', pady=3)
         ico_label(r, icon_name, 17, color).pack(side='left', padx=(5, 9), anchor='n', pady=1)
         tx = tk.Frame(r, bg=BG); tx.pack(side='left', fill='x', expand=True)
+        if types:
+            line = tk.Frame(tx, bg=BG); line.pack(fill='x')
+            tk.Label(line, text=title, font=(FONT, 9, 'bold'), fg='#e4e4e7', bg=BG).pack(side='left')
+            for i, tp in enumerate(types):
+                type_chip(line, tp, fsize=9).pack(side='left', padx=(6 if i else 4, 0))
+            if sub: tk.Label(tx, text=sub, font=(FONT, 8), fg=MUTED, bg=BG, anchor='w', justify='left', wraplength=300).pack(fill='x')
+            return
         tk.Label(tx, text=title, font=(FONT, 9, 'bold'), fg='#e4e4e7', bg=BG, anchor='w', justify='left', wraplength=300).pack(fill='x')
         if sub:
             tk.Label(tx, text=sub, font=(FONT, 8), fg=MUTED, bg=BG, anchor='w', justify='left', wraplength=300).pack(fill='x')
@@ -477,10 +511,12 @@ class App:
         self.set_pill(self.l_cat, tag, ico, color)
         if d.get('alias_de'): self.add_row('link', SKY, 'Mesmo item que ' + d['alias_de'].title())
         for t in d.get('talents', []):
-            self.add_row('sparkle', GREEN, f"{t['type']} · Talento #{t['n']} · {t['qty']} un.", t['buff'][:95])
-        if d.get('boost'): self.add_row('flame', YELLOW, 'Boost: ' + ', '.join(sorted(set(d['boost']))))
-        if d.get('stone'): self.add_row('gem', SKY, 'Stone de boost: ' + ', '.join(d['stone']))
-        if d.get('fragment'): self.add_row('hex', SKY, 'Fragmento de boost: ' + ', '.join(d['fragment']))
+            tp = t['type'] if type_img(t['type']) else None
+            self.add_row('sparkle', GREEN, (f"Talento #{t['n']} · {t['qty']} un." if tp else f"{t['type']} · Talento #{t['n']} · {t['qty']} un."),
+                         t['buff'][:95], types=[tp] if tp else None)
+        if d.get('boost'): self.add_row('flame', YELLOW, 'Boost:', types=sorted(set(d['boost'])))
+        if d.get('stone'): self.add_row('gem', SKY, 'Stone de boost:', types=d['stone'])
+        if d.get('fragment'): self.add_row('hex', SKY, 'Fragmento de boost:', types=d['fragment'])
         if d.get('drops'):
             dr = d['drops']
             self.add_row('target', '#c084fc', 'Drop de ' + ', '.join(dr[:4]) + ('  +' + str(len(dr) - 4) if len(dr) > 4 else ''))
@@ -781,7 +817,7 @@ class App:
                 tk.Label(top, text=t.get('npc', '?'), font=(FONT, 11, 'bold'), fg=TXT, bg=BG2).pack(side='left')
                 tk.Label(top, text='  ' + t.get('region', ''), font=(FONT, 8), fg=MUTED, bg=BG2).pack(side='left')
                 if t.get('loc'):
-                    lk = tk.Label(top, text='🗺 onde fica', font=(FONT, 8, 'bold'), fg=SKY, bg=BG2, cursor='hand2')
+                    lk = tk.Label(top, text='onde fica', font=(FONT, 8, 'bold'), fg=SKY, bg=BG2, cursor='hand2')
                     lk.pack(side='right'); lk._nodrag = True
                     lk.bind('<Button-1>', lambda ev, u=t['loc']: webbrowser.open(u))
                 for o in t.get('objectives', []):
@@ -803,9 +839,9 @@ class App:
         e.focus_set()
 
     # ---------- central de consultas rápidas (abas) ----------
-    HUB_TABS = (('pokemon', '🔍', 'Pokémon'), ('timers', '⏱', 'Timers'), ('task', '📋', 'Task'),
-                ('times', '🧭', 'Times'), ('medalhas', '🏅', 'Medalhas'), ('tabelas', '📊', 'Tabelas'),
-                ('videos', '🎬', 'Vídeos'))
+    HUB_TABS = (('pokemon', '', 'Pokémon'), ('timers', '', 'Timers'), ('task', '', 'Task'),
+                ('times', '', 'Times'), ('medalhas', '', 'Medalhas'), ('tabelas', '', 'Tabelas'),
+                ('videos', '', 'Vídeos'))
 
     def open_hub(self, tab=None):
         tab = tab or cfg.get('hub_tab', 'pokemon')
@@ -823,7 +859,7 @@ class App:
             getattr(self, 'hub_' + key)(body)
             m.relayout()
         for key, ico, name in self.HUB_TABS:
-            l = tk.Label(bar, text=f'{ico} {name}', font=(FONT, 8, 'bold'), bg=BG2, fg=MUTED, padx=6, pady=5, cursor='hand2')
+            l = tk.Label(bar, text=(f'{ico} {name}' if ico else name), font=(FONT, 8, 'bold'), bg=BG2, fg=MUTED, padx=6, pady=5, cursor='hand2')
             l.pack(side='left', padx=(0, 3)); l._nodrag = True
             l.bind('<Button-1>', lambda e, k=key: select(k))
             labels[key] = l
@@ -885,23 +921,25 @@ class App:
             card = self._card(res)
             top = tk.Frame(card, bg=BG2); top.pack(fill='x', padx=12, pady=(10, 4))
             tk.Label(top, text=p['n'], font=(FONT, 13, 'bold'), fg=TXT, bg=BG2).pack(side='left')
-            tk.Label(top, text=f"  {p.get('t', '')}  ·  {p.get('tier', '')}", font=(FONT, 9, 'bold'), fg=YELLOW, bg=BG2).pack(side='left')
+            for tp in re.split(r'[\\/,]| e ', p.get('t', '')):
+                if tp.strip() and type_img(tp): type_chip(top, tp.strip(), bg=BG2, size=18, fsize=9, color=TXT).pack(side='left', padx=(8, 0))
+            tk.Label(top, text=f"  ·  {p.get('tier', '')}", font=(FONT, 9, 'bold'), fg=YELLOW, bg=BG2).pack(side='left')
             links = tk.Frame(card, bg=BG2); links.pack(fill='x', padx=12)
             for k, u in (p.get('hunts') or {}).items():
                 if str(u).startswith('http'):
-                    self._link(links, f"🗺 hunt {k}", u).pack(side='left', padx=(0, 10))
-            if p.get('drops'): self._txt(card, '🎒 Drops: ' + ', '.join(p['drops'][:14]), pady=(6, 0))
-            if p.get('dens'): self._txt(card, '🏰 Dens: ' + ', '.join(p['dens']), pady=(4, 0))
-            if p.get('dung'): self._txt(card, '⛏ Dungeons: ' + ', '.join(p['dung']), pady=(4, 0))
+                    self._link(links, f'hunt {k}', u).pack(side='left', padx=(0, 10))
+            if p.get('drops'): self._txt(card, 'Drops: ' + ', '.join(p['drops'][:14]), pady=(6, 0))
+            if p.get('dens'): self._txt(card, 'Dens: ' + ', '.join(p['dens']), pady=(4, 0))
+            if p.get('dung'): self._txt(card, 'Dungeons: ' + ', '.join(p['dung']), pady=(4, 0))
             md = p.get('medal') or {}
             if md.get('buff') or md.get('debuff'):
-                self._txt(card, f"🏅 Medalha: ▲ {md.get('buff') or '—'}   ▼ {md.get('debuff') or 'nenhuma'}", pady=(4, 0))
+                self._txt(card, f"Medalha:  ▲ {md.get('buff') or '—'}    ▼ {md.get('debuff') or 'nenhuma'}", pady=(4, 0))
             for t in p.get('tasks', [])[:4]:
                 row = tk.Frame(card, bg=BG2); row.pack(fill='x', padx=12, pady=(4, 0))
-                tk.Label(row, text=f"📋 {t['npc']}" + (f" ({t['region']})" if t.get('region') else '') + (f" — {t['obj']}" if t.get('obj') else ''),
+                tk.Label(row, text=f"Task · {t['npc']}" + (f" ({t['region']})" if t.get('region') else '') + (f" — {t['obj']}" if t.get('obj') else ''),
                          font=(FONT, 9), fg='#e4e4e7', bg=BG2, anchor='w', wraplength=330, justify='left').pack(side='left')
                 if t.get('loc'): self._link(row, 'onde', t['loc']).pack(side='right')
-                if t.get('rew'): self._txt(card, '    🎁 ' + t['rew'], 8, YELLOW)
+                if t.get('rew'): self._txt(card, '        Recompensa: ' + t['rew'], 8, YELLOW)
             tk.Frame(card, bg=BG2, height=10).pack()
         self._poke_entry = self._search_box(body, 'NOME DO POKÉMON', draw, start)
 
@@ -1009,7 +1047,7 @@ class App:
                                  padx=6, pady=2, cursor='hand2')
                     b.pack(side='left', padx=2); b._nodrag = True
                     b.bind('<Button-1>', lambda e, o=o, d=d: (o.__setitem__('done', max(0, o.get('done', 0) + d)), save_cfg(), self._hub_select('task')))
-            if tr.get('rew'): self._txt(card, '🎁 ' + tr['rew'], 8, YELLOW, pady=(6, 0))
+            if tr.get('rew'): self._txt(card, 'Recompensa: ' + tr['rew'], 8, YELLOW, pady=(6, 0))
             b = tk.Frame(card, bg=BG2); b.pack(fill='x', padx=12, pady=10)
             self.button(b, 'Parar de acompanhar', BG3, lambda: (cfg.pop('track', None), save_cfg(), self._hub_select('task')), side='left')
         def draw(q, res):
@@ -1027,7 +1065,7 @@ class App:
                                     'rew': ' · '.join(f"{r.get('qty', '')} {r.get('label', '')}".strip() for r in t.get('rewards', [])),
                                     'objectives': [dict(o, done=0) for o in t.get('objectives', [])]}
                     save_cfg(); self._hub_select('task')
-                fl = tk.Label(top, text='▶ acompanhar', font=(FONT, 8, 'bold'), fg=GREEN, bg=BG2, cursor='hand2')
+                fl = tk.Label(top, text='+ acompanhar', font=(FONT, 8, 'bold'), fg=GREEN, bg=BG2, cursor='hand2')
                 fl.pack(side='right'); fl._nodrag = True; fl.bind('<Button-1>', lambda e, f=follow: f())
                 self._txt(card, '  ·  '.join(f"{o['qty']}x {o['target']}" if o.get('qty') else o.get('text', '') for o in t.get('objectives', [])), 9, pady=(0, 8))
         self._search_box(body, 'PROCURAR TASK PARA ACOMPANHAR (POKÉMON, NPC OU RECOMPENSA)', draw)
@@ -1126,8 +1164,12 @@ class App:
             bg = BG2 if r % 2 else BG
             for c, v in enumerate(row):
                 if c == 0 and not plain:
-                    tk.Label(g, text=self.TIER_SHORT.get(v, v), font=(FONT, 9, 'bold'), fg=(first_colors or {}).get(v, TXT), bg=bg,
-                             padx=8, pady=4, anchor='w').grid(row=r, column=0, sticky='nsew')
+                    if type_img(v):
+                        cell = tk.Frame(g, bg=bg); cell.grid(row=r, column=0, sticky='nsew')
+                        type_chip(cell, v, bg=bg, size=18, fsize=9, color=TXT).pack(anchor='w', padx=8, pady=4)
+                    else:
+                        tk.Label(g, text=self.TIER_SHORT.get(v, v), font=(FONT, 9, 'bold'), fg=(first_colors or {}).get(v, TXT), bg=bg,
+                                 padx=8, pady=4, anchor='w').grid(row=r, column=0, sticky='nsew')
                 else:
                     empty = v in ('', None, '—')
                     tk.Label(g, text='—' if empty else v, font=(FONT, 9), fg=MUTED2 if empty else '#e4e4e7', bg=bg, padx=6, pady=4,
@@ -1206,7 +1248,7 @@ class App:
                 card = self._card(res)
                 top = tk.Frame(card, bg=BG2); top.pack(fill='x', padx=12, pady=(8, 2))
                 tk.Label(top, text=v['title'][:58], font=(FONT, 9, 'bold'), fg=TXT, bg=BG2, anchor='w').pack(side='left')
-                self._link(top, f'▶ {int(t) // 60}:{int(t) % 60:02d}', f"https://www.youtube.com/watch?v={v['id']}&t={int(t)}s").pack(side='right')
+                self._link(top, f'{int(t) // 60}:{int(t) % 60:02d} ▸', f"https://www.youtube.com/watch?v={v['id']}&t={int(t)}s").pack(side='right')
                 self._txt(card, f"{v['ch']} — “{txt[:160]}…”", 8, MUTED, pady=(0, 8))
         e = self._search_box(body, 'PERGUNTE AOS VÍDEOS', lambda q, r: None)
         e.bind('<KeyRelease>', lambda ev: None)

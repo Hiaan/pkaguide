@@ -212,6 +212,24 @@ Creating setup files
    Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\tcl8\8.5\msgcat-1.6.1.tm
    Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\tcl8\8.5\tcltest-2.5.7.tm
    Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\tcl8\8.6\http-2.9.8.tm
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\bug.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\dark.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\dragon.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\electric.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\fairy.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\fighting.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\fire.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\flying.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\ghost.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\grass.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\ground.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\ice.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\normal.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\poison.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\psychic.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\rock.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\steel.png
+   Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\types\water.png
    Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\win32\win32pdh.pyd
    Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\yaml\_yaml.cp313-win_amd64.pyd
    Compressing: E:\Claudio\PKA\overlay\dist\PKA GUIDE\_internal\_tcl_data\auto.tcl
@@ -1138,5 +1156,5 @@ Creating setup files
    Updating manifest (Setup.exe)
 
 
-Successful compile (78,547 sec). Resulting Setup program filename is:
+Successful compile (64,453 sec). Resulting Setup program filename is:
 E:\Claudio\PKA\overlay\dist\PKA GUIDE Setup.exe
