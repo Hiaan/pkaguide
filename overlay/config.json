@@ -3,7 +3,7 @@
  "hotkey": "f4",
  "show_s": 10,
  "alpha": 55,
- "hub_tab": "task",
- "hub_table": "boost",
+ "hub_tab": "tabelas",
+ "hub_table": "shiny",
  "timers": []
 }

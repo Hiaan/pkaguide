@@ -15,7 +15,7 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '2.4.0'
+VERSION = '2.4.1'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -1109,32 +1109,71 @@ class App:
         draw()
 
     # --- 📊 Tabelas ---
+    TIER_COLORS = {'T1': '#22c55e', 'T2': '#84cc16', 'T3': '#eab308', 'T4': '#f59e0b', 'T5': '#f97316', 'T6': '#fb7185',
+                   'T7': '#a1a1aa', 'Super Rare': '#38bdf8', 'SR': '#38bdf8', 'Ultra Rare': '#a78bfa', 'UR': '#a78bfa',
+                   'Legendary': '#f472b6', 'Mythic': '#facc15'}
+    TIER_SHORT = {'Super Rare': 'SR', 'Ultra Rare': 'UR', 'Legendary': 'Lend.', 'Mythic': 'Mítico'}
+
+    def _table(self, parent, headers, rows, widths=None, head_colors=None, first_colors=None, note=None, plain=False):
+        """tabela de verdade: cabeçalho, linhas zebradas, primeira coluna destacada"""
+        wrap = tk.Frame(parent, bg=LINE); wrap.pack(fill='x', pady=(4, 2), padx=2)
+        g = tk.Frame(wrap, bg=BG); g.pack(fill='x', padx=1, pady=1)
+        for c, h in enumerate(headers):
+            col = (head_colors or {}).get(h, MUTED)
+            tk.Label(g, text=self.TIER_SHORT.get(h, h), font=(FONT, 8, 'bold'), fg=col, bg=BG3, padx=6, pady=5,
+                     anchor='w' if c == 0 and not plain else 'center').grid(row=0, column=c, sticky='nsew')
+        for r, row in enumerate(rows, start=1):
+            bg = BG2 if r % 2 else BG
+            for c, v in enumerate(row):
+                if c == 0 and not plain:
+                    tk.Label(g, text=self.TIER_SHORT.get(v, v), font=(FONT, 9, 'bold'), fg=(first_colors or {}).get(v, TXT), bg=bg,
+                             padx=8, pady=4, anchor='w').grid(row=r, column=0, sticky='nsew')
+                else:
+                    empty = v in ('', None, '—')
+                    tk.Label(g, text='—' if empty else v, font=(FONT, 9), fg=MUTED2 if empty else '#e4e4e7', bg=bg, padx=6, pady=4,
+                             justify='center', wraplength=(widths or {}).get(c, 0)).grid(row=r, column=c, sticky='nsew')
+        for c in range(len(headers)): g.grid_columnconfigure(c, weight=1)
+        if note:
+            tk.Label(parent, text=note, font=(FONT, 8), fg=MUTED2, bg=BG, anchor='w', justify='left', wraplength=440).pack(fill='x', padx=4, pady=(4, 0))
+
     def hub_tabelas(self, body):
-        which = tk.StringVar(value=cfg.get('hub_table', 'boost'))
         bar = tk.Frame(body, bg=BG); bar.pack(fill='x', pady=(8, 4))
         out = tk.Frame(body, bg=BG); out.pack(fill='x')
+        TC = self.TIER_COLORS
         def show(k):
             cfg['hub_table'] = k; save_cfg()
             for w in out.winfo_children(): w.destroy()
-            card = self._card(out)
             if k == 'boost':
-                for b in HUB.get('boost', []):
-                    self._txt(card, f"{b['type']}: {b['stone']} · {b['fragment']}  —  " + ', '.join(b['items']), 8, pady=(3, 0))
+                rows = [[b['type'], b['stone'].replace(' stone', '').title(), ', '.join(i.split(' (')[0] for i in b['items'][:3])]
+                        for b in HUB.get('boost', [])]
+                self._table(out, ['Tipo', 'Stone', 'Itens de boost'], rows, widths={2: 230},
+                            note='Fragmento = "<tipo> fragment". Veja a lista completa no site.')
             elif k == 'star':
                 st = HUB.get('star', {})
-                self._txt(card, st.get('note', ''), 8, pady=(6, 4))
-                for t in st.get('tiers', []):
-                    self._txt(card, f"{t['tier']}: " + '  |  '.join(f"{c.get('dd', '')} DD + {c.get('kk', '')}kk" for c in t['costs']), 8)
+                pct = dict(re.findall(r'-\s*(Tier \d|Super Rare|Ultra Rare|Legendary):\s*(\d+)%', st.get('note', '')))
+                name = lambda t: {'T3': 'Tier 3', 'T2': 'Tier 2', 'T1': 'Tier 1'}.get(t, t)
+                rows = [[t['tier'], (pct.get(name(t['tier'])) or '?') + '%'] +
+                        [f"{c.get('dd', 0):g} DD\n{c.get('kk', 0):g}kk" for c in t['costs']] for t in st.get('tiers', [])]
+                self._table(out, ['Tier', 'Dano/★', '1★', '2★', '3★', '4★', '5★'], rows, first_colors=TC,
+                            note='Custo de cada estrela com 100% de sucesso. Dano/★ = quanto o ataque sobe por estrela.')
             elif k == 'runes':
+                rows = []
                 for r in HUB.get('runes', {}).get('stats', []):
-                    lv = [f"{x['points']}→{x['bonus']}" for x in r['levels'] if x.get('points') and x.get('bonus')]
-                    self._txt(card, f"{r['name']}: " + ('  ·  '.join(lv) or '—'), 8, pady=(2, 0))
+                    rows.append([r['name']] + [(f"{x['bonus']}\n{x['points']} pts" if x.get('bonus') else (f"{x['points']} pts" if x.get('points') else ''))
+                                               for x in r['levels']])
+                self._table(out, ['Atributo', 'Nv 1', 'Nv 2', 'Nv 3', 'Nv 4', 'Nv 5'], rows)
             elif k == 'shiny':
-                for col in HUB.get('shinyRate', {}).get('columns', []):
-                    self._txt(card, f"Rate {col['rate']}: " + '  ·  '.join(f"{t['tier']} {t['value']}" for t in col['tiers'] if t.get('value') is not None), 8, pady=(2, 0))
+                cols = HUB.get('shinyRate', {}).get('columns', [])
+                tiers = [t['tier'] for t in (cols[0]['tiers'] if cols else [])]
+                rows = [[f"{c['rate']}"] + [(f"{t['value']:g}%" if t.get('value') is not None else '') for t in c['tiers']] for c in cols]
+                self._table(out, ['Rate'] + tiers, rows, head_colors=TC,
+                            note='Chance de vir shiny por tier em cada Shiny Rate.')
                 br = HUB.get('brokes', {}).get('max', [])
-                if br: self._txt(card, 'Max broke: ' + '  ·  '.join(f"{b['tier']} {b['max']}" for b in br), 8, YELLOW, pady=(6, 0))
-            tk.Frame(card, bg=BG2, height=8).pack()
+                if br:
+                    tk.Label(out, text='MAX BROKE', font=(FONT, 8, 'bold'), fg=MUTED2, bg=BG, anchor='w').pack(fill='x', padx=4, pady=(10, 0))
+                    half = (len(br) + 1) // 2
+                    for part in (br[:half], br[half:]):
+                        self._table(out, [b['tier'] for b in part], [[b['max'] for b in part]], head_colors=TC, plain=True)
             for kk, l in labels.items(): l.config(bg=ORANGE if kk == k else BG3)
             self._hub_relayout()
         labels = {}
@@ -1142,7 +1181,7 @@ class App:
             l = tk.Label(bar, text=name, font=(FONT, 8, 'bold'), bg=BG3, fg=TXT, padx=8, pady=4, cursor='hand2')
             l.pack(side='left', padx=(2, 4)); l._nodrag = True
             l.bind('<Button-1>', lambda e, k=k: show(k)); labels[k] = l
-        show(which.get())
+        show(cfg.get('hub_table', 'boost'))
 
     # --- 🎬 Vídeos ---
     def hub_videos(self, body):
