@@ -1,0 +1,50 @@
+# Alterações recentes
+
+Datas em 2026. O overlay segue a numeração das releases em https://github.com/Hiaan/pkaguide/releases.
+
+## Overlay
+
+### v2.5.0 — 22/09
+- Elementos com o ícone do tipo (as artes do site) nas linhas de Boost, Stone e Fragmento, no talento, no Pokémon da Consulta rápida e na tabela de Boost.
+- Emojis que a fonte não desenhava viraram texto limpo.
+
+### v2.4.1 — 21/09
+- Tabelas de Boost, Star, Runas, Shiny Rate e Max Broke refeitas em formato de tabela: cabeçalho, linhas zebradas e cores por tier.
+
+### v2.4.0 — 21/09
+- **Consulta rápida** com 7 abas: Pokémon, Timers, Task, Times, Medalhas, Tabelas e Vídeos.
+- Timers com aviso sonoro (Rocket, Polícia, Boss, Dungeon, dens ou personalizado) que funcionam com a janela fechada.
+- Contador de progresso por objetivo na task acompanhada.
+- Novas bases `hub_db.json` e `videos_db.json`, geradas por `overlay/build_hub_db.py` e atualizadas todo dia.
+
+### v2.3.0 — 20/09
+- Transparência do painel configurável no ⚙.
+
+### v2.2.0 — 20/09
+- Consulta de tasks no overlay, a partir das Tasks do Mundo da wiki.
+
+### v2.1.0 e v2.0.0 — 20/09
+- Instalador nativo (Inno Setup), que resolveu o erro de DLL.
+- Visual arredondado com ícones e leitura mais rápida do tooltip.
+
+## Site
+
+### 22/09
+- **Ícones de tipo** também no overlay (acima).
+
+### 21/09
+- **Página inicial**: números do site, destaques, atalhos e vídeos em destaque. O site passa a abrir nela.
+- **Menu lateral fixo** na borda esquerda, no estilo da wiki do PXG, com a logo no topo, título da página e botão "☰ Menu" no celular. Correção: a barra agora tem a altura da tela e rola sozinha.
+- **Pokédex → Tasks** passou a usar as Tasks do Mundo da wiki (NPC, região, objetivo, recompensa e local).
+- Lista e simulador de medalhas ficaram lado a lado na Pokédex.
+
+### 20/09
+- **Simulador de medalhas** no estilo do painel do jogo: 10 espaços, 5 presets, link para compartilhar e montagem automática por objetivo. Mostra a porcentagem somada por atributo, com os valores de Bronze do vídeo do Empregolista; o resto é estimativa, marcada com `~`.
+- **Tasks do Mundo** como aba própria do site.
+- **Wiki** com os 48 guias da wiki oficial e busca; ícones de tipo nos badges.
+
+### Antes disso
+- Vídeos: índice com transcrições, busca nas falas, temas e canais.
+- Desafios: Bosses de Guild a partir do vídeo do AlastraSz.
+- Ferramentas: PokéForge, Critical Catch e download do overlay.
+- Correções na tabela de raridade (tiers UR/Legendary/Mythic e Super Rare faltantes).

@@ -1,25 +1,48 @@
-# PKA Guide Overlay
+# PKA GUIDE Overlay
 
-Passe o mouse em um item no PokeAlliance e o painel mostra para que ele serve (PokeTalent, boost, material ou só NPC).
+Overlay para Windows: passe o mouse (ou aperte a tecla) em um item dentro do PokeAlliance e o painel mostra para que ele serve. Tem também uma **Consulta rápida** com abas, para não precisar sair do jogo.
 
-- Lê o tooltip por **captura de tela + OCR**. Não lê memória, não injeta nada no cliente.
-- Base de itens baixada de https://pkaguide.vercel.app/overlay/items_db.json a cada abertura (cópia local se estiver offline).
-- Verifica versão nova em https://pkaguide.vercel.app/overlay/version.json e oferece o botão "Atualizar".
-- Dois modos (botão ⚙): **automático** (lê quando o mouse para sobre o item) ou **tecla de atalho** configurável (só lê quando você aperta).
-- Item fora da base abre o painel como "NÃO CADASTRADO" com botão para cadastrar; os cadastros ficam em `custom_items.json` e os não reconhecidos em `nao_reconhecidos.json`.
-- Na primeira execução, o `.exe` se copia para `%LOCALAPPDATA%\PKA Guide Overlay` e cria atalhos na área de trabalho e no menu Iniciar.
+- Lê o tooltip por **captura de tela + OCR**. Não lê memória, não injeta nada no cliente, não aperta tecla nem clica por você.
+- Instalação por instalador nativo (Inno Setup) em `%LOCALAPPDATA%\PKA GUIDE\app`, com atalhos na área de trabalho e no menu Iniciar.
+- Ao abrir, baixa as bases de https://pkaguide.vercel.app/overlay/ (usa a cópia local se estiver offline) e confere se há versão nova em `version.json`.
+
+## Painel do item
+
+- Categoria (PokeTalent, boost, material ou só NPC), talentos, boost, stone, fragmento e de quais Pokémon o item dropa.
+- Elementos aparecem com o **ícone do tipo** (as mesmas artes do site, em `overlay/types/`).
+- Item fora da base abre como "NÃO CADASTRADO", com botão para cadastrar. Cadastros vão para `custom_items.json` e os não reconhecidos para `nao_reconhecidos.json`.
+
+## Consulta rápida (botão no topo)
+
+| Aba | O que faz |
+| --- | --- |
+| Pokémon | Tipo, tier, drops, links de hunt, dens, dungeons, medalha e as tasks da wiki. |
+| Timers | Rocket, Polícia, Boss, Dungeon, dens ou um timer seu. Avisa com som quando acaba, mesmo com a janela fechada. |
+| Task | Procura uma task e acompanha o progresso de cada objetivo com contador. |
+| Times | Times por elemento ou hunt (guias do Safnaw e do loxas). |
+| Medalhas | Cole o link do simulador do site para ver sua montagem e o que sobe e cai. |
+| Tabelas | Boost, Star, Runas, Shiny Rate e Max Broke. |
+| Vídeos | Busca nas falas dos vídeos e abre no minuto certo. |
+
+## Configurações (⚙)
+
+Modo de leitura (automático, só na tecla, ou ambos), tecla de atalho gravável, transparência do painel e por quanto tempo ele fica aberto. Tudo em `config.json`, junto com timers, task acompanhada e a montagem de medalhas.
 
 ## Rodar do código
+
 ```
 pip install -r requirements.txt
 python build_items_db.py
+python build_hub_db.py
 python pka_overlay.py
 ```
 
-## Gerar o executável
-`build.bat` (precisa de `pip install pyinstaller`). Saída em `dist\PKA Guide Overlay.exe`.
+## Gerar o instalador
+
+`build.bat` gera as bases, compila o app com PyInstaller (`--onedir`) e monta `dist\PKA GUIDE Setup.exe` com o Inno Setup (`tools\inno\ISCC.exe setup.iss`).
 
 ## Publicar uma versão nova
-1. Suba `VERSION` em `pka_overlay.py`.
-2. Rode `build.bat` e publique o exe como asset de uma release no GitHub (`v<versão>`).
-3. Atualize `site/public/overlay/version.json` com a versão e a URL do asset. O site publica e os apps abertos passam a oferecer a atualização.
+
+1. Suba `VERSION` em `pka_overlay.py` e `AppVersion` em `setup.iss`.
+2. Rode `build.bat` e publique `dist\PKA GUIDE Setup.exe` como asset de uma release `v<versão>` no GitHub.
+3. Atualize `site/public/overlay/version.json` com a versão, a URL do asset e uma nota curta. Os apps abertos passam a oferecer a atualização.

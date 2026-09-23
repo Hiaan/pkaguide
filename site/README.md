@@ -1,32 +1,21 @@
-# React + TypeScript + Vite
+# site — PKA GUIDE
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+App Vite + React + TypeScript publicado em https://pkaguide.vercel.app. A documentação do projeto está no [README da raiz](../README.md) e o que mudou em cada versão no [CHANGELOG](../CHANGELOG.md).
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev     # http://localhost:5173
+npm run build   # gera site/dist (o que a Vercel publica)
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Como está organizado
+
+- `src/App.tsx` — seções do menu lateral, rotas por hash (`#/secao/subpagina`) e busca rápida.
+- `src/pages/` — uma página por seção (`Home`, `Pokedex`, `Medals`, `Tasks`, `Wiki`, `Videos`…).
+- `src/components/ui.tsx` — peças reutilizadas (cards, badges de tipo e tier, busca, modal de Pokémon).
+- `src/lib/data.ts` — carrega os JSONs e expõe tipos, cores e helpers.
+- `src/data/*.json` — dados gerados pelos scripts da raiz; não edite à mão.
+- `public/overlay/` — bases e `version.json` que o overlay baixa.
+- `public/types/` — ícones dos elementos, usados no site e copiados para o overlay.
+
+Rotas aceitam subpáginas com barra (a wiki usa `#/wiki/sistemas/linked-tasks`) e parâmetros (`#/pokedex/simulador?s=...` abre uma montagem de medalhas).
