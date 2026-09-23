@@ -15,7 +15,7 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '2.6.0'
+VERSION = '2.7.0'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -57,7 +57,7 @@ def jload(path, default):
 catalog = jload(CATALOG_FILE, {})
 custom = jload(CUSTOM_FILE, {})
 unknown = jload(UNKNOWN_FILE, {})
-DEFAULTS = {'mode': 'auto', 'hotkey': 'f4', 'show_s': 8, 'alpha': 97, 'scale': 100}   # alpha e scale em % (alpha 30-100, scale 60-150)
+DEFAULTS = {'mode': 'auto', 'hotkey': 'f4', 'show_s': 8, 'alpha': 97, 'scale': 100, 'only_game': True, 'game': 'pokealliance'}   # alpha e scale em % (alpha 30-100, scale 60-150)
 cfg = dict(DEFAULTS, **jload(CONFIG_FILE, {}))
 
 def save_cfg():
@@ -191,6 +191,42 @@ def apply_update(url):
 
 # ---------------- texto ----------------
 IGNORE = ('price', 'segure', 'shift', 'coleta', 'depot', 'stash', 'trainer', 'ultra bag', 'great bag', 'pokemon', 'loot')
+
+def foreground_app():
+    """(exe, título) da janela que está na frente; ('', '') se não der para saber"""
+    if os.name != 'nt': return '', ''
+    try:
+        import ctypes
+        from ctypes import wintypes
+        u32, k32 = ctypes.windll.user32, ctypes.windll.kernel32
+        hwnd = u32.GetForegroundWindow()
+        if not hwnd: return '', ''
+        n = u32.GetWindowTextLengthW(hwnd)
+        buf = ctypes.create_unicode_buffer(n + 1)
+        u32.GetWindowTextW(hwnd, buf, n + 1)
+        pid = wintypes.DWORD()
+        u32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+        exe = ''
+        h = k32.OpenProcess(0x1000, False, pid.value)      # PROCESS_QUERY_LIMITED_INFORMATION
+        if h:
+            size = wintypes.DWORD(260)
+            path = ctypes.create_unicode_buffer(size.value)
+            if k32.QueryFullProcessImageNameW(h, 0, path, ctypes.byref(size)):
+                exe = os.path.basename(path.value)
+            k32.CloseHandle(h)
+        return exe, buf.value
+    except Exception as e:
+        log('foreground_app', e); return '', ''
+
+def game_in_front():
+    """o jogo (ou o próprio overlay) está na frente?"""
+    if not cfg.get('only_game', True): return True
+    exe, title = foreground_app()
+    if not exe and not title: return True                  # sem saber, não esconde
+    alvo = norm(cfg.get('game', 'pokealliance')) or 'pokealliance'
+    if 'pka guide' in norm(exe) or norm(exe).startswith('python'):
+        return True                                        # clicando no próprio painel
+    return alvo in norm(exe) or alvo in norm(title)
 
 def norm(s):
     s = unicodedata.normalize('NFKD', s.lower()).encode('ascii', 'ignore').decode()
@@ -524,6 +560,18 @@ class App:
         except Exception as e:
             log('restart', e); sys.exit(0)
 
+    def apply_visibility(self):
+        """some com o painel quando o jogo não está na frente"""
+        want = game_in_front()
+        if want == getattr(self, '_visible', True): return
+        self._visible = want
+        try:
+            for w in (self.root, self.modal.win if self.modal else None):
+                if not w: continue
+                if want: w.deiconify(); w.attributes('-topmost', True)
+                else: w.withdraw()
+        except Exception as e: log('visibility', e)
+
     def set_toggle(self):
         on = self.enabled
         img = ImageTk.PhotoImage(ui.pill('LIGADO' if on else 'PAUSADO', 'shield' if on else None,
@@ -824,6 +872,28 @@ class App:
         tk.Label(card, text='Escolha uma tecla que o jogo não use (ex.: F4, Ctrl+Q).', font=(FONT, fs(8)), fg=MUTED2,
                  bg=BG2, anchor='w', wraplength=px(340), justify='left').pack(fill='x', padx=12, pady=(0, 10))
         self._cfg_widgets = (l_key, b_rec)
+
+        self.section(c, 'QUANDO MOSTRAR O PAINEL')
+        og = tk.BooleanVar(value=bool(cfg.get('only_game', True)))
+        grow = tk.Frame(c, bg=BG); grow.pack(fill='x', padx=2, pady=(0, 2))
+        ck = tk.Checkbutton(grow, variable=og, bg=BG, activebackground=BG, selectcolor=BG3, bd=0, highlightthickness=0,
+                            cursor='hand2', command=lambda: (cfg.__setitem__('only_game', bool(og.get())), save_cfg(), self.apply_visibility()))
+        ck.pack(side='left', anchor='n'); ck._nodrag = True
+        gtx = tk.Frame(grow, bg=BG); gtx.pack(side='left', fill='x', expand=True, padx=(4, 0))
+        tk.Label(gtx, text='Só aparecer com o jogo na frente', font=(FONT, fs(10), 'bold'), fg=TXT, bg=BG, anchor='w').pack(fill='x')
+        tk.Label(gtx, text='Ao trocar para o navegador ou outro programa, o painel some sozinho e volta quando você abre o jogo.',
+                 font=(FONT, fs(8)), fg=MUTED, bg=BG, anchor='w', wraplength=px(320), justify='left').pack(fill='x')
+        grow2 = tk.Frame(c, bg=BG2); grow2.pack(fill='x', padx=2, pady=(6, 2))
+        l_game = tk.Label(grow2, text=cfg.get('game', 'pokealliance'), font=(FONT, fs(10), 'bold'), fg=SKY, bg=BG3, padx=px(14), pady=px(5))
+        l_game.pack(side='left', padx=12, pady=8)
+        def detect():
+            exe, title = foreground_app()
+            alvo = (exe or title or '').rsplit('.exe', 1)[0]
+            if alvo:
+                cfg['game'] = alvo; save_cfg(); l_game.config(text=alvo)
+        self.button(grow2, 'Usar a janela da frente', INDIGO, detect, 'search', h=28, side='left')
+        tk.Label(c, text='Se o cliente do jogo tiver outro nome, abra o jogo, volte aqui e clique no botão acima.',
+                 font=(FONT, fs(8)), fg=MUTED2, bg=BG, anchor='w', wraplength=px(340), justify='left').pack(fill='x', padx=4, pady=(2, 0))
 
         self.section(c, 'TRANSPARÊNCIA DO PAINEL')
         arow = tk.Frame(c, bg=BG); arow.pack(fill='x', padx=2)
@@ -1384,6 +1454,7 @@ class App:
                     self.root.destroy(); return
         except queue.Empty: pass
         self._tk_n = getattr(self, '_tk_n', 0) + 1
+        if self._tk_n % 6 == 0: self.apply_visibility()
         if self._tk_n % 6 == 0:
             self._timer_check()
             if self.modal: self._timer_draw()

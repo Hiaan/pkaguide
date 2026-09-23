@@ -1,5 +1,5 @@
 {
- "version": "2.6.0",
- "url": "https://github.com/Hiaan/pkaguide/releases/download/v2.6.0/PKA.GUIDE.Setup.exe",
- "notes": "Tamanho e opacidade do painel ajustaveis direto no topo, de 60% a 150%."
+ "version": "2.7.0",
+ "url": "https://github.com/Hiaan/pkaguide/releases/download/v2.7.0/PKA.GUIDE.Setup.exe",
+ "notes": "O painel so aparece com o jogo na frente; da para desligar ou apontar outro cliente no menu de configuracoes."
 }

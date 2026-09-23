@@ -4,6 +4,8 @@
  "show_s": 10,
  "alpha": 55,
  "scale": 100,
+ "only_game": true,
+ "game": "pokealliance",
  "hub_tab": "pokemon",
  "hub_table": "boost",
  "timers": []

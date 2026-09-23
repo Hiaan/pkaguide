@@ -4,6 +4,10 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Overlay
 
+### v2.7.0 — 23/09
+- O painel **só aparece com o jogo na frente**: ao trocar para o navegador ou outro programa ele some sozinho e volta quando o jogo volta.
+- Dá para desligar em ⚙ → "Só aparecer com o jogo na frente", e o botão "Usar a janela da frente" aponta outro cliente se o executável tiver outro nome.
+
 ### v2.6.0 — 23/09
 - Barra de ajuste rápido sempre à vista no topo: **Tamanho** (60% a 150%) e **Opacidade** (30% a 100%), com botões − e +.
 - O tamanho vale para tudo (fontes, ícones, largura do painel e das janelas de consulta). Ao trocar, o app reabre sozinho.

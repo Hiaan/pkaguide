@@ -24,6 +24,10 @@ Overlay para Windows: passe o mouse (ou aperte a tecla) em um item dentro do Pok
 | Tabelas | Boost, Star, Runas, Shiny Rate e Max Broke. |
 | Vídeos | Busca nas falas dos vídeos e abre no minuto certo. |
 
+## Só com o jogo na frente
+
+Por padrão o painel some quando outra janela ganha o foco (checa a janela da frente a cada ~0,5s pela API do Windows) e volta quando o jogo volta. Em ⚙ dá para desligar ou apontar outro executável com "Usar a janela da frente" (`only_game` e `game` no `config.json`).
+
 ## Ajuste rápido (topo do painel)
 
 Barra sempre visível com **Tamanho** (60% a 150%, o app reabre para aplicar) e **Opacidade** (30% a 100%, muda na hora).
