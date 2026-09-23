@@ -24,9 +24,13 @@ Overlay para Windows: passe o mouse (ou aperte a tecla) em um item dentro do Pok
 | Tabelas | Boost, Star, Runas, Shiny Rate e Max Broke. |
 | Vídeos | Busca nas falas dos vídeos e abre no minuto certo. |
 
+## Ajuste rápido (topo do painel)
+
+Barra sempre visível com **Tamanho** (60% a 150%, o app reabre para aplicar) e **Opacidade** (30% a 100%, muda na hora).
+
 ## Configurações (⚙)
 
-Modo de leitura (automático, só na tecla, ou ambos), tecla de atalho gravável, transparência do painel e por quanto tempo ele fica aberto. Tudo em `config.json`, junto com timers, task acompanhada e a montagem de medalhas.
+Modo de leitura (automático, só na tecla, ou ambos), tecla de atalho gravável, tamanho e transparência do painel e por quanto tempo ele fica aberto. Tudo em `config.json`, junto com timers, task acompanhada e a montagem de medalhas.
 
 ## Rodar do código
 

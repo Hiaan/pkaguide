@@ -4,6 +4,11 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Overlay
 
+### v2.6.0 — 23/09
+- Barra de ajuste rápido sempre à vista no topo: **Tamanho** (60% a 150%) e **Opacidade** (30% a 100%), com botões − e +.
+- O tamanho vale para tudo (fontes, ícones, largura do painel e das janelas de consulta). Ao trocar, o app reabre sozinho.
+- Também dá para usar o slider de tamanho nas Configurações (⚙).
+
 ### v2.5.0 — 22/09
 - Elementos com o ícone do tipo (as artes do site) nas linhas de Boost, Stone e Fragmento, no talento, no Pokémon da Consulta rápida e na tabela de Boost.
 - Emojis que a fonte não desenhava viraram texto limpo.

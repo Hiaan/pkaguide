@@ -3,6 +3,7 @@
  "hotkey": "f4",
  "show_s": 10,
  "alpha": 55,
+ "scale": 100,
  "hub_tab": "pokemon",
  "hub_table": "boost",
  "timers": []
