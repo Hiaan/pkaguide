@@ -1,7 +1,7 @@
 ; Instalador nativo do PKA GUIDE Overlay (Inno Setup)
 ; Não usa Python nem descompacta nada na pasta Temp: instala a pasta do app direto.
 #define AppName    "PKA GUIDE"
-#define AppVersion "2.8.0"
+#define AppVersion "2.9.0"
 #define AppExe     "PKA GUIDE.exe"
 
 [Setup]
@@ -39,6 +39,8 @@ Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExe}"; WorkingDir: "{ap
 
 [Run]
 Filename: "{app}\{#AppExe}"; Description: "Abrir o {#AppName} agora"; Flags: nowait postinstall skipifsilent
+; atualização automática (instalação silenciosa): reabre o app sozinho
+Filename: "{app}\{#AppExe}"; Flags: nowait postinstall runasoriginaluser; Check: WizardSilent
 
 [InstallDelete]
 ; remove instalações antigas (1.x ficavam soltas fora da pasta app)

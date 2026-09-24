@@ -4,6 +4,11 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Overlay
 
+### v2.9.0 — 24/09
+- Aba **Rockets** na Consulta rápida: Rocket, Polícia e Ginásios, cada NPC com o Pokémon dele e o recomendado para levar.
+- Busca por NPC ou por Pokémon ("gengar" mostra quem usa Gengar); sem busca, aparece só a lista de nomes para clicar.
+- Depois de atualizar sozinho, o app reabre sozinho.
+
 ### v2.8.0 — 24/09
 - **Atualiza sozinho**: ao abrir, baixa e instala a versão nova sem precisar clicar (dá para desligar em ⚙).
 - Aviso e botão **"Reabrir como administrador"** quando o jogo está aberto como administrador — é o motivo de a tecla de atalho não funcionar dentro do jogo.

@@ -20,6 +20,7 @@ Overlay para Windows: passe o mouse (ou aperte a tecla) em um item dentro do Pok
 | Timers | Rocket, Polícia, Boss, Dungeon, dens ou um timer seu. Avisa com som quando acaba, mesmo com a janela fechada. |
 | Task | Procura uma task e acompanha o progresso de cada objetivo com contador. |
 | Times | Times por elemento ou hunt (guias do Safnaw e do loxas). |
+| Rockets | Rocket, Polícia e Ginásios: o time do NPC e o recomendado, com busca por NPC ou Pokémon. |
 | Medalhas | Cole o link do simulador do site para ver sua montagem e o que sobe e cai. |
 | Tabelas | Boost, Star, Runas, Shiny Rate e Max Broke. |
 | Vídeos | Busca nas falas dos vídeos e abre no minuto certo. |

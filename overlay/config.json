@@ -7,8 +7,9 @@
  "only_game": true,
  "game": "pokealliance",
  "auto_update": true,
- "hub_tab": "tabelas",
+ "hub_tab": "npcs",
  "hub_table": "star",
  "timers": [],
- "dd_kk": 0
+ "dd_kk": 0,
+ "hub_npc_kind": "Rocket"
 }

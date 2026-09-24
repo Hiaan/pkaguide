@@ -46,7 +46,17 @@ for t in teams2['teams']:
                   'rows': [['Inicial', [x['name'] + (' (offtank)' if x.get('offtank') else '') for x in t.get('initial', [])]],
                            ['Upgrades', [x['name'] if isinstance(x, dict) else str(x) for x in t.get('upgrades', [])]]]})
 
-hub = {'pokemon': pokemon, 'teams': teams,
+# NPCs de Rocket e Polícia: o time deles e o recomendado para cada luta
+npcs = []
+for kind, key in (('Rocket', 'rocket'), ('Polícia', 'police')):
+    blk = data.get(key, {})
+    for t in blk.get('teams', []):
+        npcs.append({'kind': kind, 'name': t['name'], 'fights': t['fights'], 'note': blk.get('note', '')})
+for c in data.get('gym', {}).get('cities', []):
+    npcs.append({'kind': 'Ginásio', 'name': c['city'], 'loc': c.get('dungeon', ''),
+                 'fights': [{'npc': n, 'rec': ''} for n in c.get('leader', [])], 'tasks': c.get('tasks', [])})
+
+hub = {'pokemon': pokemon, 'teams': teams, 'npcs': npcs,
        'dens': [{'n': d['name'], 'time': d['time'], 'players': d['players'], 'xph': d['xph']} for d in data['dens']],
        'boost': data['boost'], 'star': data['star'], 'runes': data['runes'], 'shinyRate': data['shinyRate'], 'brokes': data['brokes']}
 

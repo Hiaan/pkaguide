@@ -15,7 +15,7 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '2.8.0'
+VERSION = '2.9.0'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -1047,8 +1047,8 @@ class App:
 
     # ---------- central de consultas rápidas (abas) ----------
     HUB_TABS = (('pokemon', '', 'Pokémon'), ('timers', '', 'Timers'), ('task', '', 'Task'),
-                ('times', '', 'Times'), ('medalhas', '', 'Medalhas'), ('tabelas', '', 'Tabelas'),
-                ('videos', '', 'Vídeos'))
+                ('times', '', 'Times'), ('npcs', '', 'Rockets'), ('medalhas', '', 'Medalhas'),
+                ('tabelas', '', 'Tabelas'), ('videos', '', 'Vídeos'))
 
     def open_hub(self, tab=None):
         tab = tab or cfg.get('hub_tab', 'pokemon')
@@ -1300,6 +1300,57 @@ class App:
                 tk.Frame(card, bg=BG2, height=8).pack()
             if not found: self._txt(res, 'Nada encontrado.', 9, MUTED, bg=BG, padx=4)
         self._team_entry = self._search_box(body, 'ELEMENTO, HUNT OU POKÉMON', draw)
+
+    # --- Rockets, Polícia e Ginásios ---
+    def hub_npcs(self, body):
+        KINDS = ('Rocket', 'Polícia', 'Ginásio')
+        kind = cfg.get('hub_npc_kind', 'Rocket')
+        bar = tk.Frame(body, bg=BG); bar.pack(fill='x', pady=(8, 4))
+        out = tk.Frame(body, bg=BG)
+        labels = {}
+
+        def show(k, q=''):
+            cfg['hub_npc_kind'] = k; save_cfg()
+            for kk, l in labels.items(): l.config(bg=ORANGE if kk == k else BG3)
+            for w in out.winfo_children(): w.destroy()
+            s = norm(q)
+            lst = [n for n in HUB.get('npcs', []) if n['kind'] == k]
+            if s:
+                lst = [n for n in lst if s in norm(n['name']) or any(s in norm(f['npc']) or s in norm(f.get('rec', '')) for f in n['fights'])]
+            if not lst:
+                self._txt(out, 'Nada encontrado.', 9, MUTED, bg=BG, padx=4); self._hub_relayout(); return
+            if not s:                                   # sem busca: só os nomes, para não virar uma lista gigante
+                grid = tk.Frame(out, bg=BG); grid.pack(fill='x')
+                for i, n in enumerate(lst):
+                    l = tk.Label(grid, text=n['name'].title(), font=(FONT, fs(8)), bg=BG3, fg=TXT, padx=px(6), pady=px(4), cursor='hand2')
+                    l.grid(row=i // 4, column=i % 4, padx=2, pady=2, sticky='we'); l._nodrag = True
+                    l.bind('<Button-1>', lambda e, nm=n['name']: (self._npc_entry.delete(0, 'end'), self._npc_entry.insert(0, nm), show(k, nm)))
+                for c in range(4): grid.grid_columnconfigure(c, weight=1)
+                self._txt(out, 'Clique num NPC ou digite o nome de um Pokémon para achar quem o usa.', 8, MUTED2, bg=BG, padx=4, pady=(8, 0))
+                self._hub_relayout(); return
+            for n in lst[:3]:
+                card = self._card(out)
+                top = tk.Frame(card, bg=BG2); top.pack(fill='x', padx=12, pady=(8, 4))
+                tk.Label(top, text=n['name'].title(), font=(FONT, fs(11), 'bold'), fg=TXT, bg=BG2).pack(side='left')
+                tk.Label(top, text='  ' + n['kind'], font=(FONT, fs(8)), fg=MUTED, bg=BG2).pack(side='left')
+                if n.get('loc'): self._link(top, 'onde fica', n['loc']).pack(side='right')
+                if n.get('tasks'): self._txt(card, 'Task: ' + ', '.join(n['tasks']), 8, YELLOW, pady=(0, 2))
+                rows = [[f['npc'], f.get('rec') or '—'] for f in n['fights']]
+                self._table(card, ['Pokémon do NPC', 'Leve'], rows, plain=True)
+                tk.Frame(card, bg=BG2, height=6).pack()
+            self._hub_relayout()
+
+        for k in KINDS:
+            l = tk.Label(bar, text=k, font=(FONT, fs(8), 'bold'), bg=BG3, fg=TXT, padx=px(8), pady=px(4), cursor='hand2')
+            l.pack(side='left', padx=(2, 4)); l._nodrag = True
+            l.bind('<Button-1>', lambda e, k=k: show(k, self._npc_entry.get()))
+            labels[k] = l
+        self.section(body, 'PROCURAR NPC OU POKÉMON')
+        e = self.entry(body)
+        e.bind('<KeyRelease>', lambda ev: show(cfg.get('hub_npc_kind', 'Rocket'), e.get()))
+        self._npc_entry = e; self._npc_show = show
+        out.pack(fill='x', pady=(6, 2))
+        show(kind)
 
     # --- 🏅 Medalhas ---
     MEDAL_PT = {'Damage Boost': 'Dano', 'Critical Chance': 'Chance crítico', 'Critical Damage': 'Dano crítico',

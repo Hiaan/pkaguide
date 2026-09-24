@@ -48,11 +48,12 @@ Parsing [LangOptions], [Messages], and [CustomMessages] sections
 Reading [Code] section
 Parsing [Icons] section, line 37
 Parsing [Icons] section, line 38
-Parsing [InstallDelete] section, line 45
-Parsing [InstallDelete] section, line 46
 Parsing [InstallDelete] section, line 47
 Parsing [InstallDelete] section, line 48
+Parsing [InstallDelete] section, line 49
+Parsing [InstallDelete] section, line 50
 Parsing [Run] section, line 41
+Parsing [Run] section, line 43
 Parsing [Files] section, line 34
 Deleting PKA GUIDE Setup.exe from output directory
 Creating setup files
@@ -1156,5 +1157,5 @@ Creating setup files
    Updating manifest (Setup.exe)
 
 
-Successful compile (84,766 sec). Resulting Setup program filename is:
+Successful compile (73,609 sec). Resulting Setup program filename is:
 E:\Claudio\PKA\overlay\dist\PKA GUIDE Setup.exe
