@@ -4,6 +4,9 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Overlay
 
+### v2.9.1 — 24/09
+- Busca da aba Rockets: procurar "rocket", "policia" ou "ginasio" não dá mais "Nada encontrado", e quando o nome existe em outra lista (ex.: "blaze" na Polícia) ele mostra de lá.
+
 ### v2.9.0 — 24/09
 - Aba **Rockets** na Consulta rápida: Rocket, Polícia e Ginásios, cada NPC com o Pokémon dele e o recomendado para levar.
 - Busca por NPC ou por Pokémon ("gengar" mostra quem usa Gengar); sem busca, aparece só a lista de nomes para clicar.

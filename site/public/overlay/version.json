@@ -1,5 +1,5 @@
 {
- "version": "2.9.0",
- "url": "https://github.com/Hiaan/pkaguide/releases/download/v2.9.0/PKA.GUIDE.Setup.exe",
- "notes": "Aba Rockets com os times recomendados (Rocket, Policia e Ginasios) e o app reabre sozinho depois de atualizar."
+ "version": "2.9.1",
+ "url": "https://github.com/Hiaan/pkaguide/releases/download/v2.9.1/PKA.GUIDE.Setup.exe",
+ "notes": "Busca da aba Rockets entende 'rocket', 'policia' e 'ginasio' e procura tambem nas outras listas."
 }

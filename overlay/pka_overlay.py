@@ -15,7 +15,7 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '2.9.0'
+VERSION = '2.9.1'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -1314,9 +1314,17 @@ class App:
             for kk, l in labels.items(): l.config(bg=ORANGE if kk == k else BG3)
             for w in out.winfo_children(): w.destroy()
             s = norm(q)
-            lst = [n for n in HUB.get('npcs', []) if n['kind'] == k]
-            if s:
-                lst = [n for n in lst if s in norm(n['name']) or any(s in norm(f['npc']) or s in norm(f.get('rec', '')) for f in n['fights'])]
+            todos = HUB.get('npcs', [])
+            lst = [n for n in todos if n['kind'] == k]
+            def bate(n):
+                return (s in norm(n['name']) or s in norm(n['kind'])
+                        or any(s in norm(f['npc']) or s in norm(f.get('rec', '')) for f in n['fights']))
+            if s and s not in norm(k):                  # "rocket" não filtra nada dentro de Rocket
+                achou = [n for n in lst if bate(n)]
+                if not achou:                           # procura também nas outras listas
+                    achou = [n for n in todos if n['kind'] != k and bate(n)]
+                    if achou: self._txt(out, f"Nada em {k}; achei em {achou[0]['kind']}:", 8, MUTED2, bg=BG, padx=4)
+                lst = achou
             if not lst:
                 self._txt(out, 'Nada encontrado.', 9, MUTED, bg=BG, padx=4); self._hub_relayout(); return
             if not s:                                   # sem busca: só os nomes, para não virar uma lista gigante
