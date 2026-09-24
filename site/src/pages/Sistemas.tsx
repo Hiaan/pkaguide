@@ -17,17 +17,25 @@ export default function Sistemas({ sub }: { sub: string }) {
 
 /* ---------- STAR (calculadora) ---------- */
 const STAR_PCT: Record<string, number> = { T3: 2, T2: 4, T1: 6, 'Super Rare': 8, 'Ultra Rare': 10, Legendary: 15 }
+/** cada estrela consome o dobro de Pokémon da anterior: 1★ = 2, 2★ = 4, 3★ = 8, 4★ = 16, 5★ = 32 */
+const POKES_STEP = [2, 4, 8, 16, 32]
+const DD_KEY = 'pka-dd-kk'
+const fmtKK = (n: number) => (n >= 1000 ? (n / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + 'kkk' : n.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + 'kk')
 
 function Star() {
   const [tier, setTier] = useState('Legendary')
   const [from, setFrom] = useState(0)
   const [to, setTo] = useState(2)
+  const [ddKK, setDdKK] = useState(() => { try { return Number(localStorage.getItem(DD_KEY)) || 0 } catch { return 0 } })
+  const setCot = (v: number) => { setDdKK(v); try { localStorage.setItem(DD_KEY, String(v)) } catch { /* sem storage */ } }
   const t = data.star.tiers.find((x) => x.tier === tier)!
   const lo = Math.min(from, to), hi = Math.max(from, to)
   const steps = t.costs.slice(lo, hi)
   const dd = steps.reduce((a, c) => a + c.dd, 0)
   const kk = steps.reduce((a, c) => a + c.kk, 0)
   const pct = STAR_PCT[tier] ?? 0
+  const pokes = POKES_STEP.slice(lo, hi).reduce((a, n) => a + n, 0)
+  const totalKK = kk + dd * ddKK
   return (
     <>
       <SectionHead title="Star Ascension" sub="Calcule quanto custa subir as estrelas de um Pokémon. Valores considerando a opção de 100% de sucesso." />
@@ -49,12 +57,25 @@ function Star() {
             <label>Star objetivo</label>
             <div className="stars">{[1, 2, 3, 4, 5].map((n) => <button key={n} className={`star-btn ${to === n ? 'on' : ''}`} disabled={n <= from} onClick={() => setTo(n)}>{n}★</button>)}</div>
           </div>
+          <div className="field">
+            <label>Quanto custa 1 DD em kk? (para quem não vai donatar)</label>
+            <div className="tags">
+              <input className="dd-input" type="number" min={0} step={1} value={ddKK || ''} placeholder="ex.: 45"
+                     onChange={(e) => setCot(Number(e.target.value) || 0)} />
+              <span className="muted small">deixe em branco para ver só o DD</span>
+            </div>
+          </div>
           <div className="result">
             <div className="stat hi"><div className="v">{dd} 💎</div><div className="l">Custo total DD</div></div>
-            <div className="stat"><div className="v">{kk} 💸</div><div className="l">Custo total KK</div></div>
-            <div className="stat"><div className="v">{steps.length}</div><div className="l">Pokés necessários</div></div>
+            <div className="stat"><div className="v">{kk} 💸</div><div className="l">Custo em kk (sem DD)</div></div>
+            {ddKK > 0 && <div className="stat hi"><div className="v">{fmtKK(totalKK)}</div><div className="l">Tudo em kk (DD a {ddKK}kk)</div></div>}
+            <div className="stat"><div className="v">{pokes}</div><div className="l">Pokés consumidos</div></div>
             <div className="stat"><div className="v">+{pct * hi}%</div><div className="l">Dano com {hi}★</div></div>
           </div>
+          <p className="muted tiny" style={{ margin: '10px 2px 0' }}>
+            Cada estrela consome o dobro da anterior: 1★ = 2 Pokémon, 2★ = 4, 3★ = 8, 4★ = 16 e 5★ = 32 (do mesmo Pokémon).
+            Do 0 ao 5★ dá {POKES_STEP.reduce((a, n) => a + n, 0)} no total.
+          </p>
         </div>
         <div>
           <div className="table-wrap" style={{ marginBottom: 16 }}>

@@ -27,6 +27,14 @@ const QUICK: { ico: string; t: string; sec: string; sub?: string }[] = [
   { ico: '🎬', t: 'Pergunte aos vídeos', sec: 'videos', sub: 'perguntar' },
 ]
 
+const SOURCES: { t: string; by: string; what: string; url: string }[] = [
+  { t: 'Pokédex Pública PokeAlliance', by: 'planilha do Mts Vitor', what: 'Pokémon, drops, tiers, itens, dens, dungeons, ginásios, rockets, star, runas e boost', url: 'https://docs.google.com/spreadsheets/d/1GCH3PmFKQrBj7AA51hgqfg6Q2SrvNgrNlxgIidVeTMU' },
+  { t: 'Guia de times por hunt', by: 'planilha do Safnaw', what: 'tanks, DPS e Smeargle de cada elemento e hunt', url: 'https://docs.google.com/spreadsheets/d/1JcYTCkuKiYK6OcEx9CC-LxRLsPRAPvKaHza-cZuEh1s' },
+  { t: 'Times sem T2/T3', by: 'documento do cabeça do loxas', what: 'times para quem está começando no 350', url: 'https://docs.google.com/document/d/1L1-sju28TVQMdjtD-xF-3jAK4reTX-RSuMCGAg-tHkg' },
+  { t: 'Wiki oficial do PokeAlliance', by: 'equipe do jogo', what: '48 guias e as Tasks do Mundo', url: 'https://wiki.pokealliance.com' },
+  { t: 'Vídeos da comunidade', by: 'canais do YouTube', what: 'transcrições usadas na busca e nos vídeos de referência', url: 'https://pkaguide.vercel.app/#/videos/canais' },
+]
+
 export default function Home({ go }: { go: Go }) {
   const tasks = (tasksRaw as unknown as { tasks: unknown[] }).tasks.length
   const wiki = (wikiData as { pages: unknown[] }).pages.length
@@ -74,6 +82,17 @@ export default function Home({ go }: { go: Go }) {
 
       <h3 className="home-h">Vídeos em destaque</h3>
       <div className="home-videos">{top.map((v) => <VideoCard key={v.id} v={v} compact />)}</div>
+
+      <h3 className="home-h">De onde vêm os dados</h3>
+      <div className="home-src">
+        {SOURCES.map((s) => (
+          <a key={s.t} className="home-srccard" href={s.url} target="_blank" rel="noreferrer">
+            <b>{s.t}</b>
+            <span>{s.by}</span>
+            <small>{s.what}</small>
+          </a>
+        ))}
+      </div>
 
       <div className="home-sug">
         <span>💡 Tem ideia para o site ou achou algo errado?</span>

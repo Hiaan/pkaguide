@@ -1,7 +1,7 @@
 ; Instalador nativo do PKA GUIDE Overlay (Inno Setup)
 ; Não usa Python nem descompacta nada na pasta Temp: instala a pasta do app direto.
 #define AppName    "PKA GUIDE"
-#define AppVersion "2.7.0"
+#define AppVersion "2.8.0"
 #define AppExe     "PKA GUIDE.exe"
 
 [Setup]

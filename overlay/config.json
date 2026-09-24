@@ -6,7 +6,9 @@
  "scale": 100,
  "only_game": true,
  "game": "pokealliance",
- "hub_tab": "pokemon",
- "hub_table": "boost",
- "timers": []
+ "auto_update": true,
+ "hub_tab": "tabelas",
+ "hub_table": "star",
+ "timers": [],
+ "dd_kk": 0
 }

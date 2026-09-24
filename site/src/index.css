@@ -578,3 +578,22 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .home-q:hover { background: rgba(255,255,255,.06); color: #a5d1ff; }
 .home-videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
 .home-sug { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: rgba(250,204,21,.08); border: 1px solid rgba(250,204,21,.3); border-radius: 12px; padding: 14px 18px; margin-top: 10px; }
+
+/* campo de cotação do DD na calculadora de Star */
+.dd-input { width: 110px; background: #0b1522; border: 1px solid var(--line); color: var(--text); border-radius: 8px; padding: 8px 10px; font-size: 14px; font-weight: 700; }
+.dd-input:focus { outline: none; border-color: var(--orange); }
+
+/* fontes dos dados na página inicial */
+.home-src { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+.home-srccard { display: flex; flex-direction: column; gap: 3px; background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; text-decoration: none; color: var(--text); }
+.home-srccard:hover { border-color: var(--orange); }
+.home-srccard b { font-size: 14px; }
+.home-srccard span { font-size: 12px; color: #6ab0ff; }
+.home-srccard small { font-size: 11.5px; color: var(--muted-2); line-height: 1.4; }
+/* formulário de sugestões */
+.sug-form { margin-bottom: 18px; }
+.sug-input { width: 100%; background: #0b1522; border: 1px solid var(--line); color: var(--text); border-radius: 10px; padding: 10px 12px; font: inherit; font-size: 14px; resize: vertical; }
+.sug-input:focus { outline: none; border-color: var(--orange); }
+.sug-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+.sug-actions .disabled { opacity: .45; cursor: not-allowed; }
+.sug-links { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 10px; }

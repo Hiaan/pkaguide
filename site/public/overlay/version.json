@@ -1,5 +1,5 @@
 {
- "version": "2.7.0",
- "url": "https://github.com/Hiaan/pkaguide/releases/download/v2.7.0/PKA.GUIDE.Setup.exe",
- "notes": "O painel so aparece com o jogo na frente; da para desligar ou apontar outro cliente no menu de configuracoes."
+ "version": "2.8.0",
+ "url": "https://github.com/Hiaan/pkaguide/releases/download/v2.8.0/PKA.GUIDE.Setup.exe",
+ "notes": "Atualiza sozinho, aviso quando o jogo roda como administrador e Star com cotacao do DD em kk."
 }

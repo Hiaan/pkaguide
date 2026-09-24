@@ -167,7 +167,10 @@ export default function App() {
       <footer className="footer">
         <button className="btn btn-primary footer-cta" onClick={() => go('sugestoes')}>💡 Sugestões para melhorar o site? Clique aqui</button>
         <br />
-        Feito pela comunidade a partir da <a href="https://docs.google.com/spreadsheets/d/1GCH3PmFKQrBj7AA51hgqfg6Q2SrvNgrNlxgIidVeTMU" target="_blank" rel="noreferrer">planilha pública</a> · Sprites via PokeAPI · Não afiliado oficialmente ao PokeAlliance
+        Dados da <a href="https://docs.google.com/spreadsheets/d/1GCH3PmFKQrBj7AA51hgqfg6Q2SrvNgrNlxgIidVeTMU" target="_blank" rel="noreferrer">Pokédex Pública (Mts Vitor)</a>,
+        do <a href="https://docs.google.com/spreadsheets/d/1JcYTCkuKiYK6OcEx9CC-LxRLsPRAPvKaHza-cZuEh1s" target="_blank" rel="noreferrer">guia de hunts do Safnaw</a>,
+        do <a href="https://docs.google.com/document/d/1L1-sju28TVQMdjtD-xF-3jAK4reTX-RSuMCGAg-tHkg" target="_blank" rel="noreferrer">guia do cabeça do loxas</a> e
+        da <a href="https://wiki.pokealliance.com" target="_blank" rel="noreferrer">wiki oficial</a> · Sprites via PokeAPI · Não afiliado oficialmente ao PokeAlliance
       </footer>
 
       {selected && <PokeModal p={selected} onClose={() => setSelected(null)} onOpen={setSelected} onItem={openItem} />}

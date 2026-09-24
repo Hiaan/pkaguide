@@ -4,6 +4,11 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Overlay
 
+### v2.8.0 — 24/09
+- **Atualiza sozinho**: ao abrir, baixa e instala a versão nova sem precisar clicar (dá para desligar em ⚙).
+- Aviso e botão **"Reabrir como administrador"** quando o jogo está aberto como administrador — é o motivo de a tecla de atalho não funcionar dentro do jogo.
+- Tabela de Star: campo "1 DD custa X kk" mostra o custo total em kk e uma linha com quantos Pokémon cada estrela consome (2, 4, 8, 16, 32).
+
 ### v2.7.0 — 23/09
 - O painel **só aparece com o jogo na frente**: ao trocar para o navegador ou outro programa ele some sozinho e volta quando o jogo volta.
 - Dá para desligar em ⚙ → "Só aparecer com o jogo na frente", e o botão "Usar a janela da frente" aponta outro cliente se o executável tiver outro nome.
@@ -37,6 +42,11 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 - Visual arredondado com ícones e leitura mais rápida do tooltip.
 
 ## Site
+
+### 24/09
+- **Star**: "Pokés necessários" estava contando as etapas (3 para 0→3★). Agora conta certo — cada estrela consome o dobro da anterior, então 0→3★ são 14 Pokémon. Também dá para informar quanto custa 1 DD em kk e ver o custo todo em kk.
+- **Sugestões**: página com formulário próprio, que abre uma issue no GitHub do projeto já preenchida (ou copia o texto).
+- **Créditos**: bloco "De onde vêm os dados" na página inicial e rodapé citando a Pokédex Pública (Mts Vitor), o guia do Safnaw, o do cabeça do loxas e a wiki oficial.
 
 ### 22/09
 - **Ícones de tipo** também no overlay (acima).

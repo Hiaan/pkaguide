@@ -15,7 +15,7 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '2.7.0'
+VERSION = '2.8.0'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -57,7 +57,7 @@ def jload(path, default):
 catalog = jload(CATALOG_FILE, {})
 custom = jload(CUSTOM_FILE, {})
 unknown = jload(UNKNOWN_FILE, {})
-DEFAULTS = {'mode': 'auto', 'hotkey': 'f4', 'show_s': 8, 'alpha': 97, 'scale': 100, 'only_game': True, 'game': 'pokealliance'}   # alpha e scale em % (alpha 30-100, scale 60-150)
+DEFAULTS = {'mode': 'auto', 'hotkey': 'f4', 'show_s': 8, 'alpha': 97, 'scale': 100, 'only_game': True, 'game': 'pokealliance', 'auto_update': True}   # alpha e scale em % (alpha 30-100, scale 60-150)
 cfg = dict(DEFAULTS, **jload(CONFIG_FILE, {}))
 
 def save_cfg():
@@ -192,6 +192,22 @@ def apply_update(url):
 # ---------------- texto ----------------
 IGNORE = ('price', 'segure', 'shift', 'coleta', 'depot', 'stash', 'trainer', 'ultra bag', 'great bag', 'pokemon', 'loot')
 
+def is_admin():
+    if os.name != 'nt': return True
+    try:
+        import ctypes
+        return bool(ctypes.windll.shell32.IsUserAnAdmin())
+    except Exception: return False
+
+def relaunch_admin():
+    """reabre o app pedindo elevação; só assim a tecla de atalho chega quando o jogo é administrador"""
+    try:
+        import ctypes
+        if FROZEN: ctypes.windll.shell32.ShellExecuteW(None, 'runas', EXE, '', None, 1)
+        else: ctypes.windll.shell32.ShellExecuteW(None, 'runas', sys.executable, f'"{os.path.abspath(__file__)}"', None, 1)
+        os._exit(0)
+    except Exception as e: log('relaunch_admin', e)
+
 def foreground_app():
     """(exe, título) da janela que está na frente; ('', '') se não der para saber"""
     if os.name != 'nt': return '', ''
@@ -218,12 +234,16 @@ def foreground_app():
     except Exception as e:
         log('foreground_app', e); return '', ''
 
+GAME_ELEVATED = [False]
+
 def game_in_front():
     """o jogo (ou o próprio overlay) está na frente?"""
     if not cfg.get('only_game', True): return True
     exe, title = foreground_app()
     if not exe and not title: return True                  # sem saber, não esconde
     alvo = norm(cfg.get('game', 'pokealliance')) or 'pokealliance'
+    if not exe and alvo in norm(title) and not is_admin():
+        GAME_ELEVATED[0] = True                            # jogo como administrador: a tecla não chega até nós
     if 'pka guide' in norm(exe) or norm(exe).startswith('python'):
         return True                                        # clicando no próprio painel
     return alvo in norm(exe) or alvo in norm(title)
@@ -421,6 +441,7 @@ class App:
         self.pos = (0, 0); self.last_move = time.time()
         self.q = queue.Queue(); self.pending = None; self.modal = None
         self.update_url = None; self.held = set(); self.recording = None
+        self._admin_warned = False
         self.status_text = f'v{VERSION} · carregando…'
 
         self.w = Round(width=px(CARD_W))
@@ -507,6 +528,12 @@ class App:
         newv, url = check_update()
         if newv:
             self.update_url = url; self.q.put(('update', newv))
+            if cfg.get('auto_update', True):
+                self.status_text = f'baixando a v{newv}…'
+                try:
+                    apply_update(url)                      # troca a pasta do app e reabre sozinho
+                except Exception as e:
+                    log('auto_update', e); self.status_text = f'v{VERSION} · atualize clicando em v{newv}'
 
     def do_update(self):
         if not self.update_url or not FROZEN: return
@@ -652,6 +679,20 @@ class App:
         self.w.set_border(INDIGO)
         self.l_foot.config(text=f'{len(unknown)} aguardando cadastro  ·  {self.status_text}')
         self.open_panel()
+
+    def admin_hint(self):
+        """o jogo roda como administrador: sem elevação a tecla de atalho não chega"""
+        if self._admin_warned or not GAME_ELEVATED[0] or cfg['mode'] == 'auto': return
+        self._admin_warned = True
+        for w in self.rows.winfo_children(): w.destroy()
+        self.thumb.config(image=''); self.thumb.image = None
+        self.l_name.config(text='A tecla não funciona no jogo')
+        self.set_pill(self.l_cat, 'RODAR COMO ADMIN', 'shield', ORANGE)
+        self.add_row('shield', ORANGE, 'O PokeAlliance está aberto como administrador.',
+                     'Por causa disso o Windows não entrega a sua tecla para o overlay. Clique no botão para reabrir como administrador.')
+        self.button(self.rows, 'Reabrir como administrador', ORANGE, relaunch_admin, 'shield', pady=(6, 2), anchor='w', padx=4)
+        self.b_reg.pack_forget(); self.w.set_border(ORANGE); self.update_foot()
+        self.open_panel(); self.open_until = time.time() + 20
 
     def update_foot(self):
         m = cfg['mode']; k = pretty_key(cfg['hotkey'])
@@ -894,6 +935,21 @@ class App:
         self.button(grow2, 'Usar a janela da frente', INDIGO, detect, 'search', h=28, side='left')
         tk.Label(c, text='Se o cliente do jogo tiver outro nome, abra o jogo, volte aqui e clique no botão acima.',
                  font=(FONT, fs(8)), fg=MUTED2, bg=BG, anchor='w', wraplength=px(340), justify='left').pack(fill='x', padx=4, pady=(2, 0))
+
+        au = tk.BooleanVar(value=bool(cfg.get('auto_update', True)))
+        arow = tk.Frame(c, bg=BG); arow.pack(fill='x', padx=2, pady=(8, 0))
+        ck2 = tk.Checkbutton(arow, variable=au, bg=BG, activebackground=BG, selectcolor=BG3, bd=0, highlightthickness=0,
+                             cursor='hand2', command=lambda: (cfg.__setitem__('auto_update', bool(au.get())), save_cfg()))
+        ck2.pack(side='left', anchor='n'); ck2._nodrag = True
+        atx = tk.Frame(arow, bg=BG); atx.pack(side='left', fill='x', expand=True, padx=(4, 0))
+        tk.Label(atx, text='Atualizar sozinho', font=(FONT, fs(10), 'bold'), fg=TXT, bg=BG, anchor='w').pack(fill='x')
+        tk.Label(atx, text='Baixa e instala a versão nova ao abrir, sem você precisar clicar em nada.',
+                 font=(FONT, fs(8)), fg=MUTED, bg=BG, anchor='w', wraplength=px(320), justify='left').pack(fill='x')
+
+        if not is_admin():
+            self.button(c, 'Reabrir como administrador', INDIGO, relaunch_admin, 'shield', pady=(10, 0), anchor='w', padx=2)
+            tk.Label(c, text='Se o jogo abre como administrador, a tecla de atalho só chega ao overlay se ele também for administrador.',
+                     font=(FONT, fs(8)), fg=MUTED2, bg=BG, anchor='w', wraplength=px(340), justify='left').pack(fill='x', padx=4, pady=(4, 0))
 
         self.section(c, 'TRANSPARÊNCIA DO PAINEL')
         arow = tk.Frame(c, bg=BG); arow.pack(fill='x', padx=2)
@@ -1343,12 +1399,27 @@ class App:
                             note='Fragmento = "<tipo> fragment". Veja a lista completa no site.')
             elif k == 'star':
                 st = HUB.get('star', {})
+                cot = tk.Frame(out, bg=BG); cot.pack(fill='x', pady=(0, 6))
+                tk.Label(cot, text='1 DD custa', font=(FONT, fs(9)), fg=MUTED, bg=BG).pack(side='left', padx=(4, 6))
+                ent = tk.Entry(cot, font=(FONT, fs(10), 'bold'), bg=BG2, fg=TXT, insertbackground=ORANGE, relief='flat', width=6, justify='center')
+                ent.insert(0, str(cfg.get('dd_kk', '') or '')); ent.pack(side='left', ipady=px(4)); ent._nodrag = True
+                tk.Label(cot, text='kk  (Enter mostra o total em kk, para quem não vai donatar)', font=(FONT, fs(8)), fg=MUTED2, bg=BG).pack(side='left', padx=6)
+                def set_cot(*_):
+                    try: cfg['dd_kk'] = float(ent.get().replace(',', '.') or 0)
+                    except ValueError: cfg['dd_kk'] = 0
+                    save_cfg(); show('star')
+                ent.bind('<Return>', set_cot)
                 pct = dict(re.findall(r'-\s*(Tier \d|Super Rare|Ultra Rare|Legendary):\s*(\d+)%', st.get('note', '')))
                 name = lambda t: {'T3': 'Tier 3', 'T2': 'Tier 2', 'T1': 'Tier 1'}.get(t, t)
-                rows = [[t['tier'], (pct.get(name(t['tier'])) or '?') + '%'] +
-                        [f"{c.get('dd', 0):g} DD\n{c.get('kk', 0):g}kk" for c in t['costs']] for t in st.get('tiers', [])]
+                dd_kk = float(cfg.get('dd_kk', 0) or 0)
+                def cost(c):
+                    dd, kk = c.get("dd", 0), c.get("kk", 0)
+                    tot = kk + dd * dd_kk
+                    return (f"{dd:g} DD" + chr(10) + (f"{tot:g}kk total" if dd_kk else f"{kk:g}kk"))
+                rows = [[t['tier'], (pct.get(name(t['tier'])) or '?') + '%'] + [cost(c) for c in t['costs']] for t in st.get('tiers', [])]
+                rows.append(['Pokés', '-', '2', '4', '8', '16', '32'])
                 self._table(out, ['Tier', 'Dano/★', '1★', '2★', '3★', '4★', '5★'], rows, first_colors=TC,
-                            note='Custo de cada estrela com 100% de sucesso. Dano/★ = quanto o ataque sobe por estrela.')
+                            note='Custo de cada estrela com 100% de sucesso. Cada estrela consome o dobro de Pokémon da anterior (2, 4, 8, 16 e 32; 62 do zero ao 5★). Dano/★ = quanto o ataque sobe por estrela.')
             elif k == 'runes':
                 rows = []
                 for r in HUB.get('runes', {}).get('stats', []):
@@ -1454,7 +1525,9 @@ class App:
                     self.root.destroy(); return
         except queue.Empty: pass
         self._tk_n = getattr(self, '_tk_n', 0) + 1
-        if self._tk_n % 6 == 0: self.apply_visibility()
+        if self._tk_n % 6 == 0:
+            self.apply_visibility()
+            self.admin_hint()
         if self._tk_n % 6 == 0:
             self._timer_check()
             if self.modal: self._timer_draw()
