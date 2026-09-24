@@ -4,6 +4,9 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Overlay
 
+### v2.9.2 — 24/09
+- Só abre um painel por vez: depois de atualizar não ficam dois overlays na tela.
+
 ### v2.9.1 — 24/09
 - Busca da aba Rockets: procurar "rocket", "policia" ou "ginasio" não dá mais "Nada encontrado", e quando o nome existe em outra lista (ex.: "blaze" na Polícia) ele mostra de lá.
 

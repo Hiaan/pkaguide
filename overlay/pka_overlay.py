@@ -15,7 +15,7 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '2.9.1'
+VERSION = '2.9.2'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -1594,6 +1594,19 @@ class App:
             self.close_panel()
         self.root.after(80, self.tick)
 
+def only_one_instance():
+    """evita dois painéis abertos (ex.: logo depois de uma atualização)"""
+    if os.name != 'nt': return True
+    try:
+        import ctypes
+        h = ctypes.windll.kernel32.CreateMutexW(None, False, 'Global' + chr(92) + 'PKA_GUIDE_OVERLAY')
+        if ctypes.windll.kernel32.GetLastError() == 183:      # ERROR_ALREADY_EXISTS
+            log('já estava aberto'); return False
+        globals()['_mutex'] = h
+    except Exception as e: log('mutex', e)
+    return True
+
 if __name__ == '__main__':
+    if not only_one_instance(): sys.exit(0)
     log('início', VERSION, 'itens:', len(DB))
     App().root.mainloop()

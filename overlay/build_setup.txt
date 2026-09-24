@@ -1157,5 +1157,5 @@ Creating setup files
    Updating manifest (Setup.exe)
 
 
-Successful compile (68,641 sec). Resulting Setup program filename is:
+Successful compile (75,313 sec). Resulting Setup program filename is:
 E:\Claudio\PKA\overlay\dist\PKA GUIDE Setup.exe
