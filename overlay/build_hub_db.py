@@ -56,7 +56,20 @@ for c in data.get('gym', {}).get('cities', []):
     npcs.append({'kind': 'Ginásio', 'name': c['city'], 'loc': c.get('dungeon', ''),
                  'fights': [{'npc': n, 'rec': ''} for n in c.get('leader', [])], 'tasks': c.get('tasks', [])})
 
-hub = {'pokemon': pokemon, 'teams': teams, 'npcs': npcs,
+# guia do AlastraSz (vídeo): dicas, ranks e recomendações por NPC
+guia = json.load(open(os.path.join(ROOT, 'overlay', 'rockets_guide.json'), encoding='utf-8'))
+gmap = {norm(g['name']): g for g in guia['npcs']}
+for n in npcs:
+    g = gmap.get(norm(n['name']))
+    if not g: continue
+    n.update(andar=g['andar'], dificuldade=g['dificuldade'], tips=g['tips'])
+    recs = {norm(r['npc']): r['use'] for r in g['recs']}
+    for f in n['fights']:                       # completa o "leve" da planilha com o do vídeo
+        u = recs.get(norm(f['npc']))
+        if u: f['alastra'] = u
+    n['extras'] = [r for r in g['recs'] if norm(r['npc']) not in {norm(f['npc']) for f in n['fights']}]
+
+hub = {'pokemon': pokemon, 'teams': teams, 'npcs': npcs, 'guia': guia,
        'dens': [{'n': d['name'], 'time': d['time'], 'players': d['players'], 'xph': d['xph']} for d in data['dens']],
        'boost': data['boost'], 'star': data['star'], 'runes': data['runes'], 'shinyRate': data['shinyRate'], 'brokes': data['brokes']}
 

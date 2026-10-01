@@ -1,0 +1,220 @@
+{
+  "source": "https://www.youtube.com/watch?v=JpwDEJNKA0s",
+  "author": "AlastraSz",
+  "title": "Guia para ROCKET e POLICE SEMANAIS no PokeAlliance!",
+  "intro": [
+    "A Rocket é o pré-requisito: só dá para fazer a Police depois de terminar a Rocket.",
+    "Entrada: suba a escada em cima de Viridian. Dentro do covil dá para andar de fly, nada é agressivo.",
+    "São 2 andares. O 1º dá para fazer antes do level 300; o 2º pede 300+ e saber empurrar skill.",
+    "São 130 duelos no total (13 NPCs) para liberar o Giovanni, o que dá umas 10 semanas fazendo tudo.",
+    "O guia usa Pokémon T2 para baixo. O único T1 recomendado é o Shiny Hitmonchan."
+  ],
+  "ranks": {
+    "S": ["Shiny Hitmonchan", "Shiny Starmie", "Scizor", "Wigglytuff", "Shiny Victreebel", "Tyranitar"],
+    "A": ["Machamp", "Shiny Tangela", "Leafeon", "Shiny Hippowdon", "Persian"],
+    "B": ["Arcanine", "Electabuzz"],
+    "nota": "Lista lida dos sprites do vídeo (0:44). Rank S é obrigatório ter; o Persian entra porque não há dark melhor acessível, e o Machamp porque não há lutador melhor sem ser o Shiny Hitmonchan."
+  },
+  "mecanicas": [
+    {
+      "t": "Não use autocombo",
+      "d": "Se sobrar dano você desperdiça cooldown do próximo Pokémon; se faltar, você perdeu tempo que daria para ganhar jogando certo."
+    },
+    {
+      "t": "Empurrar a skill",
+      "d": "Solte a skill e ande na diagonal para ela pegar várias vezes no mesmo Pokémon. Ex.: Machamp usa Focus Energy, anda na diagonal e solta Focus Blast, contando até dois. Vale também para Confusion e para o Waterfall da Starmie."
+    },
+    {
+      "t": "Ciclar miss",
+      "d": "Alternar skills de erro para o NPC nunca te acertar. A Wigglytuff faz isso com Disarming Voice e Rock and Roll; vence quem cicla miss primeiro."
+    },
+    {
+      "t": "Surfar no Pokémon",
+      "d": "A Shiny Starmie dobra o dano quando você surfa certo. O Machamp também aceita."
+    },
+    {
+      "t": "Manter o NPC longe",
+      "d": "Shiny Tangela: use todas as skills, deixe o Wrap por último e ele fica longe sem te bater. Infernape faz igual com o Fire Spin."
+    },
+    {
+      "t": "Segurar a cura",
+      "d": "Guarde o Giga Drain do Shiny Victreebel para quando estiver com metade da vida."
+    },
+    {
+      "t": "Imunidade do Shiny Hippowdon",
+      "d": "Ele tem stun e o Dig, que deixa imune. Use um e depois o outro, na ordem que preferir."
+    },
+    {
+      "t": "Leafeon",
+      "d": "Tem Silence e stun. Use o Silence, dê o combo todo menos o stun, e quando o Silence acabar use o stun."
+    }
+  ],
+  "npcs": [
+    {
+      "name": "Blaze",
+      "andar": 1,
+      "dificuldade": "Muito fácil",
+      "tips": ["Nem precisa de time montado: qualquer Pokémon mata os dele."],
+      "recs": [
+        { "npc": "Muk", "use": "Shiny Piloswine" },
+        { "npc": "Raticate", "use": "Machamp (mata em um hit)" },
+        { "npc": "Ariados", "use": "Alakazam" },
+        { "npc": "Arbok", "use": "Steelix (dá, mas tem coisa melhor)" }
+      ]
+    },
+    {
+      "name": "Frost",
+      "andar": 1,
+      "dificuldade": "Muito fácil",
+      "tips": ["Dá para fazer sem bater super efetivo.", "Aqui ainda dá para usar Pokémon T3, tipo Poliwrath."],
+      "recs": [
+        { "npc": "Misdreavus", "use": "Shiny Persian (imune a ghost e bate dark)" },
+        { "npc": "Hypno", "use": "Scizor (melhor dano bug do guia)" },
+        { "npc": "Magcargo", "use": "Shiny Hippowdon ou Shiny Starmie — evite a Shiny Piloswine, que é gelo e apanha de fogo" },
+        { "npc": "Gligar", "use": "Glaceon (gelo 4x) ou Shiny Starmie" },
+        { "npc": "Houndour", "use": "Machamp" },
+        { "npc": "Murkrow", "use": "Tyranitar" }
+      ]
+    },
+    {
+      "name": "Thorn",
+      "andar": 1,
+      "dificuldade": "Fácil",
+      "tips": ["É o Frost melhorado: mesmo time, só que ele usa as versões shiny.", "Pode manter a Glaceon."],
+      "recs": [
+        { "npc": "Shiny Hypno", "use": "Scizor" },
+        { "npc": "Shiny Haunter", "use": "Shiny Persian" },
+        { "npc": "Shiny Murkrow", "use": "Tyranitar" },
+        { "npc": "Shiny Golbat", "use": "muda um pouco; Glaceon resolve" }
+      ]
+    },
+    {
+      "name": "Shadow",
+      "andar": 1,
+      "dificuldade": "Fácil",
+      "tips": ["Praticamente o mesmo time do Thorn. A diferença é entrar com o Shiny Victreebel, que vale o investimento (rank S)."],
+      "recs": [
+        { "npc": "Shiny Gengar", "use": "Shiny Persian" },
+        { "npc": "Alakazam", "use": "Scizor" },
+        { "npc": "Muk", "use": "Shiny Piloswine" },
+        { "npc": "Houndoom", "use": "Machamp" },
+        { "npc": "Shiny Crobat", "use": "Shiny Victreebel" }
+      ]
+    },
+    {
+      "name": "Cipher",
+      "andar": 1,
+      "dificuldade": "Começa a pesar",
+      "tips": ["Level baixo sente dificuldade; do 250 em diante passa tranquilo."],
+      "recs": [
+        { "npc": "Meganium", "use": "Arcanine (aguenta bastante tempo) ou Scizor" },
+        { "npc": "Venusaur", "use": "Scyther (único voador T2 bom; o Scizor tem mais vida)" },
+        { "npc": "Electabuzz", "use": "qualquer um de terra: Shiny Piloswine, Shiny Hippowdon ou Feraligatr" },
+        { "npc": "Typhlosion", "use": "Shiny Starmie" },
+        { "npc": "Shiny Persian", "use": "Machamp" }
+      ]
+    },
+    {
+      "name": "Phoenix",
+      "andar": 1,
+      "dificuldade": "Média",
+      "tips": ["Dá para manter o Arcanine do NPC anterior ou trocar por Scyther/Scizor."],
+      "recs": [
+        { "npc": "Blastoise", "use": "Leafeon ou Shiny Tangela" },
+        { "npc": "Shiny Blastoise", "use": "Shiny Victreebel" },
+        { "npc": "Shiny Magneton", "use": "um de terra (toma 4x) ou Machamp" },
+        { "npc": "Charizard", "use": "Tyranitar" }
+      ]
+    },
+    {
+      "name": "Scythe",
+      "andar": 1,
+      "dificuldade": "Média",
+      "tips": ["Time parecido com o anterior, mas aqui use o máximo de Pokémon de terra possível: só o Scyther escapa.", "Pokémon de pedra bom e acessível só tem o Tyranitar."],
+      "recs": [
+        { "npc": "Charizard", "use": "Tyranitar" },
+        { "npc": "Shiny Houndoom", "use": "Machamp — é o maior problema do NPC e o Machamp vai muito bem" },
+        { "npc": "Scyther", "use": "Tyranitar (ele só apanha super efetivo de pedra)" }
+      ]
+    },
+    {
+      "name": "Mirage",
+      "andar": 1,
+      "dificuldade": "Média",
+      "tips": ["Usa os três iniciais de Kanto, nas versões comum e shiny."],
+      "recs": [
+        { "npc": "Shiny Charizard", "use": "Tyranitar (não tem como fugir)" },
+        { "npc": "Shiny Blastoise", "use": "Shiny Victreebel (não tem como fugir)" },
+        { "npc": "Tangela", "use": "Leafeon" },
+        { "npc": "Venusaur", "use": "Scizor" },
+        { "npc": "Charizard", "use": "Shiny Starmie (Golem T3 também dá)" }
+      ]
+    },
+    {
+      "name": "Zephyr",
+      "andar": 1,
+      "dificuldade": "Média",
+      "tips": ["Usa os três iniciais de Johto, comum e shiny. Mantenha o mesmo time do Mirage.", "Fim do 1º andar."],
+      "recs": []
+    },
+    {
+      "name": "Obsidian",
+      "andar": 2,
+      "dificuldade": "Difícil",
+      "tips": ["A partir daqui precisa saber empurrar skill, senão as recomendações não servem."],
+      "recs": [
+        { "npc": "Shiny Gyarados", "use": "Electabuzz: estuna, usa Mamaragã e sai correndo em linha reta — o raio vai abrindo e batendo várias vezes" },
+        { "npc": "Scyther / Shiny Scizor", "use": "fogo: Shiny Hitmonchan com luva de fogo, ou Arcanine (estuna, corre e sobrevive)" },
+        { "npc": "Shiny Kingdra", "use": "Wigglytuff, ciclando miss e empurrando — nunca de autocombo" },
+        { "npc": "Pidgeot", "use": "Tyranitar (não tem opção melhor)" },
+        { "npc": "Charmeleon", "use": "Machamp (morre fácil, mas evite autocombo para sobrar cooldown)" }
+      ]
+    },
+    {
+      "name": "Vortex",
+      "andar": 2,
+      "dificuldade": "Difícil (mais fácil que o Obsidian)",
+      "tips": ["Aqui quase não precisa empurrar, só ciclar miss.", "Com o Tyranitar: usa um slow, corre, usa o outro, corre — ele tem três."],
+      "recs": [
+        { "npc": "Ninetales", "use": "Shiny Starmie (aqui sim precisa empurrar)" },
+        { "npc": "Magneton", "use": "estuna e dá o combo todo" },
+        { "npc": "Kabutops", "use": "ele dá miss sem parar: ou guard elixir, ou você cicla miss primeiro" }
+      ]
+    },
+    {
+      "name": "Tempest",
+      "andar": 2,
+      "dificuldade": "Muito difícil — level 320 (dá para tentar no 305)",
+      "tips": ["Depende de sorte: tente várias vezes seguidas.", "Dá para fazer sem o Shiny Hitmonchan, só de Machamp.", "Problemas: Shiny Snorlax em primeiro e Shiny Magmar em segundo."],
+      "recs": []
+    },
+    {
+      "name": "Eclipse",
+      "andar": 2,
+      "dificuldade": "Muito difícil",
+      "tips": ["Quem faz o Tempest faz o Eclipse.", "O único Pokémon que falta no guia é o Luxray (T1); o Electabuzz talvez resolva, mas não foi testado."],
+      "recs": [
+        { "npc": "Pinsir", "use": "Shiny Hitmonchan com luva de fogo, ou Infernape" },
+        { "npc": "Shiny Camerupt", "use": "Shiny Hitmonchan com luva elétrica" },
+        { "npc": "Shiny Espeon", "use": "Scizor" },
+        { "npc": "Machamp", "use": "dá para trocar pelo Shiny Heracross" }
+      ]
+    },
+    {
+      "name": "Giovanni",
+      "andar": 2,
+      "dificuldade": "Duelo final",
+      "tips": ["Libera depois de 130 duelos, umas 10 semanas fazendo todos os NPCs.", "Quem chegou até aqui já sabe que time usar."],
+      "recs": []
+    }
+  ],
+  "police": {
+    "tips": [
+      "Só abre depois de terminar a Rocket.",
+      "São 3 minutos por NPC: não dá tempo de esperar cooldown, tem que explodir o NPC rápido.",
+      "Use os Pokémon rank S e complete com T1. O Shiny Hitmonchan também entra.",
+      "T1 barato para completar: Torterra, Infernape e Shiny Meganium.",
+      "Sem T1? Um T2 com 2 estrelas tem mais ou menos o dano de um T1."
+    ]
+  }
+}

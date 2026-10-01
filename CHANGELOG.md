@@ -4,6 +4,10 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Overlay
 
+### v3.0.0 — 01/10
+- Aba **Rockets** completa com o guia do AlastraSz (vídeo "Guia para ROCKET e POLICE SEMANAIS"): cada NPC ganhou andar, dificuldade, o recomendado do vídeo ao lado do da planilha e as dicas específicas.
+- Botão **Guia** com quatro seções: Como funciona (entrada, andares, 130 duelos), Pokémon (ranks S/A/B), Como jogar (não usar autocombo, empurrar skill, ciclar miss, surfar) e Polícia (3 minutos por NPC, precisa de T1).
+
 ### v2.9.2 — 24/09
 - Só abre um painel por vez: depois de atualizar não ficam dois overlays na tela.
 

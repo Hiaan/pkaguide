@@ -15,7 +15,7 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '2.9.2'
+VERSION = '3.0.0'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -1303,7 +1303,7 @@ class App:
 
     # --- Rockets, Polícia e Ginásios ---
     def hub_npcs(self, body):
-        KINDS = ('Rocket', 'Polícia', 'Ginásio')
+        KINDS = ('Rocket', 'Polícia', 'Ginásio', 'Guia')
         kind = cfg.get('hub_npc_kind', 'Rocket')
         bar = tk.Frame(body, bg=BG); bar.pack(fill='x', pady=(8, 4))
         out = tk.Frame(body, bg=BG)
@@ -1325,6 +1325,8 @@ class App:
                     achou = [n for n in todos if n['kind'] != k and bate(n)]
                     if achou: self._txt(out, f"Nada em {k}; achei em {achou[0]['kind']}:", 8, MUTED2, bg=BG, padx=4)
                 lst = achou
+            if k == 'Guia':
+                self._guia(out); self._hub_relayout(); return
             if not lst:
                 self._txt(out, 'Nada encontrado.', 9, MUTED, bg=BG, padx=4); self._hub_relayout(); return
             if not s:                                   # sem busca: só os nomes, para não virar uma lista gigante
@@ -1342,9 +1344,21 @@ class App:
                 tk.Label(top, text=n['name'].title(), font=(FONT, fs(11), 'bold'), fg=TXT, bg=BG2).pack(side='left')
                 tk.Label(top, text='  ' + n['kind'], font=(FONT, fs(8)), fg=MUTED, bg=BG2).pack(side='left')
                 if n.get('loc'): self._link(top, 'onde fica', n['loc']).pack(side='right')
+                if n.get('andar'):
+                    tk.Label(top, text=f"{n['andar']}º andar · {n.get('dificuldade', '')}", font=(FONT, fs(8), 'bold'),
+                             fg=YELLOW, bg=BG2).pack(side='right')
                 if n.get('tasks'): self._txt(card, 'Task: ' + ', '.join(n['tasks']), 8, YELLOW, pady=(0, 2))
-                rows = [[f['npc'], f.get('rec') or '—'] for f in n['fights']]
-                self._table(card, ['Pokémon do NPC', 'Leve'], rows, plain=True)
+                tem_guia = any(f.get('alastra') for f in n['fights'])
+                if tem_guia:
+                    rows = [[f['npc'], f.get('rec') or '—', f.get('alastra') or '—'] for f in n['fights']]
+                    self._table(card, ['Pokémon do NPC', 'Planilha', 'Guia do AlastraSz'], rows, plain=True, widths={2: px(200)})
+                else:
+                    rows = [[f['npc'], f.get('rec') or '—'] for f in n['fights']]
+                    self._table(card, ['Pokémon do NPC', 'Leve'], rows, plain=True)
+                for e in n.get('extras', []):
+                    self._txt(card, f"{e['npc']}: {e['use']}", 8, '#cbd5e1', pady=(2, 0))
+                for tp in n.get('tips', []):
+                    self._txt(card, '• ' + tp, 8, MUTED, pady=(2, 0))
                 tk.Frame(card, bg=BG2, height=6).pack()
             self._hub_relayout()
 
@@ -1359,6 +1373,48 @@ class App:
         self._npc_entry = e; self._npc_show = show
         out.pack(fill='x', pady=(6, 2))
         show(kind)
+
+    def _guia(self, out):
+        """resumo do guia de Rocket/Police do AlastraSz, em seções para não virar uma parede de texto"""
+        g = HUB.get('guia') or {}
+        if not g:
+            self._txt(out, 'Guia ainda não baixado. Abra o app conectado à internet.', 9, MUTED, bg=BG, padx=4); return
+        bar = tk.Frame(out, bg=BG); bar.pack(fill='x', pady=(0, 6))
+        body = tk.Frame(out, bg=BG); body.pack(fill='x')
+        labels = {}
+
+        def sec(k):
+            for kk, l in labels.items(): l.config(bg=SKY if kk == k else BG3)
+            cfg['hub_guia_sec'] = k; save_cfg()
+            for w in body.winfo_children(): w.destroy()
+            card = self._card(body)
+            if k == 'Como funciona':
+                top = tk.Frame(card, bg=BG2); top.pack(fill='x', padx=12, pady=(8, 2))
+                tk.Label(top, text=g['title'][:46], font=(FONT, fs(10), 'bold'), fg=TXT, bg=BG2).pack(side='left')
+                self._link(top, 'ver o vídeo', g['source']).pack(side='right')
+                for x in g.get('intro', []): self._txt(card, '• ' + x, 9, pady=(2, 0))
+            elif k == 'Pokémon':
+                r = g.get('ranks', {})
+                for nome, cor in (('S', GREEN), ('A', YELLOW), ('B', MUTED)):
+                    if r.get(nome):
+                        self._txt(card, f'Rank {nome}', 9, cor, True, pady=(8, 0))
+                        self._txt(card, ', '.join(r[nome]), 9)
+                if r.get('nota'): self._txt(card, r['nota'], 8, MUTED2, pady=(8, 0))
+            elif k == 'Como jogar':
+                for m in g.get('mecanicas', []):
+                    self._txt(card, m['t'], 9, TXT, True, pady=(6, 0))
+                    self._txt(card, m['d'], 8, MUTED)
+            else:
+                for x in (g.get('police') or {}).get('tips', []): self._txt(card, '• ' + x, 9, pady=(2, 0))
+            tk.Frame(card, bg=BG2, height=8).pack()
+            self._txt(body, f"Guia do canal {g['author']}", 8, MUTED2, bg=BG, padx=4, pady=(8, 0))
+            self._hub_relayout()
+
+        for k in ('Como funciona', 'Pokémon', 'Como jogar', 'Polícia'):
+            l = tk.Label(bar, text=k, font=(FONT, fs(8), 'bold'), bg=BG3, fg=TXT, padx=px(7), pady=px(4), cursor='hand2')
+            l.pack(side='left', padx=(2, 4)); l._nodrag = True
+            l.bind('<Button-1>', lambda e, k=k: sec(k)); labels[k] = l
+        sec(cfg.get('hub_guia_sec', 'Como funciona'))
 
     # --- 🏅 Medalhas ---
     MEDAL_PT = {'Damage Boost': 'Dano', 'Critical Chance': 'Chance crítico', 'Critical Damage': 'Dano crítico',
