@@ -1,3 +1,4 @@
+import guiaRaw from '../data/rockets_guide.json'
 import { useState } from 'react'
 import { data, type Pokemon, type Team } from '../lib/data'
 import { Imgur, Linkified, Note, PokeName, Search, SectionHead } from '../components/ui'
@@ -12,9 +13,52 @@ export default function Desafios({ sub, onOpen }: Props) {
   return <><DesafiosInner sub={sub} onOpen={onOpen} /><VideoRefs topic={topic} /></>
 }
 
+const guia = guiaRaw as unknown as {
+  source: string; author: string; title: string; intro: string[]
+  ranks: { S: string[]; A: string[]; B: string[]; nota: string }
+  mecanicas: { t: string; d: string }[]
+  npcs: { name: string; andar: number; dificuldade: string; tips: string[]; recs: { npc: string; use: string }[] }[]
+  police: { tips: string[] }
+}
+const nk = (s: string) => s.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').trim()
+const guiaPorNpc = new Map(guia.npcs.map((n) => [nk(n.name), n]))
+
+/** guia em vídeo do AlastraSz, mostrado acima dos times */
+function GuiaRockets({ police }: { police?: boolean }) {
+  return (
+    <div className="card guia" style={{ marginBottom: 18 }}>
+      <div className="card-title">
+        <h3>Guia do {guia.author}</h3>
+        <a className="chip" style={{ marginLeft: 'auto' }} href={guia.source} target="_blank" rel="noreferrer">▶ ver o vídeo</a>
+      </div>
+      <ul className="guia-list">
+        {(police ? guia.police.tips : guia.intro).map((x) => <li key={x}>{x}</li>)}
+      </ul>
+      {!police && (
+        <>
+          <div className="guia-ranks">
+            {([['S', guia.ranks.S], ['A', guia.ranks.A], ['B', guia.ranks.B]] as const).map(([r, list]) => (
+              <div key={r} className={`guia-rank r${r}`}>
+                <b>Rank {r}</b>
+                <span>{list.join(', ')}</span>
+              </div>
+            ))}
+          </div>
+          <p className="muted tiny" style={{ margin: '4px 2px 12px' }}>{guia.ranks.nota}</p>
+          <div className="guia-mec">
+            {guia.mecanicas.map((m) => (
+              <div key={m.t}><b>{m.t}</b><span>{m.d}</span></div>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
 function DesafiosInner({ sub, onOpen }: Props) {
-  if (sub === 'rocket') return <Teams title="Rockets" sub="Pokémon de cada membro da equipe Rocket e o counter recomendado pra cada um." data={data.rocket.teams} note={data.rocket.note} extra={data.rocket.giovanniNote} onOpen={onOpen} />
-  if (sub === 'police') return <Teams title="Polícia" sub="Pokémon de cada oficial e os tipos recomendados pra enfrentar." data={data.police.teams} note={data.police.note} onOpen={onOpen} recIsType />
+  if (sub === 'rocket') return <Teams title="Rockets" sub="Pokémon de cada membro da equipe Rocket, o counter da planilha e o que o guia do AlastraSz recomenda." data={data.rocket.teams} note={data.rocket.note} extra={data.rocket.giovanniNote} onOpen={onOpen} guia />
+  if (sub === 'police') return <Teams title="Polícia" sub="Pokémon de cada oficial e os tipos recomendados pra enfrentar." data={data.police.teams} note={data.police.note} onOpen={onOpen} recIsType guiaPolice />
   if (sub === 'hazard') return <Hazard />
   if (sub === 'linked') return <Linked onOpen={onOpen} />
   if (sub === 'bh') return <BH />
@@ -42,7 +86,7 @@ function Gyms({ onOpen }: { onOpen: (p: Pokemon) => void }) {
   )
 }
 
-function Teams({ title, sub, data: teams, note, extra, onOpen, recIsType }: { title: string; sub: string; data: Team[]; note: string; extra?: string; onOpen: (p: Pokemon) => void; recIsType?: boolean }) {
+function Teams({ title, sub, data: teams, note, extra, onOpen, recIsType, guia: comGuia, guiaPolice }: { title: string; sub: string; data: Team[]; note: string; extra?: string; onOpen: (p: Pokemon) => void; recIsType?: boolean; guia?: boolean; guiaPolice?: boolean }) {
   const [q, setQ] = useState('')
   const s = q.trim().toLowerCase()
   const list = teams.filter((t) => !s || t.name.toLowerCase().includes(s) || t.fights.some((f) => f.npc.toLowerCase().includes(s) || f.rec.toLowerCase().includes(s)))
@@ -50,11 +94,19 @@ function Teams({ title, sub, data: teams, note, extra, onOpen, recIsType }: { ti
     <>
       <SectionHead title={title} sub={sub} />
       <div className="toolbar"><Search value={q} onChange={setQ} placeholder="Nome do NPC ou Pokémon…" /></div>
+      {(comGuia || guiaPolice) && <GuiaRockets police={guiaPolice} />}
       <Note><Linkified text={note} /></Note>
       <div className="grid grid-3">
         {list.map((t) => (
           <div className="card" key={t.name} style={t.name === 'GIOVANNI' ? { borderColor: 'rgba(249,115,22,0.5)' } : {}}>
-            <div className="card-title"><h3 style={{ letterSpacing: '0.04em' }}>{t.name}</h3></div>
+            <div className="card-title">
+              <h3 style={{ letterSpacing: '0.04em' }}>{t.name}</h3>
+              {comGuia && guiaPorNpc.get(nk(t.name)) && (
+                <span className="badge" style={{ marginLeft: 'auto' }}>
+                  {guiaPorNpc.get(nk(t.name))!.andar}º andar · {guiaPorNpc.get(nk(t.name))!.dificuldade}
+                </span>
+              )}
+            </div>
             {t.name === 'GIOVANNI' && extra && <p className="muted small" style={{ marginTop: 0 }}>{extra}</p>}
             <div className="vs-row" style={{ borderBottom: '1px solid var(--line)', paddingBottom: 6 }}>
               <span className="tiny muted">NPC</span><span className="vs"></span><span className="tiny muted" style={{ textAlign: 'right' }}>Recomendado</span>
@@ -66,6 +118,14 @@ function Teams({ title, sub, data: teams, note, extra, onOpen, recIsType }: { ti
                 <span className="who right">{recIsType ? <span className="badge ok">{f.rec}</span> : <PokeName name={f.rec} onOpen={onOpen} />}</span>
               </div>
             ))}
+            {comGuia && guiaPorNpc.get(nk(t.name)) && (
+              <div className="guia-npc">
+                {guiaPorNpc.get(nk(t.name))!.recs.map((r) => (
+                  <p key={r.npc}><b>{r.npc}:</b> {r.use}</p>
+                ))}
+                {guiaPorNpc.get(nk(t.name))!.tips.map((x) => <p key={x} className="muted">• {x}</p>)}
+              </div>
+            )}
           </div>
         ))}
       </div>
