@@ -15,7 +15,7 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '3.0.0'
+VERSION = '3.0.1'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -236,17 +236,29 @@ def foreground_app():
 
 GAME_ELEVATED = [False]
 
+ALVOS = ('pokealliance', 'poke alliance', 'otclient', 'pka')
+
+def eh_o_jogo(exe, title):
+    alvo = norm(cfg.get('game', '') or '')
+    nomes = [alvo] if alvo else []
+    nomes += list(ALVOS)
+    e, ti = norm(exe), norm(title)
+    return any(n and (n in e or n in ti) for n in nomes)
+
+def sou_eu(exe):
+    return 'pka guide' in norm(exe) or norm(exe).startswith('python')
+
 def game_in_front():
-    """o jogo (ou o próprio overlay) está na frente?"""
+    """o painel só some quando temos certeza de que outro programa está na frente"""
     if not cfg.get('only_game', True): return True
     exe, title = foreground_app()
     if not exe and not title: return True                  # sem saber, não esconde
-    alvo = norm(cfg.get('game', 'pokealliance')) or 'pokealliance'
-    if not exe and alvo in norm(title) and not is_admin():
-        GAME_ELEVATED[0] = True                            # jogo como administrador: a tecla não chega até nós
-    if 'pka guide' in norm(exe) or norm(exe).startswith('python'):
-        return True                                        # clicando no próprio painel
-    return alvo in norm(exe) or alvo in norm(title)
+    if sou_eu(exe): return True                            # mexendo no próprio painel
+    if not exe:                                            # processo ilegível = janela elevada (jogo como admin)
+        GAME_ELEVATED[0] = True
+        return True
+    if eh_o_jogo(exe, title): return True
+    return not cfg.get('game_visto')                       # enquanto nunca vimos o jogo, não esconde nada
 
 def norm(s):
     s = unicodedata.normalize('NFKD', s.lower()).encode('ascii', 'ignore').decode()
@@ -611,6 +623,10 @@ class App:
         else: self.w.relayout()
 
     def open_panel(self):
+        if not getattr(self, '_visible', True):      # leu um item: mostra mesmo que estivesse escondido
+            self._visible = True
+            try: self.root.deiconify(); self.root.attributes('-topmost', True)
+            except Exception: pass
         self.w.width = px(CARD_W)
         if not self.panel.winfo_manager():
             self.sep.pack(fill='x', pady=(8, 0)); self.panel.pack(fill='x')
@@ -757,11 +773,24 @@ class App:
                     if name: best = ('ok', name, icon, score); break
                     if read and not best: best = ('novo', read, icon, 0)
                 if best and best[0] == 'ok':
-                    done = True; self.save_catalog(best[1], best[2], best[3]); self.q.put(('show', best[1:]))
+                    done = True
+                    self.aprende_jogo()
+                    self.save_catalog(best[1], best[2], best[3]); self.q.put(('show', best[1:]))
                 elif best and tries >= len(TRIES):
                     done = True; self.save_unknown(best[1], best[2]); self.q.put(('novo', best[1:]))
             except Exception as e:
                 log('worker', e, traceback.format_exc()[:300])
+
+    def aprende_jogo(self):
+        """o OCR só acerta um item em cima do jogo: guarda esse executável como sendo o cliente"""
+        try:
+            exe, _ = foreground_app()
+            if not exe or sou_eu(exe): return
+            nome = exe.rsplit('.exe', 1)[0]
+            if cfg.get('game') != nome or not cfg.get('game_visto'):
+                cfg['game'] = nome; cfg['game_visto'] = True; save_cfg()
+                log('jogo detectado:', nome)
+        except Exception as e: log('aprende_jogo', e)
 
     def save_catalog(self, name, icon, score):
         slug = re.sub(r'[^a-z0-9]+', '_', name).strip('_')

@@ -4,6 +4,11 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Overlay
 
+### v3.0.1 — 02/10
+- **Correção**: o painel não lia mais o item ao passar o mouse para quem tem o cliente com outro nome de executável. O "só aparecer com o jogo na frente" escondia a janela e nada aparecia. Agora o painel só some quando dá para ter certeza de que outro programa está na frente.
+- O app aprende sozinho qual é o cliente: quando o OCR lê um item, grava o executável que está na frente como sendo o jogo.
+- Também reconhece janela elevada (jogo como administrador) e nomes alternativos (otclient, pka).
+
 ### v3.0.0 — 01/10
 - Aba **Rockets** completa com o guia do AlastraSz (vídeo "Guia para ROCKET e POLICE SEMANAIS"): cada NPC ganhou andar, dificuldade, o recomendado do vídeo ao lado do da planilha e as dicas específicas.
 - Botão **Guia** com quatro seções: Como funciona (entrada, andares, 130 duelos), Pokémon (ranks S/A/B), Como jogar (não usar autocombo, empurrar skill, ciclar miss, surfar) e Polícia (3 minutos por NPC, precisa de T1).

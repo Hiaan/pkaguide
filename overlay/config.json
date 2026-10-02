@@ -12,5 +12,6 @@
  "timers": [],
  "dd_kk": 0,
  "hub_npc_kind": "Guia",
- "hub_guia_sec": "Polícia"
+ "hub_guia_sec": "Polícia",
+ "game_visto": false
 }

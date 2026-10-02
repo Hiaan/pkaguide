@@ -1,5 +1,5 @@
 {
- "version": "3.0.0",
- "url": "https://github.com/Hiaan/pkaguide/releases/download/v3.0.0/PKA.GUIDE.Setup.exe",
- "notes": "Aba Rockets com o guia completo do AlastraSz: dicas por NPC, ranks e mecanicas."
+ "version": "3.0.1",
+ "url": "https://github.com/Hiaan/pkaguide/releases/download/v3.0.1/PKA.GUIDE.Setup.exe",
+ "notes": "Corrige o painel que nao abria ao passar o mouse no item quando o cliente tem outro nome."
 }
