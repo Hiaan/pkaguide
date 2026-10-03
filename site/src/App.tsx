@@ -14,6 +14,7 @@ import Videos, { videos as allVideos } from './pages/Videos'
 import Wiki from './pages/Wiki'
 import Tasks from './pages/Tasks'
 import Home from './pages/Home'
+import Iniciantes from './pages/Iniciantes'
 import wikiData from './data/wiki.json'
 
 const wikiPages = (wikiData as { pages: { path: string; title: string; summary: string }[] }).pages
@@ -21,6 +22,7 @@ const wikiPages = (wikiData as { pages: { path: string; title: string; summary: 
 
 const SECTIONS = [
   { id: 'inicio', label: 'Início', ico: '🏠', subs: [] },
+  { id: 'iniciantes', label: 'Iniciantes', ico: '🌱', subs: [['lista', 'Melhores Pokémon'], ['hunts', 'Onde e como caçar'], ['dicas', 'Talentos e boost']] },
   { id: 'pokedex', label: 'Pokédex', ico: '🔴', subs: [['grid', 'Pokémon'], ['tierlist', 'Tier List'], ['hunts', 'Localizações'], ['tasks', 'Tasks'], ['medals', 'Medalhas (lista)'], ['simulador', 'Medalhas (simulador)']] },
   { id: 'itens', label: 'Itens', ico: '🎒', subs: [['drops', 'Buscar drop'], ['talents', 'PokeTalents'], ['boost', 'Boost']] },
   { id: 'sistemas', label: 'Sistemas', ico: '⚙️', subs: [['star', 'Star'], ['runes', 'Runas'], ['damage', 'Dano'], ['rates', 'Shiny Rate & Brokes']] },
@@ -148,6 +150,7 @@ export default function App() {
           </div>
       <main className="main">
         {section === 'inicio' && <Home go={go} />}
+        {section === 'iniciantes' && <Iniciantes sub={sub} onOpen={setSelected} go={go} />}
         {section === 'pokedex' && <Pokedex sub={sub} onOpen={setSelected} />}
         {section === 'itens' && <Itens sub={sub} onOpen={setSelected} item={item} setItem={setItem} />}
         {section === 'sistemas' && <Sistemas sub={sub} />}

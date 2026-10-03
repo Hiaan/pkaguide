@@ -6,6 +6,7 @@ import { videos, VideoCard } from './Videos'
 type Go = (sec: string, sub?: string) => void
 
 const FEATURED: { ico: string; t: string; d: string; sec: string; sub?: string; hot?: boolean }[] = [
+  { ico: '🌱', t: 'Melhores Pokémon para iniciantes', d: 'Oito Pokémon fáceis de conseguir que caçam quase tudo a partir do level 150, com prints e o passo a passo do vídeo.', sec: 'iniciantes', sub: 'lista', hot: true },
   { ico: '⬇️', t: 'Overlay do PKA GUIDE', d: 'Passe o mouse no item dentro do jogo e veja na hora para que ele serve.', sec: 'ferramentas', sub: 'overlay', hot: true },
   { ico: '🏅', t: 'Simulador de Medalhas', d: 'Monte os 10 emblemas e veja o que sobe e o que cai no personagem.', sec: 'pokedex', sub: 'simulador', hot: true },
   { ico: '📋', t: 'Tasks do Mundo', d: 'Todos os NPCs de task, objetivos, recompensas e onde ficam.', sec: 'tasks' },

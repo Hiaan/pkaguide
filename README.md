@@ -45,6 +45,7 @@ Deploy: a Vercel usa o `vercel.json` da raiz (build em `site/`, saída em `site/
 Menu fixo à esquerda, no estilo de wiki, com a página inicial no topo.
 
 - **Início** — números do site, destaques, atalhos e vídeos em destaque.
+- **Iniciantes** — melhores Pokémon para quem está começando (guia do Canal Do Loxas, com prints), onde e como caçar, talentos e boost.
 - **Pokédex** — Pokémon, Tier List, Localizações, Tasks (da wiki), Medalhas (lista) e Medalhas (simulador).
 - **Itens** — buscar drop, PokeTalents e Boost.
 - **Sistemas** — Star, Runas, Dano, Shiny Rate & Brokes.

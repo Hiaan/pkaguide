@@ -63,6 +63,10 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Site
 
+### 03/10
+- **Nova seção "Iniciantes"** no menu e na página inicial, com o guia do vídeo "Melhores Pokémon para iniciantes no PKA" (Canal Do Loxas): os 8 Pokémon (Arcanine, Poliwrath, Steelix, Mimikyu, Shiny Persian, Omastar, Pachirisu e Shiny Magneton) com como conseguir, o que cada um caça, tabela de cobertura por elemento, capítulos do vídeo com link no minuto certo e 11 prints.
+- Abas **Onde e como caçar** (Pokédex do jogo, Hunt Finder, fazer o inverso e achar o lugar no mapa) e **Talentos e boost** (o que fazer ao chegar no 150, itens de boost do dia e Shiny Ditto).
+
 ### 24/09
 - **Star**: "Pokés necessários" estava contando as etapas (3 para 0→3★). Agora conta certo — cada estrela consome o dobro da anterior, então 0→3★ são 14 Pokémon. Também dá para informar quanto custa 1 DD em kk e ver o custo todo em kk.
 - **Sugestões**: página com formulário próprio, que abre uma issue no GitHub do projeto já preenchida (ou copia o texto).

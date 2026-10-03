@@ -614,3 +614,42 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .guia-npc { border-top: 1px dashed var(--line); margin-top: 10px; padding-top: 8px; font-size: 12.5px; line-height: 1.5; }
 .guia-npc p { margin: 3px 0; }
 .guia-npc b { color: #e4e4e7; }
+
+/* ---------- Melhores Pokémon para iniciantes ---------- */
+.ini-credit { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: rgba(59,157,255,.08); border: 1px solid rgba(59,157,255,.28); border-radius: 12px; padding: 10px 14px; margin-bottom: 14px; font-size: 13px; color: var(--muted); }
+.ini-intro p { margin: 0 0 8px; line-height: 1.6; color: var(--muted); }
+.ini-slides { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 16px 0; align-items: start; }
+.ini-shot { margin: 0; background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.ini-shot img { display: block; width: 100%; height: auto; background: #0b1522; }
+.ini-shot figcaption { padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+.ini-shot figcaption b { color: var(--text); font-size: 14px; }
+.ini-shot figcaption a, .ini-yt { color: #6ab0ff; font-size: 12px; text-decoration: none; }
+.ini-shot figcaption a:hover, .ini-yt:hover { text-decoration: underline; }
+.ini-cards { margin-top: 6px; }
+.ini-card { display: flex; flex-direction: column; gap: 10px; }
+.ini-card-head { display: flex; align-items: center; gap: 10px; }
+.ini-n { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--orange); color: #111; font-weight: 800; font-size: 13px; flex: none; }
+.ini-name { font-size: 16px; flex: 1; min-width: 0; }
+.ini-types { display: inline-flex; gap: 4px; }
+.ini-row span { display: block; font-size: 10.5px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--muted-2); margin-bottom: 3px; }
+.ini-row p { margin: 0; font-size: 13.5px; line-height: 1.5; color: #d4d4d8; }
+.ini-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ini-chip { display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,.05); border: 1px solid var(--line); border-radius: 99px; padding: 3px 10px 3px 6px; font-size: 12.5px; }
+.ini-nota { margin: 0; font-size: 13px; line-height: 1.55; color: var(--muted); }
+.ini-print { width: 100%; border-radius: 10px; border: 1px solid var(--line); display: block; }
+.ini-h { margin: 26px 0 8px; font-size: 15px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted-2); border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.ini-cover { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px; margin-bottom: 14px; }
+.ini-cov { display: flex; flex-direction: column; gap: 2px; background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
+.ini-cov.none { opacity: .55; border-style: dashed; }
+.ini-cov-t { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 13px; }
+.ini-cov-w { font-size: 12.5px; color: var(--muted); }
+.ini-chapters { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 6px; }
+.ini-chapters a { background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; font-size: 12.5px; color: #cbd5e1; text-decoration: none; }
+.ini-chapters a:hover { border-color: var(--orange); }
+.ini-chapters b { color: var(--orange); margin-right: 6px; font-variant-numeric: tabular-nums; }
+.ini-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+.ini-links { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 0; }
+.ini-tips { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 8px; }
+.ini-tips h3 { margin: 0 0 8px; font-size: 15px; }
+.ini-tips ul { margin: 0; padding-left: 18px; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+.ini-tips p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
