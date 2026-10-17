@@ -48,7 +48,7 @@ Menu fixo à esquerda, no estilo de wiki, com a página inicial no topo.
 - **Iniciantes** — melhores Pokémon para quem está começando (guia do Canal Do Loxas, com prints), onde e como caçar, talentos e boost.
 - **Pokédex** — Pokémon, Tier List, Localizações, Tasks (da wiki), Medalhas (lista) e Medalhas (simulador).
 - **Itens** — buscar drop, PokeTalents e Boost.
-- **Sistemas** — Star, Runas, Dano, Shiny Rate & Brokes.
+- **Sistemas** — Star, O que buscar agora (calculadora de progressão), Runas, Dano, Shiny Rate & Brokes.
 - **Dungeons** — dungeons, dens e Porygon.
 - **Desafios** — ginásios, bosses de guild, rockets, polícia, hazard tasks, linked tasks e Brotherhood.
 - **Times** — por hunt (guia do Safnaw) e sem T2/T3 (guia do loxas).

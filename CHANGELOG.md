@@ -63,6 +63,9 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Site
 
+### 17/10
+- **Sistemas → O que buscar agora**: calculadora de custo x ganho de dano, baseada no vídeo "Tome cuidado com a sua progressão no PokeAlliance" (Empregolista) e nas páginas Boost, Treinamento, Talentos e Helds da wiki. Você escolhe o Pokémon (o tier vem do site) ou o tier, e informa estrelas, held X-Attack, boost, treino de Attack, talentos, runa de Attack, medalhas e benefício de Guild. A página mostra o bônus de dano total, o dano estimado e um ranking do que sai mais barato por +1% de dano (Held, Boost, Star e treino), além de um planejador "quanto custa ganhar +X%". Os preços são editáveis e dá para carregar o time do vídeo como exemplo.
+
 ### 03/10
 - **Nova seção "Iniciantes"** no menu e na página inicial, com o guia do vídeo "Melhores Pokémon para iniciantes no PKA" (Canal Do Loxas): os 8 Pokémon (Arcanine, Poliwrath, Steelix, Mimikyu, Shiny Persian, Omastar, Pachirisu e Shiny Magneton) com como conseguir, o que cada um caça, tabela de cobertura por elemento, capítulos do vídeo com link no minuto certo e 11 prints.
 - Abas **Onde e como caçar** (Pokédex do jogo, Hunt Finder, fazer o inverso e achar o lugar no mapa) e **Talentos e boost** (o que fazer ao chegar no 150, itens de boost do dia e Shiny Ditto).

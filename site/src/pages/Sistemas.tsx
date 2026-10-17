@@ -3,8 +3,10 @@ import { data, fmt } from '../lib/data'
 import { Note, SectionHead, TierBadge } from '../components/ui'
 import { VideoRefs } from './Videos'
 import Medals from './Medals'
+import Progressao from './Progressao'
 
 export default function Sistemas({ sub }: { sub: string }) {
+  if (sub === 'progressao') return <><Progressao /><VideoRefs topic="dano" /></>
   if (sub.startsWith('medals')) return <><Medals /><VideoRefs topic="medalhas" /></>
   const topic = ({ runes: 'runas', damage: 'dano', rates: 'shiny' } as Record<string, string>)[sub] ?? 'star'
   return (
