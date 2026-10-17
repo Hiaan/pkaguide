@@ -698,3 +698,13 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .pg-lessons h4 { margin: 0 0 6px; font-size: 14px; }
 .pg-lessons p { margin: 0 0 8px; font-size: 13px; line-height: 1.55; color: var(--muted); }
 .pg-lessons a { font-size: 12px; color: #6ab0ff; text-decoration: none; }
+
+.pg-top { background: linear-gradient(135deg, rgba(34,197,94,.17), rgba(34,197,94,.05)); border: 1px solid rgba(34,197,94,.42); border-radius: 14px; padding: 14px 18px; margin-bottom: 10px; }
+.pg-top-h { font-size: 11px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: #4ade80; margin-bottom: 8px; }
+.pg-top ol { margin: 0 0 8px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+.pg-top li span { margin-left: 8px; color: #d4d4d8; }
+.pg-top li small { display: block; color: var(--muted-2); font-size: 11.5px; }
+.pg-top p { margin: 0; font-size: 13.5px; color: var(--muted); }
+.pg-sub { margin: 0 0 8px; font-size: 13px; color: #cbd5e1; }
+.pg-check { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; color: var(--muted); margin: 0 0 10px; cursor: pointer; }
+.pg-check input { margin-top: 3px; accent-color: var(--orange); }

@@ -20,8 +20,23 @@ const TRAIN_PCT = 0.1                          // wiki: Attack +0,1% de dano por
 /** vídeo: ataque 3 = 16%, ataque 4 = 19%, ataque 5 = 22% (+3% por tier). Os demais seguem o mesmo padrão. */
 const heldPct = (t: number) => (t <= 0 ? 0 : 7 + 3 * t)
 const HELD_CONFIRMED = new Set([3, 4, 5])
-const BOOST_CLASS: Record<string, 'caro' | 'medio' | 'barato'> = { Ground: 'caro', Bug: 'barato', Fairy: 'barato', Dragon: 'barato' }
 const MAX_BOOST = 50
+/** wiki (Sistema de Boost): cada ponto exige 1 pedra da faixa; a falha consome a pedra e soma +10 pontos percentuais na próxima tentativa daquela faixa */
+const BOOST_RANGES: { stone: string; from: number; to: number; chance: number }[] = [
+  { stone: 'Novice', from: 0, to: 5, chance: 50 }, { stone: 'Elemental', from: 5, to: 10, chance: 40 },
+  { stone: 'Common', from: 10, to: 15, chance: 30 }, { stone: 'Enhanced', from: 15, to: 20, chance: 20 },
+  { stone: 'Potent', from: 20, to: 25, chance: 18 }, { stone: 'Advanced', from: 25, to: 30, chance: 15 },
+  { stone: 'Fortified', from: 30, to: 35, chance: 12 }, { stone: 'Supreme', from: 35, to: 40, chance: 10 },
+  { stone: 'Celestial', from: 40, to: 45, chance: 8 }, { stone: 'Mystic', from: 45, to: 50, chance: 5 },
+]
+/** média de pedras gastas para conseguir +1 ponto numa faixa com essa chance (%) */
+const expectedStones = (chance: number, pity: boolean) => {
+  if (!pity) return 100 / chance                       // sem acúmulo: 50% = 2x, 25% = 4x, 5% = 20x
+  let total = 0, alive = 1
+  for (let k = 0; alive > 1e-9 && k < 40; k++) { total += alive; alive *= 1 - Math.min(1, chance / 100 + 0.1 * k) }
+  return total
+}
+const rangeOf = (point: number) => Math.min(BOOST_RANGES.length - 1, Math.floor(point / 5))
 
 const ROLES = data.damage.roles
 const baseDamage = (role: string, tier: string): number | null => {
@@ -36,20 +51,23 @@ type Slot = {
   id: string; name: string; tier: string; type: string; role: string
   stars: number; held: number; boost: number; training: number; talent: number
   price: number | null       // preço de 1 cópia no market (kk), para estrelar
-  boostKK: number | null     // kk por ponto de boost (se vazio, usa a faixa do elemento)
+  stoneMult: number          // quanto a pedra do elemento deste Pokémon custa em relação à tabela de pedras (1 = igual)
 }
 type G = { rune: number; medal: number; guild: number; other: number; mode: 'soma' | 'produto' }
 type Prices = {
-  held: Record<number, number | null>          // custo (kk) de subir o held do tier N para N+1
-  boost: { caro: number; medio: number; barato: number }
+  held: Record<number, number | null>          // preço (kk) do Held X-Attack de cada tier no market (o mais barato)
+  stone: (number | null)[]                     // preço (kk) da pedra de cada faixa de Boost
+  pity: boolean                                // considerar o acúmulo de +10 pp por falha
   boostPct: number                             // % de dano por ponto de boost
   trainKK: number | null                       // kk por nível de treino de Attack
 }
 
 const DEFAULT_G: G = { rune: 0, medal: 0, guild: 0, other: 0, mode: 'soma' }
 const DEFAULT_PRICES: Prices = {
-  held: { 3: 4.5, 4: 34 },                     // valores citados no vídeo; os outros você preenche
-  boost: { caro: 1.4, medio: 0.8, barato: 0.2 },
+  // exemplos do vídeo (elemento Ground): ataque 4 ≈ 4,5 kk e ataque 5 ≈ 34 kk; pedras calibradas por 0→25 ≈ 24 kk e 15→25 ≈ 14 kk
+  held: { 4: 4.5, 5: 34 },
+  stone: [0.32, 0.32, 0.32, 0.46, 0.46, null, null, null, null, null],
+  pity: true,
   boostPct: 0.5,
   trainKK: null,
 }
@@ -57,7 +75,7 @@ const DEFAULT_PRICES: Prices = {
 const uid = () => Math.random().toString(36).slice(2, 9)
 const newSlot = (p: Partial<Slot> = {}): Slot => ({
   id: uid(), name: '', tier: 'T1', type: '', role: 'DPS HardCC',
-  stars: 0, held: 0, boost: 0, training: 0, talent: 0, price: null, boostKK: null, ...p,
+  stars: 0, held: 0, boost: 0, training: 0, talent: 0, price: null, stoneMult: 1, ...p,
 })
 
 /* ---------- contas ---------- */
@@ -102,17 +120,23 @@ function buildOpts(s: Slot, g: G, pr: Prices, ddKK: number): Opt[] {
 
   // Held X-Attack: +3% por tier
   if (s.held < 7) {
-    push('held', `Held ataque ${s.held + 1}`, { ...s, held: s.held + 1 }, pr.held[s.held] ?? null, 0,
-      `${heldPct(s.held)}% → ${heldPct(s.held + 1)}%${HELD_CONFIRMED.has(s.held + 1) ? '' : ' (valor extrapolado)'}`)
+    push('held', `Held ataque ${s.held + 1}`, { ...s, held: s.held + 1 }, pr.held[s.held + 1] ?? null, 0,
+      `${heldPct(s.held)}% → ${heldPct(s.held + 1)}%${HELD_CONFIRMED.has(s.held + 1) ? '' : ' (valor extrapolado)'} · compra o Held ataque ${s.held + 1} no market`)
   }
 
   // Boost: sobe até o próximo múltiplo de 5 (uma faixa de pedra)
   if (s.boost < MAX_BOOST) {
     const step = Math.min(MAX_BOOST - s.boost, 5 - (s.boost % 5))
-    const cls = BOOST_CLASS[s.type] ?? 'medio'
-    const per = s.boostKK ?? pr.boost[cls]
-    push('boost', `Boost +${s.boost} → +${s.boost + step}`, { ...s, boost: s.boost + step }, step * per, 0,
-      `${step} ponto${step > 1 ? 's' : ''} × ${per.toLocaleString('pt-BR')} kk`)
+    let kk: number | null = 0, stones = 0
+    for (let pt = s.boost; pt < s.boost + step; pt++) {
+      const r = BOOST_RANGES[rangeOf(pt)], price = pr.stone[rangeOf(pt)]
+      const tries = expectedStones(r.chance, pr.pity)
+      stones += tries
+      kk = price == null || kk === null ? null : kk + price * s.stoneMult * tries
+    }
+    const r0 = BOOST_RANGES[rangeOf(s.boost)]
+    push('boost', `Boost +${s.boost} → +${s.boost + step}`, { ...s, boost: s.boost + step }, kk, 0,
+      `pedra ${r0.stone} (${r0.chance}%): ~${stones.toLocaleString('pt-BR', { maximumFractionDigits: 1 })} pedras para ${step} ponto${step > 1 ? 's' : ''}`)
   }
 
   // Treino de Attack: +10 níveis
@@ -122,6 +146,7 @@ function buildOpts(s: Slot, g: G, pr: Prices, ddKK: number): Opt[] {
   return out
 }
 
+const TOP_VERB: Record<string, string> = { boost: 'subir o Boost', held: 'trocar o Held de ataque', star: 'estrelar o Pokémon', train: 'treinar o Attack' }
 const per1 = (o: Opt) => (o.kk !== null && o.gain > 0 ? o.kk / o.gain : null)
 const sortOpts = (a: Opt, b: Opt) => {
   const x = per1(a), y = per1(b)
@@ -150,7 +175,7 @@ const fmtKK = (n: number) =>
 const fmtPct = (n: number, d = 1) => (n > 0 ? '+' : '') + n.toLocaleString('pt-BR', { maximumFractionDigits: d }) + '%'
 
 /* ---------- persistência ---------- */
-const KEY = 'pka-prog-v1'
+const KEY = 'pka-prog-v2'
 const DD_KEY = 'pka-dd-kk'
 type Saved = { slots: Slot[]; g: G; pr: Prices }
 const loadSaved = (): Saved | null => { try { const v = localStorage.getItem(KEY); return v ? JSON.parse(v) : null } catch { return null } }
@@ -176,7 +201,7 @@ export default function Progressao() {
   const saved = useMemo(loadSaved, [])
   const [slots, setSlots] = useState<Slot[]>(saved?.slots?.length ? saved.slots : [newSlot()])
   const [g, setG] = useState<G>({ ...DEFAULT_G, ...(saved?.g ?? {}) })
-  const [pr, setPr] = useState<Prices>({ ...DEFAULT_PRICES, ...(saved?.pr ?? {}), boost: { ...DEFAULT_PRICES.boost, ...(saved?.pr?.boost ?? {}) } })
+  const [pr, setPr] = useState<Prices>({ ...DEFAULT_PRICES, ...(saved?.pr ?? {}) })
   const [ddKK, setDdKK] = useState(loadDD)
   const [target, setTarget] = useState(5)
   const [planId, setPlanId] = useState('')
@@ -205,7 +230,7 @@ export default function Progressao() {
 
   const all = useMemo(() => slots.filter((s) => s.name).flatMap((s) => buildOpts(s, g, pr, ddKK)).sort(sortOpts), [slots, g, pr, ddKK])
   const priced = all.filter((o) => per1(o) !== null)
-  const best = priced[0]
+  const top3 = priced.slice(0, 3)
   const planSlot = slots.find((s) => s.id === planId && s.name) ?? slots.find((s) => s.name)
   const pl = useMemo(() => (planSlot ? plan(planSlot, g, pr, ddKK, target) : null), [planSlot, g, pr, ddKK, target])
 
@@ -213,8 +238,28 @@ export default function Progressao() {
     <>
       <SectionHead title="O que buscar agora" sub="Escolha seus Pokémon, diga como eles estão hoje e veja onde cada kk rende mais dano: subir o Held, o Boost, estrelar ou treinar." />
 
+      <div className="pg-top">
+        <div className="pg-top-h">🏆 O que rende mais agora</div>
+        {top3.length ? (
+          <>
+            <ol>
+              {top3.map((o) => (
+                <li key={o.slot.id + o.key}>
+                  <b>{o.slot.name}: {o.label}</b>
+                  <span>{fmtPct(o.gain)} de dano por {fmtKK(o.kk ?? 0)} — <b>{fmtKK(per1(o) ?? 0)} por +1%</b></span>
+                  <small>{o.note}</small>
+                </li>
+              ))}
+            </ol>
+            <p>Resumo: o que dá <b>mais % por menos kk</b> hoje é <b>{TOP_VERB[top3[0].key] ?? 'comprar'}</b>. Mude os preços abaixo e esta lista se ajusta sozinha.</p>
+          </>
+        ) : (
+          <p>Escolha seus Pokémon e preencha os preços do market (held, pedras de Boost e o Pokémon para estrelar) para ver aqui o que compensa mais.</p>
+        )}
+      </div>
+
       <div className="pg-credit">
-        <span>🎬 Método do vídeo <b>“Tome cuidado com a sua progressão no PokeAlliance”</b> (Empregolista): compare o <b>custo por +1% de dano</b> antes de gastar. Os valores de mercado mudam, então os preços são editáveis.</span>
+        <span>🎬 Método do vídeo <b>“Tome cuidado com a sua progressão no PokeAlliance”</b> (Empregolista): compare o <b>custo por +1% de dano</b> antes de gastar.</span>
         <a className="chip" href={yt()} target="_blank" rel="noreferrer">▶ Assistir</a>
       </div>
 
@@ -233,7 +278,6 @@ export default function Progressao() {
           const tot = totalOf(s, g, pr)
           const base = baseDamage(s.role, s.tier)
           const hasStar = !!data.star.tiers.find((t) => t.tier === s.tier)
-          const cls = BOOST_CLASS[s.type] ?? 'medio'
           return (
             <div className="card pg-slot" key={s.id}>
               <div className="pg-slot-head">
@@ -278,8 +322,8 @@ export default function Progressao() {
                     <NumIn v={s.price} on={(n) => upd(s.id, { price: n })} ph="ex.: 30" step={0.5} w={90} />
                   </Field>
                 )}
-                <Field l={`kk por ponto de Boost`} hint={`vazio = padrão da faixa ${cls}`}>
-                  <NumIn v={s.boostKK} on={(n) => upd(s.id, { boostKK: n })} ph={String(pr.boost[cls])} step={0.1} w={90} />
+                <Field l="Preço da pedra do elemento (×)" hint="1 = igual à tabela; 0,2 = 5x mais barata">
+                  <NumIn v={s.stoneMult} on={(n) => upd(s.id, { stoneMult: n ?? 1 })} step={0.1} w={80} />
                 </Field>
               </div>
 
@@ -330,45 +374,66 @@ export default function Progressao() {
       </div>
 
       {/* ---------- 3. preços ---------- */}
-      <h3 className="pg-h">3. Preços e valores (edite com o que você vê no market)</h3>
+      <h3 className="pg-h">3. Preços do market (coloque o mais barato que você achar)</h3>
       <div className="card pg-global">
+        <h4 className="pg-sub">Held X-Attack: preço de cada tier</h4>
         <div className="pg-grid">
-          {[3, 4, 5, 6].map((t) => (
-            <Field key={t} l={`Held ataque ${t} → ${t + 1} (kk)`} hint={HELD_CONFIRMED.has(t) && pr.held[t] != null && DEFAULT_PRICES.held[t] != null ? 'valor do vídeo' : undefined}>
-              <NumIn v={pr.held[t] ?? null} on={(n) => setPr({ ...pr, held: { ...pr.held, [t]: n } })} ph="preço" step={0.5} w={86} />
+          {[1, 2, 3, 4, 5, 6, 7].map((t) => (
+            <Field key={t} l={`Held ataque ${t} (${heldPct(t)}%${HELD_CONFIRMED.has(t) ? '' : '~'})`} hint={DEFAULT_PRICES.held[t] != null ? 'exemplo do vídeo' : undefined}>
+              <NumIn v={pr.held[t] ?? null} on={(n) => setPr({ ...pr, held: { ...pr.held, [t]: n } })} ph="kk" step={0.5} w={86} />
             </Field>
           ))}
-          <Field l="Boost: elemento caro (kk/ponto)" hint="Ground ≈ 1,4 no vídeo">
-            <NumIn v={pr.boost.caro} on={(n) => setPr({ ...pr, boost: { ...pr.boost, caro: n ?? 0 } })} step={0.1} w={80} />
-          </Field>
-          <Field l="Boost: elemento médio (kk/ponto)" hint="estimado">
-            <NumIn v={pr.boost.medio} on={(n) => setPr({ ...pr, boost: { ...pr.boost, medio: n ?? 0 } })} step={0.1} w={80} />
-          </Field>
-          <Field l="Boost: elemento barato (kk/ponto)" hint="Bug, Fairy, Dragon ≈ 0,2">
-            <NumIn v={pr.boost.barato} on={(n) => setPr({ ...pr, boost: { ...pr.boost, barato: n ?? 0 } })} step={0.1} w={80} />
-          </Field>
+        </div>
+
+        <h4 className="pg-sub" style={{ marginTop: 18 }}>Pedras de Boost: preço de cada pedra e quantas você gasta em média</h4>
+        <label className="pg-check">
+          <input type="checkbox" checked={pr.pity} onChange={(e) => setPr({ ...pr, pity: e.target.checked })} />
+          <span>Considerar que cada falha soma +10 pontos de chance na próxima tentativa (regra da wiki). Desmarcado, vale a conta simples: chance de 50% = 2x, 25% = 4x.</span>
+        </label>
+        <div className="table-wrap" style={{ boxShadow: 'none' }}>
+          <table className="pg-table">
+            <thead><tr><th>Faixa</th><th>Pedra</th><th className="num">Chance</th><th className="num">Pedras por ponto</th><th className="num">Preço da pedra (kk)</th><th className="num">Custo por ponto</th></tr></thead>
+            <tbody>
+              {BOOST_RANGES.map((r, i) => {
+                const tries = expectedStones(r.chance, pr.pity)
+                const price = pr.stone[i]
+                const other = expectedStones(r.chance, !pr.pity)
+                return (
+                  <tr key={r.stone}>
+                    <td>+{r.from} → +{r.to}</td>
+                    <td><b>{r.stone}</b></td>
+                    <td className="num">{r.chance}%</td>
+                    <td className="num">{tries.toLocaleString('pt-BR', { maximumFractionDigits: 2 })}x
+                      <small className="pg-note">{pr.pity ? 'sem acúmulo' : 'com acúmulo'}: {other.toLocaleString('pt-BR', { maximumFractionDigits: 2 })}x</small></td>
+                    <td className="num"><NumIn v={price} on={(n) => setPr({ ...pr, stone: pr.stone.map((x, j) => (j === i ? n : x)) })} ph="kk" step={0.1} w={80} /></td>
+                    <td className="num">{price == null ? <span className="muted">informe o preço</span> : <b>{fmtKK(price * tries)}</b>}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+        <p className="muted small" style={{ margin: '8px 2px 0' }}>
+          Cada ponto de Boost gasta uma pedra da faixa; se falha, a pedra some mas o Pokémon <b>não perde</b> Boost. As chances são as da wiki do jogo. Os preços já preenchidos (faixas até +25) são exemplos do vídeo, de elemento Ground, e as faixas acima ficam em branco. Em Pokémon de <b>duplo elemento</b>, use a pedra mais barata dos dois. Se a pedra do elemento de um Pokémon custa outra coisa, ajuste o “×” no card dele.
+        </p>
+
+        <h4 className="pg-sub" style={{ marginTop: 18 }}>Outros valores</h4>
+        <div className="pg-grid">
           <Field l="Dano por ponto de Boost (%)" hint="vídeo: cerca de 0,5%">
             <NumIn v={pr.boostPct} on={(n) => setPr({ ...pr, boostPct: n ?? 0.5 })} step={0.05} w={80} />
           </Field>
           <Field l="Treino: kk por nível" hint="cargas do Punching Bag">
-            <NumIn v={pr.trainKK} on={(n) => setPr({ ...pr, trainKK: n })} ph="preço" step={0.1} w={80} />
+            <NumIn v={pr.trainKK} on={(n) => setPr({ ...pr, trainKK: n })} ph="kk" step={0.1} w={80} />
           </Field>
         </div>
-        <p className="muted small" style={{ margin: '10px 2px 0' }}>
-          Dica do vídeo: em Pokémon de <b>duplo elemento</b>, veja qual das duas pedras está mais barata e use o preço dela. Elemento Ground é dos mais caros do jogo; Bug, Fairy e Dragon são bem baratos.
+        <p className="muted small" style={{ margin: '8px 2px 0' }}>
+          Para <b>Star</b>, cada estrela dobra o número de cópias do Pokémon (1ª: 1 cópia, 2ª: 2, 3ª: 4, 4ª: 8, 5ª: 16): coloque o preço de 1 cópia no card do Pokémon e a página multiplica e soma a taxa da máquina.
         </p>
       </div>
 
       {/* ---------- 4. resultado ---------- */}
       <h3 className="pg-h">4. O que comprar primeiro</h3>
       {!all.length && <div className="empty">Escolha pelo menos um Pokémon acima para ver o ranking.</div>}
-      {best && (
-        <div className="pg-best">
-          <span>🏆 Melhor custo-benefício agora</span>
-          <b>{best.slot.name}: {best.label}</b>
-          <span>{fmtPct(best.gain)} de dano por {fmtKK(best.kk ?? 0)} — <b>{fmtKK(per1(best) ?? 0)} por +1%</b></span>
-        </div>
-      )}
       {all.length > 0 && (
         <div className="table-wrap">
           <table className="pg-table">
@@ -442,7 +507,7 @@ export default function Progressao() {
           ['Meça antes de gastar', 'Bata no dummy do Trainer com o Hunt Analyzer e veja se o dano da sua rotação já fecha. A meta da rotação 2-2-2 no exemplo do vídeo é cerca de 560 mil.', 1070],
           ['Star: +6% por estrela em T1 e +8% em Super Rare', 'Para estrelar um Shiny Steelix o vídeo contou ~36 a 37 kk (Pokémon a 30 kk + máquina ~6 kk) por +6%. Em Super Rare a conta passa de 100 kk, e muitas vezes vale mais um Held ataque 5 ou 6.', 302],
           ['Held X-Attack: +3% por tier', 'Ataque 3 = 16%, ataque 4 = 19%, ataque 5 = 22%. Subir do 3 para o 4 custa ~4,5 kk (baratíssimo). Do 4 para o 5, ~34 kk por +3%: aí o Boost já ganha.', 363],
-          ['Boost: cerca de 0,5% por ponto', 'Na wiki, 1 ponto de Boost equivale a 3 níveis no cálculo de dano (+50 = 150 níveis). No vídeo, +15→+25 num Steelix custou ~14 kk por ~5% e o time todo (+15→+25) saiu por ~58 kk para ~5% em cada Pokémon.', 442],
+          ['Boost: cerca de 0,5% por ponto, mas com chance de falha', 'Na wiki, 1 ponto de Boost equivale a 3 níveis no cálculo de dano (+50 = 150 níveis) e cada pedra tem chance de falhar (50% na primeira faixa, 5% na última). Por isso o custo real é o preço da pedra vezes as tentativas. No vídeo, +15→+25 num Steelix custou ~14 kk por ~5% e o time todo saiu por ~58 kk.', 442],
           ['Treino de Attack: +0,1% por nível', 'Barato e rápido até uns 30 a 35 níveis; depois o Pokémon precisa ficar treinando. O vídeo deixou o treino fora da conta, por isso aqui o preço é opcional.', 253],
           ['Cuidado com Super Rare ou mais', 'Estrelar custa muito; quase sempre é mais barato subir Boost e Held. Só estrele quando não restar opção melhor.', 679],
         ].map(([t, d, s]) => (
@@ -455,7 +520,7 @@ export default function Progressao() {
       </div>
 
       <Note>
-        Valores confirmados no vídeo e na wiki: Star por tier, ataque do Held 3/4/5, 0,1% por nível de treino e a regra do Boost. <b>Extrapolados</b> (marcados com ~): Held ataque 1, 2, 6 e 7 seguem o mesmo +3% por tier. <b>Estimativas minhas</b>: preço por ponto de Boost em elementos médios, e os preços de Held acima do ataque 5. O jogo não informa se Star, Held, Boost e treino somam ou multiplicam; por padrão a calculadora soma, como o vídeo faz.
+        Valores confirmados no vídeo e na wiki: Star por tier, ataque do Held 3/4/5, 0,1% por nível de treino e a regra do Boost. <b>Extrapolados</b> (marcados com ~): Held ataque 1, 2, 6 e 7 seguem o mesmo +3% por tier. <b>Exemplos do vídeo, não preço de mercado</b>: Held ataque 4 e 5 e as pedras até +25 (elemento Ground). Os demais preços ficam em branco para você preencher. O jogo não informa se Star, Held, Boost e treino somam ou multiplicam; por padrão a calculadora soma, como o vídeo faz.
         Fontes: <a href="https://wiki.pokealliance.com/sistemas/boost" target="_blank" rel="noreferrer">Boost</a>, <a href="https://wiki.pokealliance.com/sistemas/treinamento" target="_blank" rel="noreferrer">Treinamento</a>, <a href="https://wiki.pokealliance.com/sistemas/talentos" target="_blank" rel="noreferrer">Talentos</a> e <a href="https://wiki.pokealliance.com/sistemas/helds" target="_blank" rel="noreferrer">Helds</a> da wiki.
       </Note>
     </>
