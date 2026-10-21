@@ -4,6 +4,10 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Overlay
 
+### v3.0.2 — 21/10
+- **Correção importante**: nas versões 3.0.0 e 3.0.1 o overlay **não conseguia ler nenhum item** (nem com o mouse parado, nem com a tecla). Ao deixar o instalador menor eu tinha excluído a biblioteca `shapely`, de que o leitor de texto (OCR) depende, e o OCR falhava ao iniciar (`No module named 'shapely.geometry'`).
+- O app agora tem um **autoteste do OCR** (`PKA GUIDE.exe --selftest`): ele inicia o leitor e confere que lê um texto. O teste roda a cada instalador gerado, antes de publicar.
+
 ### v3.0.1 — 02/10
 - **Correção**: o painel não lia mais o item ao passar o mouse para quem tem o cliente com outro nome de executável. O "só aparecer com o jogo na frente" escondia a janela e nada aparecia. Agora o painel só some quando dá para ter certeza de que outro programa está na frente.
 - O app aprende sozinho qual é o cliente: quando o OCR lê um item, grava o executável que está na frente como sendo o jogo.

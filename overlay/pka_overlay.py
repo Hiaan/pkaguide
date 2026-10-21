@@ -15,7 +15,7 @@ from pynput import mouse, keyboard
 import ui_kit as ui
 
 APP_NAME = 'PKA GUIDE'
-VERSION = '3.0.1'
+VERSION = '3.0.2'
 SITE = 'https://pkaguide.vercel.app'
 DB_URL = SITE + '/overlay/items_db.json'
 VERSION_URL = SITE + '/overlay/version.json'
@@ -1691,7 +1691,22 @@ def only_one_instance():
     except Exception as e: log('mutex', e)
     return True
 
+def selftest():
+    """--selftest: confere se o OCR inicia e lê um texto de verdade; grava o resultado no log e sai com 0 (ok) ou 1 (falhou).
+    Roda ao gerar o instalador, para nunca mais publicar um app que não consegue ler item."""
+    ok = False
+    try:
+        img = Image.new('RGB', (360, 90), (24, 24, 27))
+        ImageDraw.Draw(img).text((14, 22), 'Fire Wing', fill=(250, 250, 250), font=ui.font(30))
+        lines = ocr_lines(img)
+        ok = any('fire' in norm(l) for l in lines)
+        log('selftest OCR:', 'OK' if ok else 'FALHOU', lines)
+    except Exception as e:
+        log('selftest OCR: ERRO', e, traceback.format_exc()[:500])
+    sys.exit(0 if ok else 1)
+
 if __name__ == '__main__':
+    if '--selftest' in sys.argv: selftest()
     if not only_one_instance(): sys.exit(0)
     log('início', VERSION, 'itens:', len(DB))
     App().root.mainloop()

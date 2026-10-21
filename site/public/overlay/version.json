@@ -1,5 +1,5 @@
 {
- "version": "3.0.1",
- "url": "https://github.com/Hiaan/pkaguide/releases/download/v3.0.1/PKA.GUIDE.Setup.exe",
- "notes": "Corrige o painel que nao abria ao passar o mouse no item quando o cliente tem outro nome."
+ "version": "3.0.2",
+ "url": "https://github.com/Hiaan/pkaguide/releases/download/v3.0.2/PKA.GUIDE.Setup.exe",
+ "notes": "Corrige o overlay que nao lia mais os itens (leitor de texto quebrado nas versoes 3.0.0 e 3.0.1)."
 }
