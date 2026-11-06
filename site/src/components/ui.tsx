@@ -212,3 +212,8 @@ export const PokeModal = ({ p, onClose, onOpen, onItem }: { p: Pokemon; onClose:
 }
 
 export const sortPoke = (a: Pokemon, b: Pokemon) => (a.id ?? 9999) - (b.id ?? 9999) || Number(a.shiny) - Number(b.shiny) || tierRank(a.tier) - tierRank(b.tier)
+
+/** Texto de busca vindo do link (#/pokedex/grid?q=Torterra), usado pelo chat para abrir já filtrado. */
+export const hashQuery = (): string => {
+  try { return new URLSearchParams(location.hash.split("?")[1] || "").get("q") || "" } catch { return "" }
+}

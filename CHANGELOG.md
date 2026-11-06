@@ -67,6 +67,9 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Site
 
+### 06/11
+- **Assistente com IA**: botão "Pergunte ao guia" que pesquisa o conteúdo do site e responde com links para a página certa (Pokédex e Itens abrem já filtrados). Usa o Claude Haiku 5.5 e só responde sobre o jogo e o site; perguntas fora do assunto recebem um aviso fixo.
+
 ### 17/10
 - **Sistemas → O que buscar agora**: calculadora de custo x ganho de dano, baseada no vídeo "Tome cuidado com a sua progressão no PokeAlliance" (Empregolista) e nas páginas Boost, Treinamento, Talentos e Helds da wiki. Você escolhe o Pokémon (o tier vem do site) ou o tier, e informa estrelas, held X-Attack, boost, treino de Attack, talentos, runa de Attack, medalhas e benefício de Guild. A página mostra o bônus de dano total, o dano estimado e um ranking do que sai mais barato por +1% de dano (Held, Boost, Star e treino), além de um planejador "quanto custa ganhar +X%". Os preços são editáveis e dá para carregar o time do vídeo como exemplo.
 - **Boost com chance de falha**: o custo do Boost agora é o preço da pedra de cada faixa (Novice a Mystic) vezes as tentativas esperadas, usando as chances da wiki (50% na primeira faixa, 5% na última) e a regra de +10 pontos de chance a cada falha (dá para desligar e usar a conta simples 1/chance: 50% = 2x, 25% = 4x). O preço do Held é o do tier no market, e a Star usa o número de cópias de cada estrela (1, 2, 4, 8, 16) vezes o preço de 1 cópia. Um quadro no topo da página mostra sempre o que rende mais % por menos kk.

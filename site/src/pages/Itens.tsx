@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react'
 import { data, typeColor, type Pokemon } from '../lib/data'
-import { Note, PokeName, Search, SectionHead, TypeIcon } from '../components/ui'
+import { Note, hashQuery, PokeName, Search, SectionHead, TypeIcon } from '../components/ui'
 import { VideoRefs } from './Videos'
 
 type Props = { sub: string; onOpen: (p: Pokemon) => void; item: string; setItem: (i: string) => void }
 
 export default function Itens({ sub, onOpen, item, setItem }: Props) {
-  const [q, setQ] = useState('')
+  const [q, setQ] = useState(hashQuery)
 
   if (sub === 'talents') return <><Talents onOpen={onOpen} /><VideoRefs topic="talentos" /></>
   if (sub === 'boost') return <><Boost /><VideoRefs topic="boost" /></>

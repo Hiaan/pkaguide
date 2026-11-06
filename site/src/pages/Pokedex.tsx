@@ -3,14 +3,14 @@ import { RewardChip, type Task } from './Tasks'
 const taskDb = tasksRaw as unknown as { source: string; tasks: Task[]; byPokemon: Record<string, { name: string; tasks: number[] }> }
 import { useMemo, useState } from 'react'
 import { data, TIER_ORDER, TYPE_COLORS, tierRank, type Pokemon } from '../lib/data'
-import { Note } from '../components/ui'
+import { Note, hashQuery } from '../components/ui'
 import Medals from './Medals'
 import { Imgur, PokeCard, PokeName, Search, SectionHead, TierBadge, TypeBadge, sortPoke } from '../components/ui'
 
 type Props = { sub: string; onOpen: (p: Pokemon) => void }
 
 const useFilter = () => {
-  const [q, setQ] = useState('')
+  const [q, setQ] = useState(hashQuery)
   const [tier, setTier] = useState('')
   const [type, setType] = useState('')
   const [variant, setVariant] = useState<'all' | 'normal' | 'shiny'>('all')

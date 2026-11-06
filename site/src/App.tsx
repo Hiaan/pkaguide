@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { data, type Pokemon } from './lib/data'
-import { PokeModal, Sprite } from './components/ui'
+import { PokeModal, Sprite, hashQuery } from './components/ui'
+import ChatWidget from './components/ChatWidget'
 import Pokedex from './pages/Pokedex'
 import Itens from './pages/Itens'
 import Sistemas from './pages/Sistemas'
@@ -151,8 +152,8 @@ export default function App() {
       <main className="main">
         {section === 'inicio' && <Home go={go} />}
         {section === 'iniciantes' && <Iniciantes sub={sub} onOpen={setSelected} go={go} />}
-        {section === 'pokedex' && <Pokedex sub={sub} onOpen={setSelected} />}
-        {section === 'itens' && <Itens sub={sub} onOpen={setSelected} item={item} setItem={setItem} />}
+        {section === 'pokedex' && <Pokedex key={hashQuery()} sub={sub} onOpen={setSelected} />}
+        {section === 'itens' && <Itens key={hashQuery()} sub={sub} onOpen={setSelected} item={item} setItem={setItem} />}
         {section === 'sistemas' && <Sistemas sub={sub} />}
         {section === 'dungeons' && <Dungeons sub={sub} onOpen={setSelected} />}
         {section === 'desafios' && <Desafios sub={sub} onOpen={setSelected} />}
@@ -176,6 +177,7 @@ export default function App() {
         da <a href="https://wiki.pokealliance.com" target="_blank" rel="noreferrer">wiki oficial</a> · Sprites via PokeAPI · Não afiliado oficialmente ao PokeAlliance
       </footer>
 
+      <ChatWidget />
       {selected && <PokeModal p={selected} onClose={() => setSelected(null)} onOpen={setSelected} onItem={openItem} />}
     </div>
   )

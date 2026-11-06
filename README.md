@@ -40,6 +40,15 @@ cd site && npm install && npm run dev
 
 Deploy: a Vercel usa o `vercel.json` da raiz (build em `site/`, saída em `site/dist`) e publica a cada push na `master`.
 
+## Chat com IA (assistente do site)
+
+Botão "Pergunte ao guia" no canto da tela: pesquisa o conteúdo do site e responde com links para a página certa.
+
+- **Como funciona**: `build_chat_kb.py` gera `api/_kb/kb.json` (trechos de Pokédex, itens, tasks, wiki, FAQ etc., atualizado todo dia no GitHub Action). A função `api/chat.js` (Vercel) busca os 6 trechos mais parecidos com a pergunta (BM25, sem custo) e manda só eles ao **Claude Haiku 5.5** (`claude-haiku-5-5`).
+- **Travas contra uso fora do assunto**: (1) pergunta sem nenhum termo do site é recusada sem chamar a IA; (2) o modelo só vê os trechos e devolve `in_scope` + ids das fontes; (3) se `in_scope` for falso o servidor descarta o texto e responde um aviso fixo; (4) os links são montados pelo servidor a partir dos ids (o modelo não escreve URL); (5) limites: 400 caracteres por pergunta, 6 mensagens de histórico, 8 perguntas/min e 60/dia por IP, teto global diário (`CHAT_DAILY_CAP`, padrão 3000), só aceita requisições vindas do próprio site.
+- **Ativar** (Vercel > Settings > Environment Variables): `ANTHROPIC_API_KEY`. Sem a chave o botão nem aparece. Opcional: `CHAT_DAILY_CAP`, `ALLOWED_ORIGINS` (domínios extras, separados por vírgula). No Console da Anthropic, defina um **limite de gasto mensal** no workspace: é o teto definitivo.
+- **Testar**: `npm run chat:test` (offline, sem custo). Local: `CHAT_MOCK=1 npm run chat:dev` na raiz e `npm run dev` em `site/`.
+
 ## Seções do site
 
 Menu fixo à esquerda, no estilo de wiki, com a página inicial no topo.

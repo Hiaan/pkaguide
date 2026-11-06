@@ -32,12 +32,13 @@ jobs:
           python build_tasks.py
           python overlay/build_items_db.py
           python overlay/build_hub_db.py
+          python build_chat_kb.py
           cp overlay/items_db.json site/public/overlay/items_db.json overlay/hub_db.json overlay/videos_db.json
       - name: Commit se mudou
         run: |
           git config user.name "pka-bot"
           git config user.email "actions@github.com"
-          git add pka.xlsx times.xlsx doc2.docx wiki_cache.json site/src/data site/public/overlay imgur_cache.json overlay/items_db.json site/public/overlay/items_db.json
+          git add pka.xlsx times.xlsx doc2.docx wiki_cache.json site/src/data site/public/overlay imgur_cache.json overlay/items_db.json site/public/overlay/items_db.json api/_kb/kb.json
           if git diff --cached --quiet; then echo "Sem mudanças"; else
             git commit -m "Atualização automática da planilha ($(date -u +%Y-%m-%d))"
             git push

@@ -1,0 +1,14 @@
+{
+  "name": "pkaguide-api",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "chat:dev": "node api/_dev/server.js",
+    "chat:test": "node api/_tests/run.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "latest",
+    "zod": "^4.0.0"
+  }
+}
