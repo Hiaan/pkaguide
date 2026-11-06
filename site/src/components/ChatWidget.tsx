@@ -17,11 +17,21 @@ export default function ChatWidget() {
   const [msgs, setMsgs] = useState<Msg[]>([])
   const [text, setText] = useState('')
   const [busy, setBusy] = useState(false)
+  const [hint, setHint] = useState(false)
   const end = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     fetch('/api/chat').then((r) => (r.ok ? r.json() : null)).then((j) => setEnabled(!!j?.enabled)).catch(() => setEnabled(false))
   }, [])
+  useEffect(() => {
+    if (!enabled) return
+    let seen = false
+    try { seen = sessionStorage.getItem('chat-hint') === '1' } catch { /* sem storage */ }
+    if (seen) return
+    const t = setTimeout(() => setHint(true), 2500)
+    return () => clearTimeout(t)
+  }, [enabled])
+  const closeHint = () => { setHint(false); try { sessionStorage.setItem('chat-hint', '1') } catch { /* ok */ } }
   useEffect(() => { end.current?.scrollIntoView({ block: 'end' }) }, [msgs, busy, open])
 
   if (!enabled) return null
@@ -44,7 +54,21 @@ export default function ChatWidget() {
 
   return (
     <>
-      {!open && <button className="chat-fab" onClick={() => setOpen(true)} aria-label="Abrir o assistente">💬 Pergunte ao guia</button>}
+      {!open && (
+        <div className="chat-launch">
+          {hint && (
+            <div className="chat-hint" onClick={() => { closeHint(); setOpen(true) }}>
+              <button className="chat-hint-x" aria-label="Dispensar" onClick={(e) => { e.stopPropagation(); closeHint() }}>×</button>
+              <b>Dúvida sobre o jogo?</b>
+              <span>Pergunte ao guia, eu acho a página certa.</span>
+            </div>
+          )}
+          <button className="chat-fab" onClick={() => { closeHint(); setOpen(true) }} aria-label="Abrir o assistente">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="#fff" aria-hidden="true"><path d="M12 2C6.5 2 2 6 2 11c0 2.4 1 4.6 2.7 6.2L4 22l4.3-2.1c1.1.3 2.4.5 3.7.5 5.5 0 10-4 10-9s-4.5-9-10-9z"/></svg>
+            {hint && <span className="chat-dot">1</span>}
+          </button>
+        </div>
+      )}
       {open && (
         <div className="chat-panel" role="dialog" aria-label="Assistente do PKA GUIDE">
           <div className="chat-head">
