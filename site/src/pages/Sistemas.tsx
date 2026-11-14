@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { data, fmt } from '../lib/data'
+import { starTotal } from '../lib/star'
 import { Note, SectionHead, TierBadge } from '../components/ui'
 import { VideoRefs } from './Videos'
 import Medals from './Medals'
@@ -19,8 +20,6 @@ export default function Sistemas({ sub }: { sub: string }) {
 
 /* ---------- STAR (calculadora) ---------- */
 const STAR_PCT: Record<string, number> = { T3: 2, T2: 4, T1: 6, 'Super Rare': 8, 'Ultra Rare': 10, Legendary: 15 }
-/** cada estrela consome o dobro de Pokémon da anterior: 1★ = 2, 2★ = 4, 3★ = 8, 4★ = 16, 5★ = 32 */
-const POKES_STEP = [2, 4, 8, 16, 32]
 const DD_KEY = 'pka-dd-kk'
 const fmtKK = (n: number) => (n >= 1000 ? (n / 1000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + 'kkk' : n.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + 'kk')
 
@@ -32,11 +31,9 @@ function Star() {
   const setCot = (v: number) => { setDdKK(v); try { localStorage.setItem(DD_KEY, String(v)) } catch { /* sem storage */ } }
   const t = data.star.tiers.find((x) => x.tier === tier)!
   const lo = Math.min(from, to), hi = Math.max(from, to)
-  const steps = t.costs.slice(lo, hi)
-  const dd = steps.reduce((a, c) => a + c.dd, 0)
-  const kk = steps.reduce((a, c) => a + c.kk, 0)
+  const { dd, kk, counts, pokes } = starTotal(t.costs, lo, hi)
   const pct = STAR_PCT[tier] ?? 0
-  const pokes = POKES_STEP.slice(lo, hi).reduce((a, n) => a + n, 0)
+  const conta = counts.map((c, i) => (c ? `${c}× ${i + 1}★` : '')).filter(Boolean).join(' + ')
   const totalKK = kk + dd * ddKK
   return (
     <>
@@ -75,8 +72,10 @@ function Star() {
             <div className="stat"><div className="v">+{pct * hi}%</div><div className="l">Dano com {hi}★</div></div>
           </div>
           <p className="muted tiny" style={{ margin: '10px 2px 0' }}>
-            Cada estrela consome o dobro da anterior: 1★ = 2 Pokémon, 2★ = 4, 3★ = 8, 4★ = 16 e 5★ = 32 (do mesmo Pokémon).
-            Do 0 ao 5★ dá {POKES_STEP.reduce((a, n) => a + n, 0)} no total.
+            A taxa da máquina é paga <b>em cada fusão</b>: {lo}★ → {hi}★ = <b>{conta}</b>.
+            Um 5★ do zero usa 32 Pokémon: 16 fusões de 1★, 8 de 2★, 4 de 3★, 2 de 4★ e 1 de 5★.
+            {lo > 0 && ' Partindo de um Pokémon que já tem estrela, cada degrau precisa de outra cópia montada do zero.'}
+            {' '}A tabela ao lado mostra o custo de <b>uma</b> fusão.
           </p>
         </div>
         <div>
@@ -89,8 +88,8 @@ function Star() {
                   <tr key={x.tier} style={x.tier === tier ? { background: 'rgba(249,115,22,0.08)' } : {}}>
                     <td><TierBadge t={x.tier} /></td>
                     {x.costs.map((c, i) => [
-                      <td key={i + 'd'} className="num" style={x.tier === tier && i >= lo && i < hi ? { color: 'var(--orange)', fontWeight: 800 } : {}}>{c.dd}</td>,
-                      <td key={i + 'k'} className="num" style={x.tier === tier && i >= lo && i < hi ? { color: 'var(--yellow)', fontWeight: 800 } : {}}>{c.kk}</td>,
+                      <td key={i + 'd'} className="num" style={x.tier === tier && counts[i] ? { color: 'var(--orange)', fontWeight: 800 } : {}}>{c.dd}{x.tier === tier && counts[i] > 1 ? <span className="muted small"> ×{counts[i]}</span> : null}</td>,
+                      <td key={i + 'k'} className="num" style={x.tier === tier && counts[i] ? { color: 'var(--yellow)', fontWeight: 800 } : {}}>{c.kk}</td>,
                     ])}
                   </tr>
                 ))}

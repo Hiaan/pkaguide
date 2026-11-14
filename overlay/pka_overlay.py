@@ -1563,7 +1563,7 @@ class App:
                 rows = [[t['tier'], (pct.get(name(t['tier'])) or '?') + '%'] + [cost(c) for c in t['costs']] for t in st.get('tiers', [])]
                 rows.append(['Pokés', '-', '2', '4', '8', '16', '32'])
                 self._table(out, ['Tier', 'Dano/★', '1★', '2★', '3★', '4★', '5★'], rows, first_colors=TC,
-                            note='Custo de cada estrela com 100% de sucesso. Cada estrela consome o dobro de Pokémon da anterior (2, 4, 8, 16 e 32; 62 do zero ao 5★). Dano/★ = quanto o ataque sobe por estrela.')
+                            note='Custo de UMA fusão com 100% de sucesso. A máquina cobra em cada fusão: um 5★ do zero usa 32 Pokémon e paga 16× a taxa de 1★, 8× a de 2★, 4× a de 3★, 2× a de 4★ e 1× a de 5★. Linha Pokés = total para chegar na estrela do zero. Dano/★ = quanto o ataque sobe por estrela.')
             elif k == 'runes':
                 rows = []
                 for r in HUB.get('runes', {}).get('stats', []):

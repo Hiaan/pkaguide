@@ -67,6 +67,9 @@ Datas em 2026. O overlay segue a numeração das releases em https://github.com/
 
 ## Site
 
+### 14/11
+- **Star — correção do custo**: a taxa da máquina é paga em **cada fusão**, não uma vez por estrela. Um 5★ do zero usa 32 Pokémon e paga 16× a taxa de 1★, 8× a de 2★, 4× a de 3★, 2× a de 4★ e 1× a de 5★ (ex.: T3 de 0 a 5★ = 228 DD e 57 kk). A calculadora mostra a conta, a tabela marca quantas vezes cada fusão entra, e partir de um Pokémon que já tem estrela soma as fusões das cópias novas. A calculadora "O que buscar agora" passou a usar a mesma conta.
+
 ### 06/11
 - **Assistente com IA**: botão "Pergunte ao guia" que pesquisa o conteúdo do site e responde com links para a página certa (Pokédex e Itens abrem já filtrados). Usa o Claude Haiku 5.5 e só responde sobre o jogo e o site; perguntas fora do assunto recebem um aviso fixo.
 

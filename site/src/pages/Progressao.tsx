@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { data, findPokemon, fmt } from '../lib/data'
+import { starTotal } from '../lib/star'
 import { Note, SectionHead, TierBadge, TypeIcon } from '../components/ui'
 
 /* =====================================================================
@@ -111,11 +112,13 @@ function buildOpts(s: Slot, g: G, pr: Prices, ddKK: number): Opt[] {
   // Star: precisa de outra cópia do Pokémon (cada estrela dobra o número de cópias) + a taxa da máquina
   const st = data.star.tiers.find((t) => t.tier === s.tier)
   if (st && s.stars < 5) {
-    const mc = st.costs[s.stars]
-    const copies = 2 ** s.stars
+    // a máquina cobra em cada fusão: montar a outra cópia s★ do zero também paga as fusões dela
+    const mc = starTotal(st.costs, s.stars, s.stars + 1)
+    const copies = mc.pokes
+    const nFus = mc.counts.reduce((a, n) => a + n, 0)
     const kk = s.price === null ? null : s.price * copies + mc.kk + mc.dd * ddKK
     push('star', `Estrela ${s.stars + 1}★`, { ...s, stars: s.stars + 1 }, kk, mc.dd,
-      `${copies} cópia${copies > 1 ? 's' : ''} do Pokémon + máquina (${mc.dd} DD e ${mc.kk} kk)`)
+      `${copies} cópia${copies > 1 ? 's' : ''} do Pokémon + ${nFus} fusão${nFus > 1 ? 'ões' : ''} na máquina (${mc.dd} DD e ${mc.kk} kk)`)
   }
 
   // Held X-Attack: +3% por tier
@@ -427,7 +430,7 @@ export default function Progressao() {
           </Field>
         </div>
         <p className="muted small" style={{ margin: '8px 2px 0' }}>
-          Para <b>Star</b>, cada estrela dobra o número de cópias do Pokémon (1ª: 1 cópia, 2ª: 2, 3ª: 4, 4ª: 8, 5ª: 16): coloque o preço de 1 cópia no card do Pokémon e a página multiplica e soma a taxa da máquina.
+          Para <b>Star</b>, cada estrela dobra o número de cópias do Pokémon (1ª: 1 cópia, 2ª: 2, 3ª: 4, 4ª: 8, 5ª: 16) e a taxa da máquina é paga em <b>cada fusão</b>, inclusive nas fusões para montar as cópias: coloque o preço de 1 cópia no card do Pokémon e a página soma tudo.
         </p>
       </div>
 
